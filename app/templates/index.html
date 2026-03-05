@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Portfolio de Walter</title>
+</head>
+<body>
+    <h1>Mi Portfolio</h1>
+    <ul>
+        {% for project in projects %}
+        <li>
+            <strong>{{ project.name }}</strong>: {{ project.description }}
+        </li>
+        {% else %}
+        <li>No hay proyectos aún.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
