@@ -1,19 +1,189 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Portfolio de Walter</title>
-</head>
-<body>
-    <h1>Mi Portfolio</h1>
-    <ul>
-        {% for project in projects %}
-        <li>
-            <strong>{{ project.name }}</strong>: {{ project.description }}
-        </li>
-        {% else %}
-        <li>No hay proyectos aún.</li>
-        {% endfor %}
-    </ul>
-</body>
-</html>
+{% extends "base.html" %}
+{% block content %}
+
+<!-- ======= Hero Section ======= -->
+<section id="hero" class="hero section dark-background">
+  <img src="{{ url_for('static', filename='img/hero-bg.jpg') }}" alt="" data-aos="fade-in">
+
+    <div class="container d-flex flex-column align-items-center">
+    <h2 data-aos="fade-up" data-aos-delay="100">PLANIFICA. EJECUTA. CRECE.</h2>
+    <p data-aos="fade-up" data-aos-delay="200">Soy Network Engineer, DevOps & Backend Developer, Especializado en Linux, networking avanzado y firewalls</p>
+    <div class="d-flex mt-4" data-aos="fade-up" data-aos-delay="300">
+      <a href="#about" class="btn-get-started">Get Started</a>
+    </div>
+  </div>
+</section>
+
+<!-- ======= About Section ======= -->
+<section id="about" class="about section">
+  <div class="container">
+<div class="row gy-4">
+  <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+    <h3>Ingeniería de redes, sistemas Linux y desarrollo backend orientado a soluciones reales</h3>
+    <img src="{{ url_for('static', filename='img/about.jpg') }}" class="img-fluid rounded-4 mb-4" alt="">
+    <p>
+      Profesional enfocado en el diseño, implementación y optimización de infraestructuras de red y sistemas Linux.
+      Mi trabajo se centra en crear entornos robustos, seguros y eficientes, combinando conocimiento técnico con una
+      visión práctica orientada a resultados.
+    </p>
+    <p>
+      Especializado en configuración de routers, switches y firewalls, así como en la construcción de laboratorios
+      virtuales utilizando contenedores Linux. Desarrollo soluciones backend y herramientas de automatización
+      utilizando Python, Bash Sripting y Free Pascal, integrando networking y software en un mismo ecosistema funcional.
+    </p>
+  </div>
+
+  <div class="col-lg-6" data-aos="fade-up" data-aos-delay="250">
+    <div class="content ps-0 ps-lg-5">
+      <p class="fst-italic">
+        Tecnología, seguridad y automatización como pilares para construir sistemas fiables y escalables.
+      </p>
+      <ul>
+        <li><i class="bi bi-check-circle-fill"></i> <span>Diseño de redes: routing, switching y segmentación avanzada.</span></li>
+        <li><i class="bi bi-check-circle-fill"></i> <span>Seguridad en Linux con nftables, hardening y análisis de tráfico.</span></li>
+        <li><i class="bi bi-check-circle-fill"></i> <span>Virtualización y laboratorios con LXC, namespaces, veth y bridges.</span></li>
+        <li><i class="bi bi-check-circle-fill"></i> <span>Análisis de tráfico y tramas con Wireshark.</span></li>
+      </ul>
+      <p>
+        Me enfoco en entender cómo funcionan los sistemas desde dentro, construyendo entornos reproducibles donde
+        probar, fallar y optimizar. Cada proyecto es una oportunidad para mejorar rendimiento, seguridad y claridad
+        en la arquitectura.
+      </p>
+
+      <div class="position-relative mt-4">
+        <img src="{{ url_for('static', filename='img/about-2.jpg') }}" class="img-fluid rounded-4" alt="">
+      </div>
+    </div>
+  </div>
+</div>
+
+  </div>
+</section>
+
+<!-- ======= Services / Skills Section ======= -->
+<section id="services" class="services section">
+
+  <!-- Section Title -->
+  <div class="container section-title" data-aos="fade-up">
+    <h2>Skills</h2>
+    <p>Networking, Systems & Automation Expertise<br></p>
+  </div><!-- End Section Title -->
+
+  <div class="container" data-aos="fade-up" data-aos-delay="100">
+    <div class="row gy-5">
+      <!-- Networking & Security -->
+      <div class="col-xl-4 col-md-6" data-aos="zoom-in" data-aos-delay="200">
+        <div class="service-item">
+          <div class="img">
+            <img src="{{ url_for('static', filename='img/services-1.jpg') }}" class="img-fluid" alt="">
+          </div>
+          <div class="details position-relative">
+            <div class="icon">
+              <i class="bi bi-diagram-3"></i>
+            </div>
+            <a href="service-details.html" class="stretched-link">
+              <h3>Networking & Security</h3>
+            </a>
+            <p>
+              Diseño e implementación de infraestructuras de red robustas, incluyendo routing, switching y segmentación avanzada.
+              Configuración de firewalls en Linux con nftables, análisis de tráfico y construcción de laboratorios reales
+              utilizando LXC, namespaces, veth y bridges.
+            </p>
+          </div>
+        </div>
+      </div><!-- End Service Item -->
+
+      <!-- SysDBA & Containers -->
+      <div class="col-xl-4 col-md-6" data-aos="zoom-in" data-aos-delay="300">
+        <div class="service-item">
+          <div class="img">
+            <img src="{{ url_for('static', filename='img/services-2.jpg') }}" class="img-fluid" alt="">
+          </div>
+          <div class="details position-relative">
+            <div class="icon">
+              <i class="bi bi-server"></i>
+            </div>
+            <a href="service-details.html" class="stretched-link">
+              <h3>SysDBA & Containers</h3>
+            </a>
+            <p>
+              Administración de sistemas y bases de datos con enfoque en rendimiento y fiabilidad. Experiencia avanzada en SQL,
+              PostgreSQL y diseño de estructuras eficientes. Gestión de entornos contenerizados con Docker, optimización de servicios
+              backend y despliegues consistentes en entornos Linux.
+            </p>
+          </div>
+        </div>
+      </div><!-- End Service Item -->
+
+      <!-- Automation & NetDevOps -->
+      <div class="col-xl-4 col-md-6" data-aos="zoom-in" data-aos-delay="400">
+        <div class="service-item">
+          <div class="img">
+            <img src="{{ url_for('static', filename='img/services-3.jpg') }}" class="img-fluid" alt="">
+          </div>
+          <div class="details position-relative">
+            <div class="icon">
+              <i class="bi bi-cpu"></i>
+            </div>
+            <a href="service-details.html" class="stretched-link">
+              <h3>Automation & NetDevOps</h3>
+            </a>
+            <p>
+              Automatización de infraestructuras mediante Ansible y desarrollo de herramientas en Python. Integración de
+              sistemas de gestión de red como Nautobot para control, documentación y automatización de topologías complejas.
+              Enfoque en infraestructura como código y entornos reproducibles.
+            </p>
+          </div>
+        </div>
+      </div><!-- End Service Item -->
+
+    </div>
+
+  </div>
+
+</section><!-- /Services Section -->
+
+<!-- ======= Contact Section ======= -->
+<section id="contact" class="contact section">
+  <div class="container" data-aos="fade-up">
+    <!-- Section Title -->
+    <div class="container section-title" data-aos="fade-up">
+      <h2>Contacto</h2>
+      <p>Método de contacto</p>
+    </div>
+
+    <div class="col-lg-12">
+      <form action="forms/contact.php" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="500">
+        <div class="row gy-4">
+
+          <div class="col-md-6">
+            <input type="text" name="name" class="form-control" placeholder="Your Name" required="">
+          </div>
+
+          <div class="col-md-6 ">
+            <input type="email" class="form-control" name="email" placeholder="Your Email" required="">
+          </div>
+
+          <div class="col-md-12">
+            <input type="text" class="form-control" name="subject" placeholder="Subject" required="">
+          </div>
+
+          <div class="col-md-12">
+            <textarea class="form-control" name="message" rows="4" placeholder="Message" required=""></textarea>
+          </div>
+
+          <div class="col-md-12 text-center">
+            <div class="loading">Loading</div>
+            <div class="error-message"></div>
+            <div class="sent-message">Your message has been sent. Thank you!</div>
+
+            <button type="submit">Send Message</button>
+          </div>
+
+        </div>
+      </form>
+    </div><!-- End Contact Form -->
+  </div>
+</section>
+
+{% endblock %}

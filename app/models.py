@@ -1,3 +1,5 @@
+# Base de datos (SQLAlchemy)
+
 from .extensions import db
 
 

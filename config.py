@@ -1,3 +1,5 @@
+# Configuración global
+
 import os
 
 class Config:
