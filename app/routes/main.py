@@ -1,11 +1,10 @@
 # Rutas (controlador)
 
 from flask import Blueprint, render_template
-from .models import Project
+from app.models import Project
 
 main = Blueprint('main', __name__)
 
 @main.route('/')
 def index():
-    projects = Project.query.all()
-    return render_template('index.html', projects=projects)
+    return render_template('index.html')

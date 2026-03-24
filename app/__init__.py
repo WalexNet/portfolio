@@ -3,7 +3,8 @@
 from flask import Flask
 from .extensions import db, migrate, babel
 from .admin import setup_admin
-from .routes import main
+from .routes.main import main
+from .routes.blog import blog_bp
 from config import Config
 from flask import request
 
@@ -16,8 +17,11 @@ def create_app():
     db.init_app(app)
     migrate.init_app(app, db)
     babel.init_app(app)
-    app.register_blueprint(main)
     setup_admin(app)
+    # Registramos los BluePrint
+    app.register_blueprint(main)
+    app.register_blueprint(blog_bp)
+
 
     return app
 

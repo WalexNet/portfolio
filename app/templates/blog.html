@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- ======= Blog Hero ======= -->
+<section id="blog-hero" class="hero section dark-background">
+  <img src="{{ url_for('static', filename='img/hero-bg01.jpg') }}" alt="" data-aos="fade-in">
+
+  <div class="container d-flex flex-column align-items-center text-center">
+    <h2 data-aos="fade-up" data-aos-delay="100">BLOG TÉCNICO</h2>
+    <p data-aos="fade-up" data-aos-delay="200">
+      Proyectos, laboratorios y notas sobre networking, Linux y backend
+    </p>
+  </div>
+</section>
+
+<!-- ======= Blog Section ======= -->
+<section id="blog" class="blog section">
+
+  <!-- Section Title -->
+  <div class="container section-title" data-aos="fade-up">
+    <h2>Últimos Posts</h2>
+    <p>Ideas, pruebas y arquitectura real aplicada</p>
+  </div>
+
+  <div class="container">
+    <div class="row gy-4">
+
+      <!-- ===== Post Item ===== -->
+      <div class="col-xl-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+        <div class="card h-100 shadow-sm border-0">
+
+          <img src="{{ url_for('static', filename='img/services-1.jpg') }}" class="card-img-top" alt="">
+
+          <div class="card-body d-flex flex-column">
+
+            <div class="mb-2 text-muted small">
+              <i class="bi bi-calendar"></i> 20 Mar 2026
+            </div>
+
+            <h5 class="card-title">
+              Laboratorio de red con LXC y namespaces
+            </h5>
+
+            <p class="card-text">
+              Diseño de un entorno de laboratorio completo con firewall Linux,
+              segmentación de red y pruebas reales usando namespaces y veth.
+            </p>
+
+            <!-- Tags -->
+            <div class="mb-3">
+              <span class="badge bg-dark">Linux</span>
+              <span class="badge bg-dark">Networking</span>
+              <span class="badge bg-dark">LXC</span>
+            </div>
+
+            <a href="#" class="btn btn-outline-dark mt-auto">
+              Leer más
+            </a>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== Post Item ===== -->
+      <div class="col-xl-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+        <div class="card h-100 shadow-sm border-0">
+
+          <img src="{{ url_for('static', filename='img/services-2.jpg') }}" class="card-img-top" alt="">
+
+          <div class="card-body d-flex flex-column">
+
+            <div class="mb-2 text-muted small">
+              <i class="bi bi-calendar"></i> 15 Mar 2026
+            </div>
+
+            <h5 class="card-title">
+              nftables: diseño de firewall moderno
+            </h5>
+
+            <p class="card-text">
+              Implementación de reglas avanzadas con nftables,
+              análisis de tráfico y buenas prácticas de seguridad.
+            </p>
+
+            <div class="mb-3">
+              <span class="badge bg-dark">Firewall</span>
+              <span class="badge bg-dark">Security</span>
+              <span class="badge bg-dark">Linux</span>
+            </div>
+
+            <a href="#" class="btn btn-outline-dark mt-auto">
+              Leer más
+            </a>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== Post Item ===== -->
+      <div class="col-xl-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+        <div class="card h-100 shadow-sm border-0">
+
+          <img src="{{ url_for('static', filename='img/services-3.jpg') }}" class="card-img-top" alt="">
+
+          <div class="card-body d-flex flex-column">
+
+            <div class="mb-2 text-muted small">
+              <i class="bi bi-calendar"></i> 10 Mar 2026
+            </div>
+
+            <h5 class="card-title">
+              Automatización con Ansible y Nautobot
+            </h5>
+
+            <p class="card-text">
+              Gestión de infraestructura como código, automatización de red
+              y control centralizado con Nautobot.
+            </p>
+
+            <div class="mb-3">
+              <span class="badge bg-dark">Automation</span>
+              <span class="badge bg-dark">Ansible</span>
+              <span class="badge bg-dark">NetDevOps</span>
+            </div>
+
+            <a href="#" class="btn btn-outline-dark mt-auto">
+              Leer más
+            </a>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</section>
+
+{% endblock %}
