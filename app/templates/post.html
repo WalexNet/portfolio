@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+<!-- ======= Blog Hero ======= -->
+<section id="blog-hero" class="dark-background">
+</section>
+
+<!-- ======= Blog Section ======= -->
+<section id="blog" class="blog section">
+  <div class="container" data-aos="fade-up">
+
+    <h1 class="mb-3">{{ post.title }}</h1>
+
+    <div class="text-muted mb-4">
+      <i class="bi bi-calendar"></i>
+      {{ post.created_at.strftime('%d %B %Y') }}
+    </div>
+
+    <div class="content">
+      {{ post.content | safe }}
+    </div>
+
+  </div>
+</section>
+
+{% endblock %}
