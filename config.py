@@ -8,3 +8,5 @@ class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     BABEL_DEFAULT_LOCALE = "es"
     LANGUAGES = ["es", "en"]
+    # Flask-Admin Configuration
+    FLASK_ADMIN_TEMPLATE_MODE = "bootstrap4"

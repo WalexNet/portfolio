@@ -41,7 +41,7 @@
             </h5>
 
             <p class="card-text">
-              {{ post.summary }}
+              {{ post.summary }},<br> {{ post.cover_image }}
             </p>
 
             <a href="{{ url_for('blog.detail', slug=post.slug) }}" class="btn btn-outline-dark mt-auto">
