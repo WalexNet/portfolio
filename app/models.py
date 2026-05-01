@@ -1,33 +1,36 @@
 # Base de datos (SQLAlchemy)
-
+from datetime import datetime, timezone
+from typing import Optional
 from .extensions import db
-from datetime import datetime
-from slugify import slugify
+from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy import String, Text, DateTime
+
 
 
 #export DATABASE_URL="postgresql://walter:WalexNet@server:5432/portfolio"
 
 
 class Project(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(150))
-    description = db.Column(db.Text)
-    tech_stack = db.Column(db.String(250))
-    github_url = db.Column(db.String(250))
+    id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
+    title: Mapped[str] = mapped_column(String(200))
+    description: Mapped[str] = mapped_column(Text)
+    tech_stack: Mapped[str] = mapped_column(Text)
+    github_url: Mapped[str] = mapped_column(Text, nullable=True)
 
 class Post(db.Model):
     """Blog post model representing the 'public.post' table."""
     __tablename__ = 'post'
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(200), nullable=False)
-    slug = db.Column(db.String(200), unique=True, nullable=False)
-    content = db.Column(db.Text, nullable=False)
-    summary = db.Column(db.String(300))
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
-    def __init__(self, title, content, summary=""):
-        self.title = title
-        self.slug = slugify(title)
-        self.content = content
-        self.summary = summary
+    id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
+    title: Mapped[str] = mapped_column(String(200), nullable=False)
+    slug: Mapped[str] = mapped_column(String(200), unique=True, nullable=False)
+    content: Mapped[str] = mapped_column(Text, nullable=False)
+    summary: Mapped[Optional[str]] = mapped_column(String(300))
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime,
+        default=lambda: datetime.now(timezone.utc)
+    )
+
+    def __repr__(self) -> str:
+        return f'<Post {self.title[:20]}...>'
 
