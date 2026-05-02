@@ -17,8 +17,10 @@
       {{ post.created_at.strftime('%d %B %Y') }}
     </div>
 
-    <div class="markdown-body">
-      {{ content_html | safe }}
+    <div class="post-wrapper">
+      <div class="post-content markdown-body">
+          {{ content_html | safe }}
+      </div>
     </div>
 
   </div>

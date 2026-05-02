@@ -1,80 +1,201 @@
-.markdown-body {
+/* =========================
+ *   WRAPPER GENERAL
+ * ========================= */
+
+.post-wrapper {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    padding: 24px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+/* =========================
+ *   CONTENIDO MARKDOWN
+ * ========================= */
+
+.post-content.markdown-body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
     line-height: 1.6;
     color: #24292e;
     max-width: 800px;
     margin: 0 auto;
-    padding: 20px;
+    font-size: 15px;
 }
 
-/* HEADINGS */
-.markdown-body h1,
-.markdown-body h2,
-.markdown-body h3 {
-    border-bottom: 1px solid #eaecef;
-    padding-bottom: 0.3em;
+/* =========================
+ *   HEADINGS
+ * ========================= */
+
+.post-content.markdown-body h1,
+.post-content.markdown-body h2,
+.post-content.markdown-body h3,
+.post-content.markdown-body h4 {
+    color: inherit;
     margin-top: 1.5em;
+    margin-bottom: 0.5em;
+    padding-bottom: 0.3em;
+    border-bottom: 1px solid #e5e7eb;
 }
 
-/* LINKS */
-.markdown-body a {
+/* =========================
+ *   LINKS
+ * ========================= */
+
+.post-content.markdown-body a {
     color: #0969da;
     text-decoration: none;
 }
-.markdown-body a:hover {
+
+.post-content.markdown-body a:hover {
     text-decoration: underline;
 }
 
-/* CODE */
-.markdown-body code {
+/* =========================
+ *   PARAGRAPHS
+ * ========================= */
+
+.post-content.markdown-body p {
+    margin: 0.8em 0;
+}
+
+/* =========================
+ *   LISTS
+ * ========================= */
+
+.post-content.markdown-body ul,
+.post-content.markdown-body ol {
+    padding-left: 2em;
+    margin: 0.8em 0;
+}
+
+.post-content.markdown-body li {
+    margin: 0.3em 0;
+}
+
+/* =========================
+ *   BLOCKQUOTE
+ * ========================= */
+
+.post-content.markdown-body blockquote {
+    border-left: 4px solid #d0d7de;
+    padding: 0 1em;
+    margin: 1em 0;
+    color: #57606a;
     background-color: #f6f8fa;
-    padding: 2px 4px;
-    border-radius: 6px;
+    border-radius: 4px;
+}
+
+/* =========================
+ *   CODE INLINE
+ * ========================= */
+
+.post-content.markdown-body code {
+    background-color: rgba(0, 0, 0, 0.05);
+    padding: 2px 5px;
+    border-radius: 4px;
     font-size: 90%;
 }
 
-.markdown-body pre {
+/* =========================
+ *   CODE BLOCKS
+ * ========================= */
+
+.post-content.markdown-body pre {
     background-color: #f6f8fa;
-    padding: 16px;
+    padding: 14px;
     border-radius: 6px;
-    overflow: auto;
+    overflow-x: auto;
+    border: 1px solid #e5e7eb;
 }
 
-/* TABLES */
-.markdown-body table {
-    border-collapse: collapse;
+.post-content.markdown-body pre code {
+    background: none;
+    padding: 0;
+}
+
+/* =========================
+    TABLES - NOTION + GRID
+========================= */
+
+.post-content.markdown-body table {
     width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
     margin: 16px 0;
+    border: 1px solid #e6e6e6;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #ffffff;
+    font-size: 14px;
 }
 
-.markdown-body th,
-.markdown-body td {
-    border: 1px solid #d0d7de;
-    padding: 6px 13px;
+/* HEADER */
+.post-content.markdown-body th {
+    background-color: #f7f7f7;
+    font-weight: 600;
+    padding: 8px 12px;
+    text-align: left;
+    color: #333;
+    border-bottom: 1px solid #e6e6e6;
+    border-right: 1px solid #e6e6e6; /* 👈 CUADRÍCULA */
 }
 
-.markdown-body th {
-    background-color: #f6f8fa;
+/* CELDAS */
+.post-content.markdown-body td {
+    padding: 8px 12px;
+    color: #444;
+    border-bottom: 1px solid #f0f0f0;
+    border-right: 1px solid #f0f0f0; /* 👈 CUADRÍCULA */
 }
 
-/* BLOCKQUOTE */
-.markdown-body blockquote {
-    border-left: 4px solid #d0d7de;
-    padding: 0 1em;
-    color: #57606a;
-    margin: 16px 0;
+/* QUITAR BORDE ÚLTIMA COLUMNA */
+.post-content.markdown-body th:last-child,
+.post-content.markdown-body td:last-child {
+    border-right: none;
 }
 
-/* LISTS */
-.markdown-body ul {
-    padding-left: 2em;
+/* QUITAR BORDE ÚLTIMA FILA */
+.post-content.markdown-body tr:last-child td {
+    border-bottom: none;
 }
 
-.markdown-body li {
-    margin: 0.25em 0;
+/* ZEBRA SUAVE */
+.post-content.markdown-body tr:nth-child(even) {
+    background-color: #fcfcfc;
 }
 
-/* IMAGES */
-.markdown-body img {
+/* HOVER SUAVE */
+.post-content.markdown-body tr:hover {
+    background-color: #f1f5ff;
+    transition: background-color 0.15s ease;
+}
+
+
+
+/* =========================
+ *   IMAGES
+ * ========================= */
+
+.post-content.markdown-body img {
     max-width: 100%;
+    border-radius: 6px;
+}
+
+/* =========================
+ *   CHECKBOX LISTS
+ * ========================= */
+
+.post-content.markdown-body input[type="checkbox"] {
+    margin-right: 6px;
+}
+
+/* =========================
+ *   HORIZONTAL RULE
+ * ========================= */
+
+.post-content.markdown-body hr {
+    border: none;
+    border-top: 1px solid #e5e7eb;
+    margin: 24px 0;
 }

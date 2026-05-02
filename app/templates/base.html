@@ -26,6 +26,11 @@
   <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet">
   <!-- CSS Para los Mark Down -->
   <link href="{{ url_for('static', filename='css/md.css') }}" rel="stylesheet">
+
+  <!-- rESALTADO DE SINTAXIS EN mARK dOWN -->
+  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism.css" rel="stylesheet" />
+
+
 </head>
 
 <body class="index-page">
@@ -140,6 +145,11 @@
 
   <!-- Main JS -->
   <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  <!-- Resaltado de Syntaxis MarkDown -->
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.js"></script>
+  <!-- lenguajes opcionales -->
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-python.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-javascript.min.js"></script>
 
 </body>
 </html>
