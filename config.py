@@ -10,3 +10,5 @@ class Config:
     LANGUAGES = ["es", "en"]
     # Flask-Admin Configuration
     FLASK_ADMIN_TEMPLATE_MODE = "bootstrap4"
+    # Configuramos la carpeta Uploader
+    UPLOAD_FOLDER = os.path.join(os.getcwd(), 'upload')
