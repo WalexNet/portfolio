@@ -3,11 +3,30 @@ from datetime import datetime, timezone
 from typing import Optional
 from .extensions import db
 from sqlalchemy.orm import Mapped, mapped_column
-from sqlalchemy import String, Text, DateTime
-
-
+from sqlalchemy import String, Text, DateTime, Table, Column, ForeignKey
+from sqlalchemy.orm import relationship
 
 #export DATABASE_URL="postgresql://walter:WalexNet@server:5432/portfolio"
+
+
+post_tags = Table(
+    'post_tags',
+    db.metadata,
+    Column('post_id', ForeignKey('post.id'), primary_key=True),
+    Column('tag_id', ForeignKey('tag.id'), primary_key=True),
+)
+
+
+class Tag(db.Model):
+    __tablename__ = 'tag'
+
+    id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
+    name: Mapped[str] = mapped_column(String(50), unique=True, nullable=False)
+
+    posts = relationship('Post', secondary=post_tags, back_populates='tags')
+
+    def __repr__(self) -> str:
+        return f'<Tag {self.name}>'
 
 
 class Project(db.Model):
@@ -34,4 +53,6 @@ class Post(db.Model):
 
     def __repr__(self) -> str:
         return f'<Post {self.title[:20]}...>'
+
+    tags = relationship('Tag', secondary=post_tags, back_populates='posts')
 

@@ -17,6 +17,14 @@
       {{ post.created_at.strftime('%d %B %Y') }}
     </div>
 
+    {% if post.tags %}
+    <div class="mb-4">
+      {% for tag in post.tags %}
+      <a href="{{ url_for('blog.by_tag', name=tag.name) }}" class="badge bg-secondary text-decoration-none me-1">{{ tag.name }}</a>
+      {% endfor %}
+    </div>
+    {% endif %}
+
     <div class="post-wrapper">
       <div class="post-content markdown-body">
           {{ content_html | safe }}

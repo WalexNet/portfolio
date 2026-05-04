@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, abort, send_from_directory
-from app.models import Post
+from app.models import Post, Tag, post_tags
 from sqlalchemy import select
 from ..extensions import db
 from mistune import create_markdown
@@ -49,5 +49,19 @@ def detail(slug):
         abort(404)
 
     return render_template("detail.html", post=post, content_html=content_html)
+
+
+@blog_bp.route("/tag/<string:name>")
+def by_tag(name):
+    """Fetches all posts with the given tag."""
+    query = (
+        select(Post)
+        .join(post_tags)
+        .join(Tag)
+        .filter(Tag.name == name)
+        .order_by(Post.created_at.desc())
+    )
+    posts = db.session.execute(query).scalars().all()
+    return render_template("blog.html", posts=posts, tag=name)
 
 

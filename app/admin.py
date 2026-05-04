@@ -4,7 +4,7 @@ from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
 from flask_admin.form import ImageUploadField
 from slugify import slugify
-from app.models import Post, Project
+from app.models import Post, Project, Tag
 from app.extensions import db
 import time
 
@@ -32,7 +32,8 @@ class PostAdminView(ModelView):
 
     # Hide fields that are handled automatically
     form_excluded_columns = ['slug', 'created_at']
-    column_list = ['title', 'slug', 'created_at']
+    column_list = ['title', 'slug', 'tags', 'created_at']
+    column_filters = ['tags']
 
     def on_model_change(self, form, model, is_created):
         """Logic executed before saving to DB."""
@@ -51,3 +52,4 @@ def setup_admin(app):
     # Registering views
     admin.add_view(ModelView(Project, db.session, name="Projects", category="Content"))
     admin.add_view(PostAdminView(Post, db.session, name="Blog Posts", category="Content"))
+    admin.add_view(ModelView(Tag, db.session, name="Tags", category="Content"))
