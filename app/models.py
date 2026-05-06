@@ -3,8 +3,10 @@ from datetime import datetime, timezone
 from typing import Optional
 from .extensions import db
 from sqlalchemy.orm import Mapped, mapped_column
-from sqlalchemy import String, Text, DateTime, Table, Column, ForeignKey
+from sqlalchemy import String, Text, DateTime, Table, Column, ForeignKey, Integer
 from sqlalchemy.orm import relationship
+from flask_login import UserMixin
+from werkzeug.security import generate_password_hash, check_password_hash
 
 #export DATABASE_URL="postgresql://walter:WalexNet@server:5432/portfolio"
 
@@ -56,3 +58,16 @@ class Post(db.Model):
 
     tags = relationship('Tag', secondary=post_tags, back_populates='posts')
 
+
+class User(db.Model, UserMixin):
+    __tablename__ = "users"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    username: Mapped[str] = mapped_column(String(100), unique=True, nullable=False)
+    password_hash: Mapped[str] = mapped_column(String(255), nullable=False)
+
+    def set_password(self, password: str):
+        self.password_hash = generate_password_hash(password)
+
+    def check_password(self, password: str) -> bool:
+        return check_password_hash(self.password_hash, password)

@@ -17,6 +17,7 @@ __pycache__/
 # Flask
 instance/
 .webassets-cache
+migrations/
 
 # Logs
 *.log

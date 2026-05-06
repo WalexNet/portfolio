@@ -25,8 +25,7 @@
 │       ├── base.html
 │       ├── blog.html
 │       ├── detail.html
-│       ├── index.html
-│       └── xxxxxblog_stat.html
+│       └── index.html
 ├── config.py
 ├── migrations
 │   ├── alembic.ini
@@ -36,8 +35,7 @@
 │   ├── README
 │   ├── script.py.mako
 │   └── versions
-│       ├── 4403503ed30d_create_post_model.py
-│       ├── 62fafd99fe66_initial_migration.py
+│       ├── 7a637fe61ec2_initial.py
 │       └── __pycache__
 ├── __pycache__
 │   ├── config.cpython-314.pyc
@@ -48,6 +46,16 @@
 ├── tree.txt
 ├── upload
 │   └── img
+│       ├── post_1777658226.png
+│       ├── post_1777738272.jpg
+│       ├── post_1777741856.png
+│       ├── post_1777898555.png
+│       ├── post_1777901940.png
+│       ├── post_1777907347.png
+│       ├── post_1777910545.jpg
+│       ├── post_1777911305.jpg
+│       ├── post_tcp-ip-png
+│       └── services-1.jpg
 ├── venv
 │   ├── bin
 │   │   ├── activate
@@ -78,4 +86,4 @@
 │   └── pyvenv.cfg
 └── wsgi.py
 
-26 directories, 53 files
+26 directories, 61 files
