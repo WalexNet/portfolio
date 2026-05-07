@@ -32,7 +32,7 @@ def create_app():
     # Registramos los BluePrint
     app.register_blueprint(main)
     app.register_blueprint(blog_bp)
-    app.register_blueprint(auth_bp, url_prefix='/auth')
+    app.register_blueprint(auth_bp)
 
 
     return app

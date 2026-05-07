@@ -4,7 +4,10 @@ from flask_login import login_user, logout_user, current_user
 from app.models import User
 from app.extensions import db
 
-auth_bp = Blueprint('auth', __name__)
+auth_bp = Blueprint('auth',
+                    __name__,
+                    url_prefix='/auth')
+
 
 
 @auth_bp.route('/login', methods=['GET', 'POST'])
