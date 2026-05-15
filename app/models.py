@@ -71,3 +71,23 @@ class User(db.Model, UserMixin):
 
     def check_password(self, password: str) -> bool:
         return check_password_hash(self.password_hash, password)
+
+
+class AccessLog(db.Model):
+    __tablename__ = "access_logs"
+    id: Mapped[int] = mapped_column(primary_key=True)
+    timestamp: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True),
+        default=lambda: datetime.now(timezone.utc),
+        index=True
+    )
+    ip: Mapped[str | None] = mapped_column(String(45))
+    method: Mapped[str | None] = mapped_column(String(10))
+    path: Mapped[str | None] = mapped_column(String(255))
+    status_code: Mapped[int | None]
+    response_time_ms: Mapped[int | None]
+    user_agent: Mapped[str | None] = mapped_column(Text)
+    referer: Mapped[str | None] = mapped_column(Text)
+    browser: Mapped[str | None] = mapped_column(String(50))
+    os: Mapped[str | None] = mapped_column(String(50))
+    device: Mapped[str | None] = mapped_column(String(50))
