@@ -34,6 +34,7 @@ def create_app():
     migrate.init_app(app, db)
     babel.init_app(app)
     setup_admin(app)
+
     # Registramos los BluePrint
     app.register_blueprint(main)
     app.register_blueprint(blog_bp)
