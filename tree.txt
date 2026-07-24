@@ -4,6 +4,9 @@
 │   ├── admin.py
 │   ├── extensions.py
 │   ├── __init__.py
+│   ├── middleware
+│   │   ├── access_logger.py
+│   │   └── __pycache__
 │   ├── models.py
 │   ├── __pycache__
 │   │   ├── admin.cpython-314.pyc
@@ -11,6 +14,7 @@
 │   │   ├── __init__.cpython-314.pyc
 │   │   └── models.cpython-314.pyc
 │   ├── routes
+│   │   ├── auth.py
 │   │   ├── blog.py
 │   │   ├── __init__.py
 │   │   ├── main.py
@@ -22,6 +26,7 @@
 │   │   └── vendor
 │   └── templates
 │       ├── admin
+│       ├── auth
 │       ├── base.html
 │       ├── blog.html
 │       ├── detail.html
@@ -36,7 +41,10 @@
 │   ├── script.py.mako
 │   └── versions
 │       ├── 7a637fe61ec2_initial.py
+│       ├── 8d6e5bf4c378_add_users_table.py
+│       ├── f2315122d6d5_add_access_log_table.py
 │       └── __pycache__
+├── notas.txt
 ├── __pycache__
 │   ├── config.cpython-314.pyc
 │   ├── run.cpython-314.pyc
@@ -54,6 +62,8 @@
 │       ├── post_1777907347.png
 │       ├── post_1777910545.jpg
 │       ├── post_1777911305.jpg
+│       ├── post_1778850736.png
+│       ├── post_1780913597.png
 │       ├── post_tcp-ip-png
 │       └── services-1.jpg
 ├── venv
@@ -86,4 +96,4 @@
 │   └── pyvenv.cfg
 └── wsgi.py
 
-26 directories, 61 files
+29 directories, 68 files
