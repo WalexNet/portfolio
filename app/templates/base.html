@@ -48,6 +48,26 @@
           <li><a class="active" href="/#hero">Inicio</a></li>
           <li><a href="/#about">Sobre mí</a></li>
           <li><a href="/#services">Skills</a></li>
+
+          {% if career_menu %}
+          <li class="dropdown">
+            <a href="#">
+              <span>Trayectoria Profesional</span>
+              <i class="bi bi-chevron-down toggle-dropdown"></i>
+            </a>
+
+            <ul>
+              {% for page in career_menu %}
+              <li>
+                <a href="{{ url_for('career.detail', slug=page.slug) }}">
+                  {{ page.menu_title or page.title }}
+                </a>
+              </li>
+              {% endfor %}
+            </ul>
+          </li>
+          {% endif %}
+
           <li><a href="{{ url_for('blog.index', is_blog=1) }}">Blog Técnico</a></li>
           <li><a href="/#contact">Contacto</a></li>
         </ul>
@@ -62,6 +82,7 @@
   <main class="main">
     {% block content %}{% endblock %}
   </main>
+
 
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer dark-background">
@@ -152,6 +173,7 @@
   <!-- lenguajes opcionales -->
   <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-python.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-javascript.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-sql.min.js"></script>
 
 </body>
 </html>

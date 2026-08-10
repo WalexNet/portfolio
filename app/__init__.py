@@ -7,10 +7,13 @@ from .admin import setup_admin
 from .routes.main import main
 from .routes.blog import blog_bp
 from .routes.auth import auth_bp
+from .routes.page import career_bp
 from config import Config
 from flask import request
 from app.models import User
 from .middleware.access_logger import start_timer, log_request
+from sqlalchemy import select
+from app.models import Page
 
 def create_app():
     # Inicializamos la app
@@ -39,7 +42,24 @@ def create_app():
     app.register_blueprint(main)
     app.register_blueprint(blog_bp)
     app.register_blueprint(auth_bp)
+    app.register_blueprint(career_bp)
 
+    @app.context_processor
+    def inject_career_menu():
+        stmt = (
+            select(Page)
+            .where(
+                Page.section == "career",
+                Page.is_published.is_(True)
+            )
+            .order_by(Page.sort_order, Page.title)
+        )
+
+        career_menu = db.session.scalars(stmt).all()
+
+        return {
+            "career_menu": career_menu
+        }
 
     return app
 

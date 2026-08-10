@@ -32,6 +32,8 @@
 │       ├── detail.html
 │       └── index.html
 ├── config.py
+├── Dockerfile
+├── entrypoint.sh
 ├── migrations
 │   ├── alembic.ini
 │   ├── env.py
@@ -96,4 +98,4 @@
 │   └── pyvenv.cfg
 └── wsgi.py
 
-29 directories, 68 files
+29 directories, 70 files

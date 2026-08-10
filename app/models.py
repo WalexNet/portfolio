@@ -2,9 +2,9 @@
 from datetime import datetime, timezone
 from typing import Optional
 from .extensions import db
-from sqlalchemy.orm import Mapped, mapped_column
-from sqlalchemy import String, Text, DateTime, Table, Column, ForeignKey, Integer
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy import String, Text, DateTime, Table, Column, ForeignKey, Integer, Boolean
+from sqlalchemy.dialects.postgresql import INET
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -59,6 +59,32 @@ class Post(db.Model):
     tags = relationship('Tag', secondary=post_tags, back_populates='posts')
 
 
+
+class Page(db.Model):
+    """Generic page model."""
+
+    __tablename__ = "page"
+    __table_args__ = (
+        db.UniqueConstraint("section", "slug", name="uq_page_section_slug",),
+    )
+
+    id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
+    section: Mapped[str] = mapped_column(String(30), nullable=False, index=True)
+    slug: Mapped[str] = mapped_column(String(80), nullable=False, index=True)
+    title: Mapped[str] = mapped_column(String(200), nullable=False)
+    summary: Mapped[Optional[str]] = mapped_column(String(300))
+    content: Mapped[str] = mapped_column(Text, nullable=False)
+    cover_image: Mapped[Optional[str]] = mapped_column(Text)
+    is_published: Mapped[bool] = mapped_column(Boolean, default=True, nullable=False, index=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=lambda: datetime.now(timezone.utc))
+    updated_at: Mapped[datetime] = mapped_column(DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
+    menu_title: Mapped[Optional[str]] = mapped_column(String(100))
+    sort_order: Mapped[int] = mapped_column(default=100, nullable=False, index=True)
+
+    def __repr__(self) -> str:
+        return f"<Page {self.section}/{self.slug}>"
+
+
 class User(db.Model, UserMixin):
     __tablename__ = "users"
 
@@ -81,7 +107,7 @@ class AccessLog(db.Model):
         default=lambda: datetime.now(timezone.utc),
         index=True
     )
-    ip: Mapped[str | None] = mapped_column(String(45))
+    ip: Mapped[str | None] = mapped_column(INET)
     method: Mapped[str | None] = mapped_column(String(10))
     path: Mapped[str | None] = mapped_column(String(255))
     status_code: Mapped[int | None]

@@ -114,7 +114,7 @@ def detail(slug):
     if post is None:
         abort(404)
 
-    return render_template("detail.html", post=post, content_html=content_html)
+    return render_template("detail.html", item=post, content_html=content_html)
 
 
 @blog_bp.route("/tag/<string:name>")

@@ -6,7 +6,7 @@ from flask_admin.contrib.sqla import ModelView
 from flask_admin.form import ImageUploadField
 from flask_login import current_user
 from slugify import slugify
-from app.models import Post, Project, Tag, User
+from app.models import Post, Project, Tag, User, Page
 from app.extensions import db
 import time
 
@@ -73,4 +73,5 @@ def setup_admin(app):
     admin.add_view(ModelView(Project, db.session, name="Projects", category="Content"))
     admin.add_view(PostAdminView(Post, db.session, name="Blog Posts", category="Content"))
     admin.add_view(ModelView(Tag, db.session, name="Tags", category="Content"))
+    admin.add_view(ModelView(Page, db.session))
 
