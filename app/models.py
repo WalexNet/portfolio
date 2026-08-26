@@ -32,11 +32,21 @@ class Tag(db.Model):
 
 
 class Project(db.Model):
-    id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
-    title: Mapped[str] = mapped_column(String(200))
-    description: Mapped[str] = mapped_column(Text)
-    tech_stack: Mapped[str] = mapped_column(Text)
-    github_url: Mapped[str] = mapped_column(Text, nullable=True)
+    __tablename__ = "project"
+
+    id: Mapped[int] = mapped_column(primary_key=True,autoincrement=True)
+    title: Mapped[str] = mapped_column(String(200), nullable=False)
+    slug: Mapped[str] = mapped_column(String(200), unique=True, nullable=False)
+    description: Mapped[str] = mapped_column(Text, nullable=False)
+    content: Mapped[str] = mapped_column(Text, nullable=False)
+    cover_image: Mapped[Optional[str]] = mapped_column(Text)
+    tech_stack: Mapped[str] = mapped_column(Text, nullable=False)
+    github_url: Mapped[Optional[str]] = mapped_column(Text)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=lambda: datetime.now(timezone.utc))
+    is_published: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False, index=True)
+
+    def __repr__(self) -> str:
+        return f"<Project {self.title}>"
 
 class Post(db.Model):
     """Blog post model representing the 'public.post' table."""

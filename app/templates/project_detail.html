@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- ======= Project Hero ======= -->
+<section id="project-hero" class="dark-background">
+</section>
+
+<!-- ======= Project Detail ======= -->
+<section id="project" class="section">
+
+  <div class="container" data-aos="fade-up">
+    <h1 class="mb-3">
+      {{ project.title }}
+    </h1>
+    <div class="text-muted mb-4"> <i class="bi bi-calendar"></i>{{ project.created_at.strftime('%d %B %Y') }} </div>
+
+
+    {% if project.cover_image %}
+    <div class="mb-4">
+      <img src="{{ url_for('projects.uploaded_file', filename='img/' + project.cover_image) }}" class="img-fluid rounded" alt="{{ project.title }}">
+    </div>
+    {% endif %}
+
+
+    {% if project.description %}
+    <p class="lead mb-4">
+      {{ project.description }}
+    </p>
+    {% endif %}
+
+    {% if project.tech_stack %}
+    <div class="mb-4">
+      <div class="mb-2"><strong><i class="bi bi-tools"></i>Tecnologías:</strong></div>
+      <div class="d-flex flex-wrap gap-2">
+        {% for tech in project.tech_stack.split(',') %}
+          <span class="badge bg-light text-dark border">{{ tech.strip() }}</span>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+
+    {% if project.github_url %}
+    <div class="mb-5">
+      <a href="{{ project.github_url }}" target="_blank" rel="noopener noreferrer" class="btn btn-outline-dark">
+        <i class="bi bi-github"></i>Ver en GitHub</a>
+    </div>
+    {% endif %}
+
+
+    <div class="post-wrapper">
+      <div class="post-content markdown-body">{{ content_html | safe }} </div>
+    </div>
+
+
+    <!-- Renderizado de diagramas Mermaid -->
+    <script
+      type="module"
+      src="{{ url_for('static', filename='js/mermaid.js') }}">
+    </script>
+
+    <div class="mt-5">
+      <a href="{{ url_for('projects.index') }}" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left"></i>Volver a Proyectos</a>
+    </div>
+
+  </div>
+
+</section>
+
+{% endblock %}

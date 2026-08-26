@@ -8,6 +8,7 @@ from .routes.main import main
 from .routes.blog import blog_bp
 from .routes.auth import auth_bp
 from .routes.page import career_bp
+from .routes.projects import projects_bp
 from config import Config
 from flask import request
 from app.models import User
@@ -43,6 +44,7 @@ def create_app():
     app.register_blueprint(blog_bp)
     app.register_blueprint(auth_bp)
     app.register_blueprint(career_bp)
+    app.register_blueprint(projects_bp)
 
     @app.context_processor
     def inject_career_menu():

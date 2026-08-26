@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, abort
 from sqlalchemy import select
-from mistune import create_markdown
+from app.utils.markdow import render_markdown
 
 from app.models import Page
 from app.extensions import db
@@ -12,7 +12,6 @@ career_bp = Blueprint(
     template_folder="../templates",
 )
 
-markdown = create_markdown()
 
 @career_bp.route("/<slug>")
 def detail(slug):
@@ -31,7 +30,7 @@ def detail(slug):
     if page is None:
         abort(404)
 
-    content_html = markdown(page.content)
+    content_html = render_markdown(page.content)
 
     return render_template(
         "detail.html",

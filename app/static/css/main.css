@@ -1844,3 +1844,15 @@ section,
 .starter-section {
   /* Add your styles here */
 }
+
+
+/*--------------------------------------------------------------
+# igualar la altura de todas las imágenes de portada para que
+el grid de proyectos quede uniforme aunque las imágenes tengan
+proporciones distintas.
+--------------------------------------------------------------*/
+.project-card-image {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+}

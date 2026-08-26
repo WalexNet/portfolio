@@ -31,37 +31,8 @@
       </div>
     </div>
     <!-- Las siguientes lineas de etiquetas script son para renderizar graficos mermaid -->
-    <script type="module">
-      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
-
-      mermaid.initialize({
-        startOnLoad: false, // Desactivamos el auto-render global
-        theme: 'default',
-        securityLevel: 'loose'
-      });
-
-      // Renderizado manual dirigido a los bloques de Mistune
-      async function renderMermaid() {
-        const blocks = document.querySelectorAll('pre code.language-mermaid');
-        for (const block of blocks) {
-          const parent = block.parentElement;
-          // Creamos un nuevo div con la clase 'mermaid' que es lo que la librería espera
-          const container = document.createElement('div');
-          container.className = 'mermaid';
-          container.textContent = block.textContent;
-
-          // Reemplazamos el <pre> original por el div que Mermaid puede procesar
-          parent.replaceWith(container);
-        }
-
-        // Ejecutamos el renderizado sobre los nuevos elementos
-        await mermaid.run({
-          querySelector: '.mermaid'
-        });
-      }
-
-      // Ejecutar cuando el DOM esté listo
-      document.addEventListener('DOMContentLoaded', renderMermaid);
+    <script type="module"
+    src="{{ url_for('static', filename='js/mermaid.js') }}">
     </script>
   </div>
 </section>

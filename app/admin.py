@@ -60,6 +60,61 @@ class PostAdminView(ProtectedModelView):
             model.slug = slugify(model.title)
         return super().on_model_change(form, model, is_created)
 
+class ProjectAdminView(ProtectedModelView):
+    """Admin view for projects with automated slug generation and image handling."""
+
+    def __init__(self, *args, **kwargs):
+        UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
+        super().__init__(*args, **kwargs)
+
+    form_extra_fields = {
+        'cover_image': ImageUploadField(
+            'Cover Image',
+            base_path=str(UPLOAD_DIR),
+            namegen=lambda obj, file_data:
+                f"project_{int(time.time())}{Path(file_data.filename).suffix}",
+            url_relative_path='img/'
+        )
+    }
+
+    form_excluded_columns = ['slug', 'created_at']
+
+    column_list = [
+        'title',
+        'slug',
+        'tech_stack',
+        'github_url',
+        'is_published',
+        'created_at'
+    ]
+    column_filters = [
+        'is_published'
+    ]
+    column_searchable_list = [
+        'title',
+        'description',
+        'tech_stack'
+    ]
+    column_editable_list = [
+        'is_published'
+    ]
+    column_default_sort = ('created_at', True)
+
+    def on_model_change(self, form, model, is_created):
+        if is_created or not model.slug:
+            base_slug = slugify(model.title)
+            slug = base_slug
+            counter = 2
+
+            with db.session.no_autoflush:
+                while Project.query.filter_by(slug=slug).first() is not None:
+                    slug = f"{base_slug}-{counter}"
+                    counter += 1
+
+            model.slug = slug
+
+        return super().on_model_change(form, model, is_created)
+
 def setup_admin(app):
     """
     Initializes Flask-Admin.
@@ -70,8 +125,8 @@ def setup_admin(app):
     admin = Admin(app, name='Portfolio Admin', index_view=MyAdminIndexView())
 
     # Registering views
-    admin.add_view(ModelView(Project, db.session, name="Projects", category="Content"))
     admin.add_view(PostAdminView(Post, db.session, name="Blog Posts", category="Content"))
     admin.add_view(ModelView(Tag, db.session, name="Tags", category="Content"))
     admin.add_view(ModelView(Page, db.session))
+    admin.add_view(ProjectAdminView(Project, db.session, name="Projects", category="Content"))
 

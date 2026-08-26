@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, abort, send_from_directory, reques
 from app.models import Post, Tag, post_tags
 from sqlalchemy import select, desc, or_, extract
 from ..extensions import db
-from mistune import create_markdown
+from app.utils.markdow import render_markdown
 import os
 
 blog_bp = Blueprint(
@@ -12,13 +12,6 @@ blog_bp = Blueprint(
     template_folder="../templates"
 )
 
-md = create_markdown(plugins=[
-    'strikethrough',
-    'table',
-    'task_lists',
-    'footnotes',
-    'url'
-])
 
 @blog_bp.route('/upload/<path:filename>')
 def uploaded_file(filename):
@@ -110,7 +103,7 @@ def detail(slug):
     """Retrieves a single post by its slug."""
     query = select(Post).filter_by(slug=slug)
     post = db.session.execute(query).scalar_one_or_none()
-    content_html = md(post.content)
+    content_html = render_markdown(post.content)
     if post is None:
         abort(404)
 
