@@ -4,11 +4,15 @@ from flask import Flask
 from flask_login import LoginManager
 from .extensions import db, migrate, babel
 from .admin import setup_admin
+# Rutas
 from .routes.main import main
 from .routes.blog import blog_bp
 from .routes.auth import auth_bp
 from .routes.page import career_bp
 from .routes.projects import projects_bp
+from .routes.tools import tools_bp
+from .tools.subnet.routes import subnet_bp
+
 from config import Config
 from flask import request
 from app.models import User
@@ -45,6 +49,8 @@ def create_app():
     app.register_blueprint(auth_bp)
     app.register_blueprint(career_bp)
     app.register_blueprint(projects_bp)
+    app.register_blueprint(tools_bp)
+    app.register_blueprint(subnet_bp)
 
     @app.context_processor
     def inject_career_menu():

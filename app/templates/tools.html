@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- ======= Tools Hero ======= -->
+<section id="tools-hero" class="hero section dark-background">
+  <img
+    src="{{ url_for('static', filename='img/hero-bg01.jpg') }}"
+    alt=""
+    data-aos="fade-in"
+  >
+
+  <div class="container d-flex flex-column align-items-center text-center">
+    <h2 data-aos="fade-up" data-aos-delay="100">
+      HERRAMIENTAS
+    </h2>
+
+    <p data-aos="fade-up" data-aos-delay="200">
+      Utilidades técnicas interactivas para networking, sistemas y administración
+    </p>
+  </div>
+</section>
+
+
+<!-- ======= Tools Section ======= -->
+<section id="tools" class="section">
+
+  <div class="container section-title" data-aos="fade-up">
+    <h2>Herramientas</h2>
+    <p>
+      Aplicaciones y utilidades técnicas disponibles directamente desde el navegador
+    </p>
+  </div>
+
+  <div class="container">
+    <div class="row gy-4">
+      <div class="col-lg-4 col-md-6" data-aos="fade-up">
+        <div class="card h-100 shadow-sm border-0">
+          <div class="card-body d-flex flex-column">
+            <div class="mb-3"><i class="bi bi-diagram-3 fs-1"></i></div>
+
+            <h5 class="card-title">Calculadora IP / Subnetting</h5>
+            <p class="card-text">
+              Analiza redes IPv4, máscaras, rangos de hosts y realiza
+              subnetting con representación binaria al estilo ipcalc.
+            </p>
+            <div class="mt-auto pt-3">
+              <a href="{{ url_for('subnet.index') }}" class="btn btn-outline-dark">Abrir herramienta</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- ======= Subnet Calculator Hero ======= -->
+<section id="subnet-hero" class="hero section dark-background">
+  <img
+    src="{{ url_for('static', filename='img/hero-bg01.jpg') }}"
+    alt=""
+    data-aos="fade-in"
+  >
+
+  <div class="container d-flex flex-column align-items-center text-center">
+    <h2 data-aos="fade-up" data-aos-delay="100">
+      CALCULADORA IP / SUBNETTING
+    </h2>
+
+    <p data-aos="fade-up" data-aos-delay="200">
+      Calcula y analiza redes IPv4 de forma rápida
+    </p>
+  </div>
+</section>
+
+
+<!-- ======= Subnet Calculator Section ======= -->
+<section id="subnet-calculator" class="section">
+
+  <div class="container section-title" data-aos="fade-up">
+    <h2>Calculadora de subredes</h2>
+    <p>
+      Introduce una dirección IPv4 y una máscara CIDR para analizar la red
+    </p>
+  </div>
+
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+         <div class="mb-4">
+          <a href="{{ url_for('tools.index') }}" class="text-decoration-none"><i class="bi bi-arrow-left"></i>
+            Volver a Herramientas
+          </a>
+        </div>
+        <form method="post">
+          <div class="mb-3">
+            <label for="ip_cidr" class="form-label">IP / CIDR</label>
+            <input type="text" class="form-control" id="ip_cidr" name="ip_cidr" value="{{ ip_cidr or '' }}" placeholder="Ejemplo: 10.25.14.2/19" required>
+            <div class="form-text">
+              Introduce la dirección IPv4 junto con su prefijo CIDR.
+              Ejemplo: 10.25.14.2/19
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="subnet_prefix" class="form-label">CIDR para subnetting
+                <span class="text-muted">(opcional)</span></label>
+            <input type="text" class="form-control" id="subnet_prefix" name="subnet_prefix" value="{{ subnet_prefix or '' }}" placeholder="Ejemplo: 20 o /20">
+            <div class="form-text">
+              Opcional. Debe ser un prefijo mayor que el de la red original.
+              Ejemplo: /20
+            </div>
+          </div>
+
+          <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-outline-dark">Calcular</button>
+            <a href="{{ url_for('subnet.index') }}" class="btn btn-outline-secondary">Limpiar</a>
+          </div>
+
+        </form>
+
+        {% if error %}
+        <div class="alert alert-danger mt-4">
+          {{ error }}
+        </div>
+        {% endif %}
+
+        {% if result %}
+        <div class="card mt-4">
+          <div class="card-body">
+            <h5 class="card-title mb-3">Resultado</h5>
+            <pre class="mb-0 overflow-auto"><code>
+Address:   {{ "%-23s"|format(result.address) }} {{ result.address_binary }}
+Netmask:   {{ "%-15s"|format(result.netmask)}} = /{{ result.prefix }}   {{ result.netmask_binary }}
+Wildcard:  {{ "%-23s"|format(result.wildcard) }} {{ result.wildcard_binary }}
+=&gt;
+Network:   {{ "%-23s"|format(result.network ~ '/' ~ result.prefix) }} {{ result.network_binary }}
+HostMin:   {{ "%-23s"|format(result.host_min) }} {{ result.host_min_binary }}
+HostMax:   {{ "%-23s"|format(result.host_max) }} {{ result.host_max_binary }}
+Broadcast: {{ "%-23s"|format(result.broadcast) }} {{ result.broadcast_binary }}
+Hosts/Net: {{ "%-23s"|format(result.hosts) }} {{ result.description }}
+            </code></pre>
+          </div>
+        </div>
+
+        {% if subnets %}
+        <div class="card mt-4">
+          <div class="card-body">
+
+            <h5 class="card-title mb-4">
+              Subnets after transition from /{{ result.prefix }} to /{{ subnet_prefix }}
+            </h5>
+            {% if subnet_summary %}
+            <pre class="mt-4 mb-0 overflow-auto"><code>
+Subnets:   {{ subnet_summary.subnets }}
+Hosts:     {{ subnet_summary.hosts }}
+            </code></pre>
+            {% endif %}
+
+            <pre class="mb-4 overflow-auto"><code>
+Netmask:   {{ "%-15s"|format(subnet_info.netmask) }} = /{{ subnet_info.prefix }}   {{ subnet_info.netmask_binary }}
+Wildcard:  {{ "%-23s"|format(subnet_info.wildcard) }} {{ subnet_info.wildcard_binary }}
+            </code></pre>
+
+            {% for subnet in subnets %}
+              <div class="mb-4">
+              <pre class="mb-0 overflow-auto"><code>{{ loop.index }}.
+Network:   {{ "%-21s"|format(subnet.network) }} {{ subnet.network_binary }}
+HostMin:   {{ "%-21s"|format(subnet.host_min) }} {{ subnet.host_min_binary }}
+HostMax:   {{ "%-21s"|format(subnet.host_max) }} {{ subnet.host_max_binary }}
+Broadcast: {{ "%-21s"|format(subnet.broadcast) }} {{ subnet.broadcast_binary }}
+Hosts/Net: {{ "%-21s"|format(subnet.hosts) }} {{ subnet.description }}
+              </code></pre>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+
+        {% endif %}
+        {% endif %}
+
+    </div>
+</div>
+
+</section>
+
+{% endblock %}
