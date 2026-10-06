@@ -146,6 +146,147 @@
 
 </section><!-- /Services Section -->
 
+<!-- ======= Certifications & Courses Section ======= -->
+<section id="certifications" class="certifications section light-background">
+
+  <div class="container section-title" data-aos="fade-up">
+    <h2>Certificaciones y Cursos</h2>
+    <p>Formación y certificaciones profesionales</p>
+  </div>
+
+  <div class="container">
+
+    {% if certifications %}
+
+      <div class="row gy-5">
+
+        {% for certification in certifications %}
+
+          <div
+            class="col-xl-4 col-md-6"
+            data-aos="zoom-in"
+            data-aos-delay="{{ 100 + (loop.index0 % 3) * 100 }}"
+          >
+
+            <div class="certification-item h-100">
+
+              {% if certification.certificate_image %}
+                <div class="certification-image">
+
+                  <a
+                    href="{{ url_for('blog.uploaded_file', filename=certification.certificate_image) }}"
+                    data-bs-toggle="modal"
+                    data-bs-target="#certificateModal{{ certification.id }}"
+                  >
+                    <img
+                      src="{{ url_for('blog.uploaded_file', filename='img/' + certification.certificate_image) }}"
+                      class="img-fluid"
+                      alt="{{ certification.title }}"
+                      loading="lazy"
+                    >
+                  </a>
+
+                </div>
+              {% endif %}
+
+              <div class="certification-details">
+
+                <div class="certification-icon">
+                  {% if certification.cert_type == 'course' %}
+                    <i class="bi bi-mortarboard"></i>
+                  {% else %}
+                    <i class="bi bi-patch-check"></i>
+                  {% endif %}
+                </div>
+
+                <h3>{{ certification.title }}</h3>
+
+                <p class="certification-issuer">
+                  {{ certification.issuer }}
+                </p>
+
+                {% if certification.issue_date %}
+                  <p class="certification-date">
+                    <i class="bi bi-calendar3"></i>
+                    {{ certification.issue_date.strftime('%Y') }}
+                  </p>
+                {% endif %}
+
+                {% if certification.description %}
+                  <p class="certification-description">
+                    {{ certification.description }}
+                  </p>
+                {% endif %}
+
+                {% if certification.credential_url %}
+                  <a
+                    href="{{ certification.credential_url }}"
+                    class="credential-link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Ver credencial
+                    <i class="bi bi-box-arrow-up-right"></i>
+                  </a>
+                {% endif %}
+
+              </div>
+
+            </div>
+
+          </div>
+
+          {% if certification.certificate_image %}
+            <div
+              class="modal fade"
+              id="certificateModal{{ certification.id }}"
+              tabindex="-1"
+              aria-hidden="true"
+            >
+
+              <div class="modal-dialog modal-xl modal-dialog-centered">
+
+                <div class="modal-content">
+
+                  <div class="modal-header">
+                    <h5 class="modal-title">
+                      {{ certification.title }}
+                    </h5>
+
+                    <button
+                      type="button"
+                      class="btn-close"
+                      data-bs-dismiss="modal"
+                      aria-label="Cerrar"
+                    ></button>
+                  </div>
+
+                  <div class="modal-body text-center">
+                    <img
+                      src="{{ url_for('blog.uploaded_file', filename='img/' + certification.certificate_image) }}"
+                      class="img-fluid certificate-modal-image"
+                      alt="{{ certification.title }}"
+                    >
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+          {% endif %}
+
+        {% endfor %}
+
+      </div>
+
+    {% endif %}
+
+  </div>
+
+</section>
+<!-- /Certifications & Courses Section -->
+
 <!-- ======= Contact Section ======= -->
 <section id="contact" class="contact section">
   <div class="container" data-aos="fade-up">

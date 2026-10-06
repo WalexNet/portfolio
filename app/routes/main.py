@@ -1,9 +1,22 @@
 # Rutas (controlador)
 
-from flask import Blueprint, render_template, request, flash, redirect, url_for
+from flask import (
+    Blueprint,
+    render_template,
+    request,
+    flash,
+    redirect,
+    url_for,
+    current_app,
+)
+from sqlalchemy import select
+
+from app.extensions import db
+from app.models import Certification
+
 import smtplib
 from email.message import EmailMessage
-import os
+
 
 main = Blueprint(
     'main',
@@ -12,16 +25,37 @@ main = Blueprint(
     template_folder="../templates"
 )
 
+
 @main.route('/')
 def index():
-    return render_template('index.html')
+
+    stmt = (
+        select(Certification)
+        .where(
+            Certification.is_published.is_(True)
+        )
+        .order_by(
+            Certification.display_order,
+            Certification.issue_date.desc(),
+            Certification.title
+        )
+    )
+
+    certifications = db.session.scalars(stmt).all()
+
+    return render_template(
+        'index.html',
+        certifications=certifications
+    )
+
 
 @main.post('/send_mail')
 def send_mail():
+
     # Credenciales obtenidas desde variables de entorno
-    email_emisor = os.environ["MAIL_USERNAME"]
-    password = os.environ["MAIL_PASSWORD"]
-    email_receptor = os.environ["MAIL_RECIPIENT"]
+    email_emisor = current_app.config["MAIL_USERNAME"]
+    password = current_app.config["MAIL_PASSWORD"]
+    email_receptor = current_app.config["MAIL_RECIPIENT"]
 
     # Datos del formulario
     nombre = request.form.get("name")
@@ -54,4 +88,9 @@ def send_mail():
             "warning"
         )
 
-    return redirect(url_for("main.index", _anchor="contact"))
+    return redirect(
+        url_for(
+            "main.index",
+            _anchor="contact"
+        )
+    )

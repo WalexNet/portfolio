@@ -48,10 +48,12 @@
           <li><a class="{{ 'active' if request.path == '/' else '' }}" href="/#hero">Inicio</a></li>
           <li><a href="/#about">Sobre mí</a></li>
           <li><a href="/#services">Skills</a></li>
+          <li><a href="/#certifications">Certificaciones y Cursos</a></li>
 
           {% if career_menu %}
           <li class="dropdown">
-            <a href="#" class="{{ 'active' if request.blueprint == 'career' else '' }}">
+            <a href="{{ url_for('career.detail', slug=career_menu[0].slug) }}"
+                class="{{ 'active' if request.blueprint == 'career' else '' }}">
               <span>Trayectoria Profesional</span>
               <i class="bi bi-chevron-down toggle-dropdown"></i>
             </a>

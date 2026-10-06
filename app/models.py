@@ -1,14 +1,26 @@
 # Base de datos (SQLAlchemy)
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 from typing import Optional
+
 from .extensions import db
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from sqlalchemy import String, Text, DateTime, Table, Column, ForeignKey, Integer, Boolean
+from sqlalchemy import (
+    String,
+    Text,
+    Date,
+    DateTime,
+    Table,
+    Column,
+    ForeignKey,
+    Integer,
+    Boolean,
+)
 from sqlalchemy.dialects.postgresql import INET
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 
-#export DATABASE_URL="postgresql://walter:WalexNet@server:5432/portfolio"
+
+# export DATABASE_URL="postgresql://walter:WalexNet@server:5432/portfolio"
 
 
 post_tags = Table(
@@ -34,7 +46,7 @@ class Tag(db.Model):
 class Project(db.Model):
     __tablename__ = "project"
 
-    id: Mapped[int] = mapped_column(primary_key=True,autoincrement=True)
+    id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
     title: Mapped[str] = mapped_column(String(200), nullable=False)
     slug: Mapped[str] = mapped_column(String(200), unique=True, nullable=False)
     description: Mapped[str] = mapped_column(Text, nullable=False)
@@ -42,11 +54,57 @@ class Project(db.Model):
     cover_image: Mapped[Optional[str]] = mapped_column(Text)
     tech_stack: Mapped[str] = mapped_column(Text, nullable=False)
     github_url: Mapped[Optional[str]] = mapped_column(Text)
-    created_at: Mapped[datetime] = mapped_column(DateTime, default=lambda: datetime.now(timezone.utc))
-    is_published: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False, index=True)
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime,
+        default=lambda: datetime.now(timezone.utc)
+    )
+    is_published: Mapped[bool] = mapped_column(
+        Boolean,
+        default=False,
+        nullable=False,
+        index=True
+    )
 
     def __repr__(self) -> str:
         return f"<Project {self.title}>"
+
+
+class Certification(db.Model):
+    __tablename__ = "certification"
+
+    id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
+    title: Mapped[str] = mapped_column(String(200), nullable=False)
+    issuer: Mapped[str] = mapped_column(String(150), nullable=False)
+    cert_type: Mapped[str] = mapped_column(
+        String(30),
+        nullable=False,
+        default="certification"
+    )
+    issue_date: Mapped[Optional[date]] = mapped_column(Date)
+    description: Mapped[Optional[str]] = mapped_column(Text)
+    certificate_image: Mapped[Optional[str]] = mapped_column(Text)
+    credential_url: Mapped[Optional[str]] = mapped_column(Text)
+    display_order: Mapped[int] = mapped_column(
+        Integer,
+        default=100,
+        nullable=False,
+        index=True
+    )
+    is_published: Mapped[bool] = mapped_column(
+        Boolean,
+        default=True,
+        nullable=False,
+        index=True
+    )
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime,
+        default=lambda: datetime.now(timezone.utc),
+        nullable=False
+    )
+
+    def __repr__(self) -> str:
+        return f"<Certification {self.title}>"
+
 
 class Post(db.Model):
     """Blog post model representing the 'public.post' table."""
@@ -69,13 +127,16 @@ class Post(db.Model):
     tags = relationship('Tag', secondary=post_tags, back_populates='posts')
 
 
-
 class Page(db.Model):
     """Generic page model."""
 
     __tablename__ = "page"
     __table_args__ = (
-        db.UniqueConstraint("section", "slug", name="uq_page_section_slug",),
+        db.UniqueConstraint(
+            "section",
+            "slug",
+            name="uq_page_section_slug",
+        ),
     )
 
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
@@ -85,11 +146,27 @@ class Page(db.Model):
     summary: Mapped[Optional[str]] = mapped_column(String(300))
     content: Mapped[str] = mapped_column(Text, nullable=False)
     cover_image: Mapped[Optional[str]] = mapped_column(Text)
-    is_published: Mapped[bool] = mapped_column(Boolean, default=True, nullable=False, index=True)
-    created_at: Mapped[datetime] = mapped_column(DateTime, default=lambda: datetime.now(timezone.utc))
-    updated_at: Mapped[datetime] = mapped_column(DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
+    is_published: Mapped[bool] = mapped_column(
+        Boolean,
+        default=True,
+        nullable=False,
+        index=True
+    )
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime,
+        default=lambda: datetime.now(timezone.utc)
+    )
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime,
+        default=lambda: datetime.now(timezone.utc),
+        onupdate=lambda: datetime.now(timezone.utc)
+    )
     menu_title: Mapped[Optional[str]] = mapped_column(String(100))
-    sort_order: Mapped[int] = mapped_column(default=100, nullable=False, index=True)
+    sort_order: Mapped[int] = mapped_column(
+        default=100,
+        nullable=False,
+        index=True
+    )
 
     def __repr__(self) -> str:
         return f"<Page {self.section}/{self.slug}>"
@@ -99,8 +176,15 @@ class User(db.Model, UserMixin):
     __tablename__ = "users"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    username: Mapped[str] = mapped_column(String(100), unique=True, nullable=False)
-    password_hash: Mapped[str] = mapped_column(String(255), nullable=False)
+    username: Mapped[str] = mapped_column(
+        String(100),
+        unique=True,
+        nullable=False
+    )
+    password_hash: Mapped[str] = mapped_column(
+        String(255),
+        nullable=False
+    )
 
     def set_password(self, password: str):
         self.password_hash = generate_password_hash(password)
@@ -111,12 +195,15 @@ class User(db.Model, UserMixin):
 
 class AccessLog(db.Model):
     __tablename__ = "access_logs"
+
     id: Mapped[int] = mapped_column(primary_key=True)
+
     timestamp: Mapped[datetime] = mapped_column(
         DateTime(timezone=True),
         default=lambda: datetime.now(timezone.utc),
         index=True
     )
+
     ip: Mapped[str | None] = mapped_column(INET)
     method: Mapped[str | None] = mapped_column(String(10))
     path: Mapped[str | None] = mapped_column(String(255))

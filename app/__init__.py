@@ -1,9 +1,15 @@
 # Factory (crea la app)
 
-from flask import Flask
+from flask import Flask, request
 from flask_login import LoginManager
 from .extensions import db, migrate, babel
 from .admin import setup_admin
+import os
+from config import config_by_name
+from app.models import User
+from .middleware.access_logger import start_timer, log_request
+from sqlalchemy import select
+from app.models import Page
 # Rutas
 from .routes.main import main
 from .routes.blog import blog_bp
@@ -13,18 +19,14 @@ from .routes.projects import projects_bp
 from .routes.tools import tools_bp
 from .tools.subnet.routes import subnet_bp
 
-from config import Config
-from flask import request
-from app.models import User
-from .middleware.access_logger import start_timer, log_request
-from sqlalchemy import select
-from app.models import Page
 
 def create_app():
     # Inicializamos la app
     app = Flask(__name__)
     # Cargamos la config
-    app.config.from_object(Config)
+    environment = os.getenv("APP_ENV", "development")
+    app.config.from_object(config_by_name[environment])
+
     #Verificamos quien entra en la app
     app.before_request(start_timer)
     app.after_request(log_request)
