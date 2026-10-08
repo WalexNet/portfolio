@@ -2014,5 +2014,17 @@ proporciones distintas.
     padding-left: 20px;
     padding-right: 20px;
   }
+}
 
+/* Resaltado de sintaxis CSV */
+
+/* Valores */
+.markdown-body pre code.language-csv .token.value {
+    color: #0086b3;
+}
+
+/* Separadores */
+.markdown-body pre code.language-csv .token.punctuation {
+    color: #d73a49;
+    font-weight: bold;
 }
