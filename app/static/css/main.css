@@ -2227,3 +2227,7 @@ proporciones distintas.
     font-size: 16px;
   }
 }
+/* INI: eliminar fondos blancos de las secciones */
+.markdown-body pre code.language-ini .token.section {
+    background: transparent;
+}
