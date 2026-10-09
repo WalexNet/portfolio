@@ -2,12 +2,69 @@
 {% block content %}
 
 <!-- ======= Subnet Calculator Hero ======= -->
-<section id="subnet-hero" class="hero section dark-background">
-  <img
-    src="{{ url_for('static', filename='img/hero-bg01.jpg') }}"
-    alt=""
-    data-aos="fade-in"
-  >
+<section id="subnet-hero" class="hero hero-inner section dark-background">
+    <!-- Topología IPv4 decorativa -->
+    <svg class="subnet-network"
+         viewBox="0 0 420 240"
+         xmlns="http://www.w3.org/2000/svg"
+         aria-hidden="true">
+
+      <!-- Enlaces de red -->
+      <g fill="none"
+         stroke="#ff7043"
+         stroke-width="1.5"
+         stroke-opacity="0.65">
+
+        <path d="M210 115 L95 50" />
+        <path d="M210 115 L340 50" />
+        <path d="M210 115 L75 185" />
+        <path d="M210 115 L340 185" />
+
+      </g>
+
+      <!-- Nodo central -->
+      <rect x="185" y="90"
+            width="50" height="50"
+            rx="8"
+            fill="#07131e"
+            stroke="#ff7043"
+            stroke-width="2" />
+
+      <g stroke="#ff7043" stroke-width="1.5">
+        <path d="M195 105 H225" />
+        <path d="M195 115 H225" />
+        <path d="M195 125 H215" />
+      </g>
+
+      <!-- Equipos -->
+      <g fill="#07131e" stroke="#ff7043" stroke-width="2">
+        <circle cx="95" cy="50" r="12" />
+        <circle cx="340" cy="50" r="12" />
+        <circle cx="75" cy="185" r="12" />
+        <circle cx="340" cy="185" r="12" />
+      </g>
+
+      <!-- Direcciones IPv4 -->
+      <g fill="#ff9a75"
+         font-size="12"
+         font-family="monospace"
+         text-anchor="middle">
+
+        <text x="95" y="27">.10</text>
+        <text x="340" y="27">.20</text>
+        <text x="75" y="215">.30</text>
+        <text x="340" y="215">.40</text>
+
+        <text x="210" y="165"
+              fill="#ffffff"
+              font-size="13">
+          192.168.10.0/24
+        </text>
+
+      </g>
+    </svg>
+
+
 
   <div class="container d-flex flex-column align-items-center text-center">
     <h2 data-aos="fade-up" data-aos-delay="100">

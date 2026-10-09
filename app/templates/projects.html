@@ -2,12 +2,82 @@
 {% block content %}
 
 <!-- ======= Projects Hero ======= -->
-<section id="projects-hero" class="hero section dark-background">
-  <img
-    src="{{ url_for('static', filename='img/hero-bg01.jpg') }}"
-    alt=""
-    data-aos="fade-in"
-  >
+<section id="projects-hero" class="hero hero-inner section dark-background">
+
+  <!-- Infraestructura DevOps decorativa -->
+  <svg class="projects-network"
+       viewBox="0 0 420 240"
+       xmlns="http://www.w3.org/2000/svg"
+       aria-hidden="true">
+
+    <!-- Conexiones -->
+    <g fill="none"
+       stroke="#ff7043"
+       stroke-width="1.5"
+       stroke-opacity="0.65">
+      <path d="M210 120 L100 55" />
+      <path d="M210 120 L330 55" />
+      <path d="M210 120 L100 190" />
+      <path d="M210 120 L330 190" />
+    </g>
+
+    <!-- Servidor central -->
+    <g fill="#07131e"
+       stroke="#ff7043"
+       stroke-width="2">
+      <rect x="175" y="85" width="70" height="70" rx="8" />
+      <path d="M185 102 H235" />
+      <path d="M185 120 H235" />
+      <path d="M185 138 H235" />
+    </g>
+
+    <!-- Indicadores del servidor -->
+    <g fill="#ff7043">
+      <circle cx="192" cy="111" r="2.5" />
+      <circle cx="192" cy="129" r="2.5" />
+      <circle cx="192" cy="147" r="2.5" />
+    </g>
+
+    <!-- Contenedor -->
+    <g fill="#07131e"
+       stroke="#ff7043"
+       stroke-width="2">
+      <rect x="65" y="30" width="70" height="45" rx="5" />
+      <path d="M88 30 V75 M111 30 V75" />
+    </g>
+
+    <!-- Código -->
+    <g fill="#07131e"
+       stroke="#ff7043"
+       stroke-width="2">
+      <rect x="295" y="30" width="70" height="45" rx="5" />
+      <path d="M320 42 L310 52 L320 62" fill="none" />
+      <path d="M340 42 L350 52 L340 62" fill="none" />
+    </g>
+
+    <!-- Base de datos -->
+    <g fill="#07131e"
+       stroke="#ff7043"
+       stroke-width="2">
+      <ellipse cx="100" cy="175" rx="30" ry="10" />
+      <path d="M70 175 V205" />
+      <path d="M130 175 V205" />
+      <path d="M70 205 A30 10 0 0 0 130 205" fill="none" />
+      <path d="M70 190 A30 10 0 0 0 130 190" fill="none" />
+    </g>
+
+    <!-- Terminal -->
+    <g fill="#07131e"
+       stroke="#ff7043"
+       stroke-width="2">
+      <rect x="295" y="170" width="70" height="45" rx="5" />
+      <path d="M305 183 L315 192 L305 201" fill="none" />
+      <path d="M320 202 H345" />
+    </g>
+
+  </svg>
+
+
   <div class="container d-flex flex-column align-items-center text-center">
     <h2 data-aos="fade-up" data-aos-delay="100">
       PROYECTOS

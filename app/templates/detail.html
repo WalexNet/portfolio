@@ -2,9 +2,113 @@
 {% block content %}
 
 
-<!-- ======= Blog Hero ======= -->
+<!-- ======= Hero para Trayectoria Profesional ======= -->
+{% if request.blueprint == 'career' %}
+
+<section id="career-hero" class="hero hero-inner section dark-background">
+
+  <!-- Línea temporal profesional decorativa -->
+  <svg class="career-timeline"
+       viewBox="0 0 420 240"
+       xmlns="http://www.w3.org/2000/svg"
+       aria-hidden="true">
+
+    <!-- Línea temporal principal -->
+    <path d="M60 120 H360"
+          fill="none"
+          stroke="#ff7043"
+          stroke-width="2"
+          stroke-opacity="0.65"
+          stroke-dasharray="6 5" />
+
+    <!-- Conexiones verticales -->
+    <g fill="none"
+       stroke="#ff7043"
+       stroke-width="1.5"
+       stroke-opacity="0.75">
+      <path d="M90 120 V65" />
+      <path d="M170 120 V180" />
+      <path d="M250 120 V65" />
+      <path d="M330 120 V180" />
+    </g>
+
+    <!-- Hitos de la trayectoria -->
+    <g fill="#07131e"
+       stroke="#ff7043"
+       stroke-width="2">
+      <circle cx="90" cy="120" r="8" />
+      <circle cx="170" cy="120" r="8" />
+      <circle cx="250" cy="120" r="8" />
+      <circle cx="330" cy="120" r="8" />
+    </g>
+
+    <!-- Indicadores interiores -->
+    <g fill="#ff7043">
+      <circle cx="90" cy="120" r="3" />
+      <circle cx="170" cy="120" r="3" />
+      <circle cx="250" cy="120" r="3" />
+      <circle cx="330" cy="120" r="3" />
+    </g>
+
+    <!-- Redes -->
+    <g fill="#07131e"
+       stroke="#ff7043"
+       stroke-width="1.8">
+      <rect x="65" y="35" width="50" height="30" rx="5" />
+      <path d="M75 45 H105 M75 53 H95" />
+    </g>
+
+    <!-- Sistemas Linux -->
+    <g fill="#07131e"
+       stroke="#ff7043"
+       stroke-width="1.8">
+      <rect x="145" y="180" width="50" height="35" rx="5" />
+      <path d="M155 190 L163 197 L155 204" fill="none" />
+      <path d="M168 204 H183" />
+    </g>
+
+    <!-- Desarrollo -->
+    <g fill="#07131e"
+       stroke="#ff7043"
+       stroke-width="1.8">
+      <rect x="225" y="35" width="50" height="30" rx="5" />
+      <path d="M242 43 L235 50 L242 57" fill="none" />
+      <path d="M258 43 L265 50 L258 57" fill="none" />
+    </g>
+
+    <!-- Infraestructura -->
+    <g fill="#07131e"
+       stroke="#ff7043"
+       stroke-width="1.8">
+      <rect x="305" y="180" width="50" height="35" rx="5" />
+      <path d="M315 190 H345 M315 200 H345" />
+      <circle cx="320" cy="190" r="2" fill="#ff7043" />
+      <circle cx="320" cy="200" r="2" fill="#ff7043" />
+    </g>
+
+  </svg>
+
+
+  <div class="container d-flex flex-column align-items-center text-center">
+    <h2 data-aos="fade-up" data-aos-delay="100">
+      {{ item.title }}
+    </h2>
+
+    <p data-aos="fade-up" data-aos-delay="200">
+      Trayectoria Profesional
+    </p>
+  </div>
+
+</section>
+
+{% else %}
+
+<!-- Hero original para el detalle del Blog -->
 <section id="blog-hero" class="dark-background">
 </section>
+
+{% endif %}
+
 
 <!-- ======= Blog Section ======= -->
 <section id="blog" class="blog section">

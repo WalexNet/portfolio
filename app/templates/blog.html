@@ -1,14 +1,78 @@
 {% extends "base.html" %}
 {% block content %}
 
+
 <!-- ======= Blog Hero ======= -->
-<section id="blog-hero" class="hero section dark-background">
-  <img src="{{ url_for('static', filename='img/hero-bg01.jpg') }}" alt="" data-aos="fade-in">
+<section id="blog-hero" class="hero hero-inner section dark-background">
+  <!-- Editor y terminal decorativos -->
+  <svg class="blog-editor"
+       viewBox="0 0 440 240"
+       xmlns="http://www.w3.org/2000/svg"
+       aria-hidden="true">
+
+    <!-- Ventana principal -->
+    <g fill="#07131e" stroke="#ff7043" stroke-width="2">
+      <rect x="55" y="40" width="250" height="150" rx="10" />
+      <path d="M55 70 H305" />
+    </g>
+
+    <!-- Botones de ventana -->
+    <g fill="#ff7043">
+      <circle cx="78" cy="55" r="4" />
+      <circle cx="94" cy="55" r="4" />
+      <circle cx="110" cy="55" r="4" />
+    </g>
+
+    <!-- Líneas de código -->
+    <g stroke="#ff7043" stroke-width="2" stroke-linecap="round" opacity="0.9">
+      <path d="M82 95 H145" />
+      <path d="M160 95 H240" />
+      <path d="M82 115 H125" />
+      <path d="M140 115 H220" />
+      <path d="M82 135 H170" />
+      <path d="M185 135 H255" />
+      <path d="M82 155 H118" />
+      <path d="M132 155 H210" />
+    </g>
+
+    <!-- Símbolos tipo código -->
+    <g fill="none" stroke="#ff7043" stroke-width="2" opacity="0.85">
+      <path d="M255 96 L245 106 L255 116" />
+      <path d="M270 96 L280 106 L270 116" />
+      <path d="M245 146 L255 156 L245 166" />
+      <path d="M280 146 L270 156 L280 166" />
+    </g>
+
+    <!-- Terminal secundaria -->
+    <g fill="#07131e" stroke="#ff7043" stroke-width="2">
+      <rect x="320" y="115" width="90" height="60" rx="8" />
+    </g>
+
+    <g stroke="#ff7043" stroke-width="2" stroke-linecap="round">
+      <path d="M335 135 L345 143 L335 151" />
+      <path d="M352 151 H388" />
+      <path d="M335 162 H375" opacity="0.7" />
+    </g>
+
+    <!-- Conexión entre editor y terminal -->
+    <g fill="none" stroke="#ff7043" stroke-width="1.5" stroke-opacity="0.65">
+      <path d="M305 130 L320 130" />
+    </g>
+
+  </svg>
+
   <div class="container d-flex flex-column align-items-center text-center">
-    <h2 data-aos="fade-up" data-aos-delay="100">BLOG TÉCNICO</h2>
-    <p data-aos="fade-up" data-aos-delay="200">Proyectos, laboratorios y notas sobre networking, Linux y backend</p>
+    <h2 data-aos="fade-up" data-aos-delay="100">
+      BLOG TÉCNICO
+    </h2>
+
+    <p data-aos="fade-up" data-aos-delay="200">
+      Proyectos, laboratorios y notas sobre networking, Linux y backend
+    </p>
   </div>
+
 </section>
+
 
 <!-- ======= Blog Section ======= -->
 <section id="blog" class="blog section">

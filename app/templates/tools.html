@@ -2,12 +2,32 @@
 {% block content %}
 
 <!-- ======= Tools Hero ======= -->
-<section id="tools-hero" class="hero section dark-background">
-  <img
-    src="{{ url_for('static', filename='img/hero-bg01.jpg') }}"
-    alt=""
-    data-aos="fade-in"
-  >
+<section id="tools-hero" class="hero hero-inner section dark-background">
+
+  <!-- Topología de red decorativa -->
+  <svg class="tools-network" viewBox="0 0 400 220"
+       xmlns="http://www.w3.org/2000/svg"
+       aria-hidden="true">
+
+    <g fill="none" stroke="#ff7043" stroke-width="1.5"
+       stroke-opacity="0.65">
+      <path d="M50 110 L140 55 L240 100 L340 40" />
+      <path d="M140 55 L180 175 L300 180 L240 100" />
+      <path d="M50 110 L100 190 L180 175" />
+      <path d="M240 100 L340 155 L300 180" />
+    </g>
+    <g fill="#ff7043">
+      <circle cx="50" cy="110" r="5" />
+      <circle cx="140" cy="55" r="6" />
+      <circle cx="240" cy="100" r="7" />
+      <circle cx="340" cy="40" r="5" />
+      <circle cx="180" cy="175" r="6" />
+      <circle cx="300" cy="180" r="5" />
+      <circle cx="100" cy="190" r="4" />
+      <circle cx="340" cy="155" r="5" />
+    </g>
+
+  </svg>
 
   <div class="container d-flex flex-column align-items-center text-center">
     <h2 data-aos="fade-up" data-aos-delay="100">

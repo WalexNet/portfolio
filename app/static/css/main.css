@@ -2028,3 +2028,202 @@ proporciones distintas.
     color: #d73a49;
     font-weight: bold;
 }
+
+/* --------------------------------------------------------------
+# Heroes interiores - Estilo compartido
+# La portada conserva su hero original a pantalla completa.
+-------------------------------------------------------------- */
+.hero.hero-inner {
+  min-height: 300px;
+  padding: 110px 0 50px;
+}
+
+.hero.hero-inner h2 {
+  font-size: 36px;
+}
+
+.hero.hero-inner p {
+  font-size: 18px;
+}
+
+/* Fondo, cuadrícula y tipografía de las secciones interiores */
+#tools-hero,
+#subnet-hero,
+#projects-hero,
+#career-hero,
+#blog-hero {
+  background-color: #07131e;
+  background-image:
+    radial-gradient(ellipse at 75% 70%, rgba(255, 74, 23, 0.28), transparent 55%),
+    linear-gradient(rgba(100, 160, 190, 0.13) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(100, 160, 190, 0.13) 1px, transparent 1px);
+  background-size: 100% 100%, 40px 40px, 40px 40px;
+  overflow: hidden;
+}
+
+#tools-hero::before,
+#subnet-hero::before,
+#projects-hero::before,
+#career-hero::before,
+#blog-hero::before {
+  background: linear-gradient(90deg, rgba(0, 9, 16, 0.25), rgba(0, 9, 16, 0.05));
+}
+
+#tools-hero h2,
+#subnet-hero h2,
+#projects-hero h2,
+#career-hero h2,
+#blog-hero h2 {
+  letter-spacing: 3px;
+}
+
+#tools-hero p,
+#subnet-hero p,
+#projects-hero p,
+#career-hero p,
+#blog-hero p {
+  max-width: 750px;
+  line-height: 1.6;
+}
+
+/* --------------------------------------------------------------
+# Heroes interiores - Composición en escritorio
+-------------------------------------------------------------- */
+@media (min-width: 992px) {
+  /* Herramientas y Proyectos: texto + topología */
+  #tools-hero,
+  #projects-hero {
+    gap: 40px;
+    padding-left: max(30px, calc((100% - 1100px) / 2));
+    padding-right: max(30px, calc((100% - 1100px) / 2));
+  }
+
+  #tools-hero > .container,
+  #projects-hero > .container {
+    flex: 1;
+    min-width: 0;
+    max-width: 550px;
+    margin: 0;
+  }
+
+  #tools-hero .tools-network,
+  #projects-hero .projects-network {
+    position: relative;
+    width: 360px;
+    max-width: 40%;
+    height: auto;
+    flex-shrink: 0;
+    transform: none;
+    top: auto;
+    right: auto;
+    z-index: 2;
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  /* Calculadora IP: topología y contenido en flujo */
+  #subnet-hero .subnet-network {
+    width: 38%;
+    max-width: 420px;
+    height: auto;
+    flex-shrink: 0;
+  }
+
+  #subnet-hero > .container {
+    flex: 1;
+    min-width: 0;
+  }
+
+  /* Career: conjunto más compacto */
+  #career-hero {
+    gap: 15px;
+    padding-left: max(30px, calc((100% - 900px) / 2));
+    padding-right: max(30px, calc((100% - 900px) / 2));
+  }
+
+  #career-hero > .container {
+    flex: 1;
+    min-width: 0;
+    max-width: 550px;
+    margin: 0 0 0 auto;
+  }
+
+  #career-hero .career-timeline {
+    position: relative;
+    width: 360px;
+    max-width: 40%;
+    height: auto;
+    flex-shrink: 0;
+    z-index: 2;
+    opacity: 0.6;
+    pointer-events: none;
+  }
+}
+
+/* --------------------------------------------------------------
+# Heroes interiores - Móviles y tabletas
+# Conserva las posiciones efectivas del CSS recibido.
+-------------------------------------------------------------- */
+@media (max-width: 991px) {
+  #tools-hero,
+  #subnet-hero,
+  #projects-hero,
+  #blog-hero,
+  #career-hero {
+    position: relative;
+    flex-direction: row;
+    gap: 0;
+    overflow: hidden;
+  }
+
+  #tools-hero > .container,
+  #subnet-hero > .container,
+  #projects-hero > .container,
+  #blog-hero > .container,
+  #career-hero > .container {
+    position: relative;
+    z-index: 3;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  #tools-hero .tools-network,
+  #subnet-hero .subnet-network,
+  #projects-hero .projects-network,
+  #blog-hero .blog-editor,
+  #career-hero .career-timeline {
+    position: absolute;
+    width: 220px;
+    max-width: none;
+    height: auto;
+    left: 8%;
+    right: auto;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    opacity: 0.22;
+    pointer-events: none;
+  }
+
+  /* Propiedad propia de la topología de Subnetting */
+  #subnet-hero .subnet-network {
+    flex-shrink: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero.hero-inner {
+    min-height: 240px;
+    padding: 100px 0 35px;
+  }
+
+  .hero.hero-inner h2 {
+    font-size: 28px;
+  }
+
+  .hero.hero-inner p {
+    font-size: 16px;
+  }
+}
