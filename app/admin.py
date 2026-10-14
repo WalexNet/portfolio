@@ -2,6 +2,7 @@
 from flask import redirect, url_for, request
 from pathlib import Path
 from flask_admin import Admin, AdminIndexView, expose
+from flask_admin.menu import MenuLink
 from flask_admin.contrib.sqla import ModelView
 from flask_admin.form import ImageUploadField
 from flask_login import current_user
@@ -53,26 +54,38 @@ class PostAdminView(ProtectedModelView):
         UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
         super().__init__(*args, **kwargs)
 
-    form_extra_fields = {
-        'cover_image': ImageUploadField(
-            'Cover Image',
-            base_path=str(UPLOAD_DIR),
-            namegen=lambda obj, file_data:
-                f"post_{int(time.time())}{Path(file_data.filename).suffix}",
-            url_relative_path='img/'
-        )
-    }
-
     form_excluded_columns = ['slug', 'created_at']
+
+    form_columns = [
+        'title',
+        'summary',
+        'content',
+        'cover_image',
+        'tags',
+        'is_published'
+    ]
+
+    form_widget_args = {
+        'is_published': {
+            'class': 'form-check-input'
+        }
+    }
 
     column_list = [
         'title',
         'slug',
         'tags',
+        'is_published',
         'created_at'
     ]
 
-    column_filters = ['tags']
+    column_labels = {
+        'is_published': 'Publicado'
+    }
+
+    column_filters = ['tags', 'is_published']
+
+    column_editable_list = ['is_published']
 
     def on_model_change(self, form, model, is_created):
         if is_created or not model.slug:
@@ -251,3 +264,6 @@ def setup_admin(app):
             category="Content"
         )
     )
+
+    # Enlace de regreso a la web pública (mantiene la sesión)
+    admin.add_link(MenuLink(name="Volver al Portfolio", url="/"))

@@ -121,6 +121,19 @@
       {{ item.created_at.strftime('%d %B %Y') }}
     </div>
 
+    {# Portada ampliada: solo para entradas del blog #}
+    {% if request.blueprint == 'blog' and item.cover_image %}
+    <figure class="mb-4">
+      <img
+        src="{{ url_for('blog.uploaded_file', filename='img/' + item.cover_image) }}"
+        alt="Imagen de portada de {{ item.title }}"
+        class="img-fluid w-100 rounded-3"
+        style="display: block; max-height: 480px; object-fit: cover;"
+        loading="eager"
+        fetchpriority="high">
+    </figure>
+    {% endif %}
+
     {% if item.tags is defined and item.tags %}
     <div class="mb-4">
       {% for tag in item.tags %}

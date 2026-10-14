@@ -31,7 +31,7 @@ def index() -> str:
     is_blog = request.args.get('is_blog', type=int)
 
     # 2. Query Base: Orden descendente por fecha de creación
-    query = Post.query.order_by(desc(Post.created_at))
+    query = Post.query.filter(Post.is_published.is_(True)).order_by(desc(Post.created_at))
 
     # 3. Filtros condicionales (Query Building)
     if search_term:
@@ -53,18 +53,22 @@ def index() -> str:
 
     # 4. Paginación a nivel de base de datos (OFFSET/LIMIT)
     # per_page=10 para balancear carga de red y UI
-    pagination = query.paginate(page=page, per_page=10, error_out=False)
+    pagination = query.paginate(page=page, per_page=12, error_out=False)
 
     # 5. Datos auxiliares para el sidebar
     # (Solo las etiquetas usadas por post)
-    all_tags = Tag.query.join(Tag.posts).distinct().all()
+    all_tags = (
+        Tag.query.join(Tag.posts)
+        .filter(Post.is_published.is_(True))
+        .distinct().all()
+    )
 
     # 6. GENERACIÓN DEL ÁRBOL DE ARCHIVO (NUEVO)
     # Obtenemos combinaciones únicas de Año y Mes directamente de la DB
     archive_query = db.session.query(
         extract('year', Post.created_at).label('year'),
         extract('month', Post.created_at).label('month')
-    ).distinct().order_by(desc('year'), desc('month')).all()
+    ).filter(Post.is_published.is_(True)).distinct().order_by(desc('year'), desc('month')).all()
 
     # Mapeo manual para nombres de meses en español
     month_names = {
@@ -101,11 +105,11 @@ def index() -> str:
 @blog_bp.get("/<string:slug>")
 def detail(slug):
     """Retrieves a single post by its slug."""
-    query = select(Post).filter_by(slug=slug)
+    query = select(Post).filter_by(slug=slug, is_published=True)
     post = db.session.execute(query).scalar_one_or_none()
-    content_html = render_markdown(post.content)
     if post is None:
         abort(404)
+    content_html = render_markdown(post.content)
 
     return render_template("detail.html", item=post, content_html=content_html)
 
@@ -117,7 +121,7 @@ def by_tag(name):
         select(Post)
         .join(post_tags)
         .join(Tag)
-        .filter(Tag.name == name)
+        .filter(Tag.name == name, Post.is_published.is_(True))
         .order_by(Post.created_at.desc())
     )
     posts = db.session.execute(query).scalars().all()
