@@ -54,6 +54,17 @@ class PostAdminView(ProtectedModelView):
         UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
         super().__init__(*args, **kwargs)
 
+    form_extra_fields = {
+        'cover_image': ImageUploadField(
+            'Cover Image',
+            base_path=str(UPLOAD_DIR),
+            namegen=lambda obj, file_data:
+            f"post_{int(time.time())}{Path(file_data.filename).suffix}",
+            url_relative_path='img/',
+            endpoint='blog.uploaded_file'
+        )
+    }
+
     form_excluded_columns = ['slug', 'created_at']
 
     form_columns = [
@@ -107,7 +118,8 @@ class ProjectAdminView(ProtectedModelView):
             base_path=str(UPLOAD_DIR),
             namegen=lambda obj, file_data:
                 f"project_{int(time.time())}{Path(file_data.filename).suffix}",
-            url_relative_path='img/'
+            url_relative_path='img/',
+            endpoint='blog.uploaded_file'
         )
     }
 
@@ -168,7 +180,8 @@ class CertificationAdminView(ProtectedModelView):
             base_path=str(UPLOAD_DIR),
             namegen=lambda obj, file_data:
                 f"certificate_{int(time.time())}{Path(file_data.filename).suffix}",
-            url_relative_path='img/'
+            url_relative_path='img/',
+            endpoint='blog.uploaded_file'
         )
     }
     form_choices = {
