@@ -167,10 +167,17 @@
   <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-pascal.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-csv.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-ini.min.js"></script>
+  <!-- Resaltado para Jinja2 -->
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-markup-templating.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-twig.min.js"></script>
+  <!-- Sintaxis de equipos de red -->
+  <script src="{{ url_for('static', filename='js/prism-network.js') }}"></script>
+
 
   <script>
     Prism.languages.csv.value = /[^\r\n,;"]+|"(?:[^"]|"")*"(?!")/;
     Prism.languages.csv.punctuation = /[,;]/;
+    Prism.languages.jinja2 = Prism.languages.twig;
   </script>
 </body>
 </html>
