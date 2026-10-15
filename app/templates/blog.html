@@ -1,4 +1,40 @@
 {% extends "base.html" %}
+
+
+{% block seo_title -%}
+  Blog Técnico | Networking, Linux y DevOps | WalexNET
+{%- endblock %}
+
+{% block seo_description -%}
+  Tutoriales y laboratorios prácticos sobre redes, Linux, Docker, Ansible, Python y DevOps. Configuraciones, ejemplos y documentación técnica.
+{%- endblock %}
+
+
+{% block seo_canonical -%}
+  {%- if not (
+      request.args.get('q')
+      or request.args.get('tag')
+      or request.args.get('month')
+      or request.args.get('year')
+  ) -%}
+    https://walex.net{{ url_for('blog.index') }}{%- if request.args.get('page', '1') | int > 1 -%}?page={{ request.args.get('page') | int }}{%- endif -%}
+  {%- endif -%}
+{%- endblock %}
+
+
+
+{% block seo_robots %}
+  {% if request.args.get('q')
+        or request.args.get('tag')
+        or request.args.get('month')
+        or request.args.get('year') %}
+    <meta name="robots" content="noindex, follow">
+  {% else %}
+    <meta name="robots" content="index, follow">
+  {% endif %}
+{% endblock %}
+
+
 {% block content %}
 
 

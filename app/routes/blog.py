@@ -53,7 +53,7 @@ def index() -> str:
 
     # 4. Paginación a nivel de base de datos (OFFSET/LIMIT)
     # per_page=10 para balancear carga de red y UI
-    pagination = query.paginate(page=page, per_page=12, error_out=False)
+    pagination = query.paginate(page=page, per_page=12, error_out=True)
 
     # 5. Datos auxiliares para el sidebar
     # (Solo las etiquetas usadas por post)

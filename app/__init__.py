@@ -17,6 +17,8 @@ from .routes.auth import auth_bp
 from .routes.page import career_bp
 from .routes.projects import projects_bp
 from .routes.tools import tools_bp
+from .routes.seo import seo_bp
+# Tools
 from .tools.subnet.routes import subnet_bp
 
 
@@ -53,6 +55,7 @@ def create_app():
     app.register_blueprint(projects_bp)
     app.register_blueprint(tools_bp)
     app.register_blueprint(subnet_bp)
+    app.register_blueprint(seo_bp)
 
     @app.context_processor
     def inject_career_menu():

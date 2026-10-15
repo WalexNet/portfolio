@@ -1,4 +1,43 @@
 {% extends "base.html" %}
+
+
+{% block seo_structured_data %}
+
+{% set person_schema = {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    '@id': 'https://walex.net/#person',
+    'name': 'Walter',
+    'url': 'https://walex.net/',
+    'description': 'Network Engineer, DevOps y Backend Developer especializado en Linux, networking avanzado, firewalls y automatización.',
+    'jobTitle': [
+        'Network Engineer',
+        'DevOps Engineer',
+        'Backend Developer'
+    ],
+    'sameAs': [
+      'https://github.com/WalexNet',
+      'https://www.linkedin.com/in/danielwalterperezcorvalan/'
+    ],
+    'knowsAbout': [
+        'Networking',
+        'Linux',
+        'Network Automation',
+        'Firewalls',
+        'Python',
+        'Flask',
+        'Docker',
+        'PostgreSQL'
+    ]
+} %}
+
+<script type="application/ld+json">
+{{ person_schema | tojson }}
+</script>
+
+{% endblock %}
+
+
 {% block content %}
 
 <!-- ======= Hero Section ======= -->

@@ -5,7 +5,34 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>WalexNET</title>
+
+  <!-- SEO: título dinámico -->
+  <title>
+    {%- block seo_title -%}
+      WalexNET | Networking, Linux, DevOps y Desarrollo
+    {%- endblock -%}
+  </title>
+
+  <!-- SEO: descripción -->
+  <meta name="description"
+        content="{% block seo_description %}Portfolio técnico de WalexNET. Proyectos y artículos sobre networking, Linux, Docker, automatización, Python y desarrollo de software.{% endblock %}">
+
+  <!-- SEO: URL canónica -->
+
+  {% set canonical_url %}
+    {% block seo_canonical %}https://walex.net{{ request.path }}{% endblock %}
+  {% endset %}
+
+  {% if canonical_url | trim %}
+  <link rel="canonical" href="{{ canonical_url | trim }}">
+  {% endif %}
+
+  <!-- SEO: control de indexación -->
+  {% block seo_robots %}
+  <meta name="robots" content="index, follow">
+  {% endblock %}
+
+
 
   <!-- Favicons -->
   <link href="{{ url_for('static', filename='img/Tux-logo.svg') }}" rel="icon" type="image/svg+xml">
@@ -30,6 +57,8 @@
   <!-- rESALTADO DE SINTAXIS EN mARK dOWN -->
   <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism.css" rel="stylesheet" />
 
+  <!-- SEO: datos estructurados -->
+  {% block seo_structured_data %}{% endblock %}
 
 </head>
 

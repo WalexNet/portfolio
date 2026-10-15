@@ -1,4 +1,69 @@
 {% extends "base.html" %}
+
+{% block seo_title -%}
+  {{ item.title }} | WalexNET
+{%- endblock %}
+
+{% block seo_description -%}
+  {% if request.blueprint == 'career' -%}
+    {{ (item.summary or item.content[:160]) | striptags | trim | truncate(160, False, '...') }}
+  {%- else -%}
+    {{ (item.summary or item.content[:160]) | striptags | trim | truncate(160, False, '...') }}
+  {%- endif %}
+{%- endblock %}
+
+{% block seo_canonical -%}
+  {% if request.blueprint == 'career' -%}
+    https://walex.net{{ url_for('career.detail', slug=item.slug) }}
+  {%- else -%}
+    https://walex.net{{ url_for('blog.detail', slug=item.slug) }}
+  {%- endif %}
+{%- endblock %}
+
+
+{% block seo_structured_data %}
+{% if request.blueprint == 'blog' %}
+{% set article_url = 'https://walex.net' ~ url_for('blog.detail', slug=item.slug) %}
+
+{% set article_schema = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    'headline': item.title,
+    'datePublished': item.created_at.strftime('%Y-%m-%d'),
+    'description': item.summary or '',
+    'url': article_url,
+    'mainEntityOfPage': {
+        '@type': 'WebPage',
+        '@id': article_url
+    },
+    'author': {
+      '@type': 'Person',
+      '@id': 'https://walex.net/#person',
+      'name': 'Walter'
+    },
+    'publisher': {
+        '@type': 'Organization',
+        'name': 'WalexNET',
+        'url': 'https://walex.net/'
+    },
+    'inLanguage': 'es'
+} %}
+
+{% if item.cover_image %}
+  {% set image_url = 'https://walex.net' ~
+      url_for('blog.uploaded_file',
+              filename='img/' ~ item.cover_image) %}
+  {% set _ = article_schema.update({'image': image_url}) %}
+{% endif %}
+
+<script type="application/ld+json">
+{{ article_schema | tojson }}
+</script>
+{% endif %}
+{% endblock %}
+
+
+
 {% block content %}
 
 

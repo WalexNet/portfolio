@@ -1,4 +1,62 @@
 {% extends "base.html" %}
+
+
+{% block seo_title -%}
+  {{ project.title }} | WalexNET
+{%- endblock %}
+
+{% block seo_description -%}
+  {{ project.description | striptags | trim | truncate(160, False, '...') }}
+{%- endblock %}
+
+{% block seo_canonical -%}
+  https://walex.net{{ url_for('projects.detail', slug=project.slug) }}
+{%- endblock %}
+
+
+{% block seo_structured_data %}
+
+{% set project_url = 'https://walex.net' ~
+    url_for('projects.detail', slug=project.slug) %}
+
+{% set project_schema = {
+    '@context': 'https://schema.org',
+    '@type': 'CreativeWork',
+    'name': project.title,
+    'description': project.description | trim,
+    'url': project_url,
+
+    'creator': {
+      '@type': 'Person',
+      '@id': 'https://walex.net/#person',
+      'name': 'Walter'
+    },
+    'keywords': project.tech_stack | trim
+} %}
+
+{% if project.github_url %}
+  {% set _ = project_schema.update({
+      'codeRepository': project.github_url
+  }) %}
+{% endif %}
+
+{% if project.cover_image %}
+  {% set image_url = 'https://walex.net' ~
+      url_for('projects.uploaded_file',
+              filename='img/' ~ project.cover_image) %}
+
+  {% set _ = project_schema.update({
+      'image': image_url
+  }) %}
+{% endif %}
+
+<script type="application/ld+json">
+{{ project_schema | tojson }}
+</script>
+
+{% endblock %}
+
+
 {% block content %}
 
 <!-- ======= Project Hero ======= -->

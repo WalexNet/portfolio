@@ -1,4 +1,19 @@
 {% extends "base.html" %}
+
+
+{% block seo_title -%}
+  Proyectos de Networking, Linux y DevOps | WalexNET
+{%- endblock %}
+
+{% block seo_description -%}
+  Proyectos técnicos de WalexNET sobre redes, automatización, Linux, Docker, Python y desarrollo de software, con implementaciones y documentación práctica.
+{%- endblock %}
+
+{% block seo_canonical -%}
+  https://walex.net{{ url_for('projects.index') }}
+{%- endblock %}
+
+
 {% block content %}
 
 <!-- ======= Projects Hero ======= -->
