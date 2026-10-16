@@ -241,7 +241,7 @@ h6 {
   margin-right: 8px;
 }
 
-.header .logo h1 {
+.header .logo .sitename {
   font-size: 30px;
   margin: 0;
   font-weight: 700;
@@ -612,6 +612,7 @@ h6 {
   border-color: var(--accent-color);
 }
 
+.footer h3,
 .footer h4 {
   font-size: 16px;
   font-weight: bold;
@@ -2230,4 +2231,12 @@ proporciones distintas.
 /* INI: eliminar fondos blancos de las secciones */
 .markdown-body pre code.language-ini .token.section {
     background: transparent;
+}
+/* Descripciones de las tarjetas de proyectos */
+.project-description {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  overflow: hidden;
 }

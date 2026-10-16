@@ -1,97 +1,92 @@
 {% extends "base.html" %}
 
-
 {% block seo_title -%}
   {{ project.title }} | WalexNET
 {%- endblock %}
 
 {% block seo_description -%}
-  {{ project.description | striptags | trim | truncate(160, False, '...') }}
+  {{ project.description | default('', true) | striptags | trim | truncate(160, False, '...') }}
 {%- endblock %}
 
 {% block seo_canonical -%}
   https://walex.net{{ url_for('projects.detail', slug=project.slug) }}
 {%- endblock %}
 
-
 {% block seo_structured_data %}
-
-{% set project_url = 'https://walex.net' ~
-    url_for('projects.detail', slug=project.slug) %}
-
+{% set project_url = 'https://walex.net' ~ url_for('projects.detail', slug=project.slug) %}
 {% set project_schema = {
     '@context': 'https://schema.org',
     '@type': 'CreativeWork',
     'name': project.title,
-    'description': project.description | trim,
+    'description': project.description | default('', true) | trim,
     'url': project_url,
-
     'creator': {
-      '@type': 'Person',
-      '@id': 'https://walex.net/#person',
-      'name': 'Walter'
-    },
-    'keywords': project.tech_stack | trim
+        '@type': 'Person',
+        '@id': 'https://walex.net/#person',
+        'name': 'Walter'
+    }
 } %}
 
+{% if project.tech_stack %}
+  {% set _ = project_schema.update({'keywords': project.tech_stack | trim}) %}
+{% endif %}
+
 {% if project.github_url %}
-  {% set _ = project_schema.update({
-      'codeRepository': project.github_url
-  }) %}
+  {% set _ = project_schema.update({'codeRepository': project.github_url}) %}
 {% endif %}
 
 {% if project.cover_image %}
-  {% set image_url = 'https://walex.net' ~
-      url_for('projects.uploaded_file',
-              filename='img/' ~ project.cover_image) %}
-
-  {% set _ = project_schema.update({
-      'image': image_url
-  }) %}
+  {% set image_url = 'https://walex.net' ~ url_for('projects.uploaded_file', filename='img/' ~ project.cover_image) %}
+  {% set _ = project_schema.update({'image': image_url}) %}
 {% endif %}
 
 <script type="application/ld+json">
 {{ project_schema | tojson }}
 </script>
-
 {% endblock %}
-
 
 {% block content %}
 
 <!-- ======= Project Hero ======= -->
-<section id="project-hero" class="dark-background">
-</section>
+<section id="project-hero" class="dark-background"></section>
 
 <!-- ======= Project Detail ======= -->
 <section id="project" class="section">
-
   <div class="container" data-aos="fade-up">
-    <h1 class="mb-3">
-      {{ project.title }}
-    </h1>
-    <div class="text-muted mb-4"> <i class="bi bi-calendar"></i>{{ project.created_at.strftime('%d %B %Y') }} </div>
 
+    <h1 class="mb-3">{{ project.title }}</h1>
+
+    <div class="text-muted mb-4">
+      <i class="bi bi-calendar" aria-hidden="true"></i>
+      <time datetime="{{ project.created_at.strftime('%Y-%m-%d') }}">
+        {{ project.created_at.strftime('%d %B %Y') }}
+      </time>
+    </div>
 
     {% if project.cover_image %}
-    <div class="mb-4">
-      <img src="{{ url_for('projects.uploaded_file', filename='img/' + project.cover_image) }}" class="img-fluid rounded" alt="{{ project.title }}">
-    </div>
+    <figure class="mb-4">
+      <img
+        src="{{ url_for('projects.uploaded_file', filename='img/' + project.cover_image) }}"
+        class="img-fluid rounded"
+        alt="Portada del proyecto {{ project.title }}"
+        decoding="async">
+    </figure>
     {% endif %}
 
-
     {% if project.description %}
-    <p class="lead mb-4">
-      {{ project.description }}
-    </p>
+    <p class="lead mb-4">{{ project.description }}</p>
     {% endif %}
 
     {% if project.tech_stack %}
     <div class="mb-4">
-      <div class="mb-2"><strong><i class="bi bi-tools"></i>Tecnologías:</strong></div>
+      <div class="mb-2">
+        <strong><i class="bi bi-tools" aria-hidden="true"></i> Tecnologías:</strong>
+      </div>
       <div class="d-flex flex-wrap gap-2">
         {% for tech in project.tech_stack.split(',') %}
+          {% if tech.strip() %}
           <span class="badge bg-light text-dark border">{{ tech.strip() }}</span>
+          {% endif %}
         {% endfor %}
       </div>
     </div>
@@ -99,30 +94,30 @@
 
     {% if project.github_url %}
     <div class="mb-5">
-      <a href="{{ project.github_url }}" target="_blank" rel="noopener noreferrer" class="btn btn-outline-dark">
-        <i class="bi bi-github"></i>Ver en GitHub</a>
+      <a href="{{ project.github_url }}"
+         target="_blank"
+         rel="noopener noreferrer"
+         class="btn btn-outline-dark"
+         aria-label="Ver repositorio de {{ project.title }} en GitHub (abre en una nueva pestaña)">
+        <i class="bi bi-github" aria-hidden="true"></i>
+        Ver en GitHub
+      </a>
     </div>
     {% endif %}
 
-
     <div class="post-wrapper">
-      <div class="post-content markdown-body">{{ content_html | safe }} </div>
+      <div class="post-content markdown-body">{{ content_html | safe }}</div>
     </div>
 
-
     <!-- Renderizado de diagramas Mermaid -->
-    <script
-      type="module"
-      src="{{ url_for('static', filename='js/mermaid.js') }}">
-    </script>
+    <script type="module" src="{{ url_for('static', filename='js/mermaid.js') }}"></script>
 
     <div class="mt-5">
       <a href="{{ url_for('projects.index') }}" class="btn btn-outline-secondary">
-        <i class="bi bi-arrow-left"></i>Volver a Proyectos</a>
+        <i class="bi bi-arrow-left" aria-hidden="true"></i>
+        Volver a Proyectos
+      </a>
     </div>
-
   </div>
-
 </section>
-
 {% endblock %}

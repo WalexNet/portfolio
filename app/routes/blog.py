@@ -100,18 +100,55 @@ def index() -> str:
         current_year=year
     )
 
-
 # Post Individual
 @blog_bp.get("/<string:slug>")
 def detail(slug):
-    """Retrieves a single post by its slug."""
-    query = select(Post).filter_by(slug=slug, is_published=True)
+    """Muestra un artículo y obtiene otros relacionados por etiquetas."""
+
+    query = select(Post).filter_by(
+        slug=slug,
+        is_published=True
+    )
+
     post = db.session.execute(query).scalar_one_or_none()
+
     if post is None:
         abort(404)
+
     content_html = render_markdown(post.content)
 
-    return render_template("detail.html", item=post, content_html=content_html)
+    # Seleccionar artículos relacionados mediante etiquetas comunes
+    related_posts = []
+
+    if post.tags:
+        tag_ids = [tag.id for tag in post.tags]
+
+        related_query = (
+            select(Post)
+            .join(post_tags, Post.id == post_tags.c.post_id)
+            .where(
+                post_tags.c.tag_id.in_(tag_ids),
+                Post.id != post.id,
+                Post.is_published.is_(True)
+            )
+            .group_by(Post.id)
+            .order_by(
+                db.func.count(post_tags.c.tag_id).desc(),
+                Post.created_at.desc()
+            )
+            .limit(3)
+        )
+
+        related_posts = db.session.scalars(
+            related_query
+        ).all()
+
+    return render_template(
+        "detail.html",
+        item=post,
+        content_html=content_html,
+        related_posts=related_posts
+    )
 
 
 @blog_bp.route("/tag/<string:name>")

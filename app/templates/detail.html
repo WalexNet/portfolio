@@ -209,9 +209,68 @@
 
     <div class="post-wrapper">
       <div class="post-content markdown-body">
-          {{ content_html | safe }}
+        {{ content_html | safe }}
       </div>
     </div>
+
+    {# Botón de regreso al blog, solo para artículos #}
+    {% if request.blueprint == 'blog' %}
+    <div class="mt-4 mb-5">
+      <a href="{{ url_for('blog.index') }}"
+         class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left me-2" aria-hidden="true"></i>
+        Volver al Blog
+      </a>
+    </div>
+    {% endif %}
+
+    {# Artículos relacionados: exclusivamente para el blog #}
+    {% if request.blueprint == 'blog' and related_posts is defined and related_posts %}
+    <section class="related-posts mt-5 pt-4 border-top"
+             aria-labelledby="related-posts-title">
+
+      <h2 id="related-posts-title" class="h4 mb-4">
+        <i class="bi bi-journal-text me-2"></i>
+        Artículos relacionados
+      </h2>
+
+      <div class="row g-4">
+        {% for related in related_posts %}
+        <div class="col-12 col-md-6 col-lg-4">
+          <article class="card h-100 shadow-sm">
+
+            {% if related.cover_image %}
+            <img
+              src="{{ url_for('blog.uploaded_file', filename='img/' + related.cover_image) }}"
+              class="card-img-top"
+              alt="Portada de {{ related.title }}"
+              loading="lazy"
+              style="height: 160px; object-fit: cover;">
+            {% endif %}
+
+            <div class="card-body d-flex flex-column">
+              <h3 class="h6 card-title">
+                <a href="{{ url_for('blog.detail', slug=related.slug) }}"
+                   class="stretched-link text-decoration-none">
+                  {{ related.title }}
+                </a>
+              </h3>
+
+              {% if related.summary %}
+              <p class="card-text small text-muted">
+                {{ related.summary | striptags | truncate(110) }}
+              </p>
+              {% endif %}
+            </div>
+
+          </article>
+        </div>
+        {% endfor %}
+      </div>
+
+    </section>
+    {% endif %}
+
     <!-- Las siguientes lineas de etiquetas script son para renderizar graficos mermaid -->
     <script type="module"
     src="{{ url_for('static', filename='js/mermaid.js') }}">

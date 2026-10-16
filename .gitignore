@@ -35,5 +35,9 @@ Thumbs.db
 # Archivos locales
 notas.txt
 
+# Imágenes Docker exportadas para despliegue
+portfolio-flask-*.tar.gz
 
+# Copias de seguridad locales
+*.bak
 
