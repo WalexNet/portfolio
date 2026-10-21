@@ -94,9 +94,41 @@ class PostAdminView(ProtectedModelView):
         'is_published': 'Publicado'
     }
 
-    column_filters = ['tags', 'is_published']
+    # Búsqueda de artículos
+    column_searchable_list = [
+        'title',
+        'slug',
+        'summary',
+        'content'
+    ]
 
-    column_editable_list = ['is_published']
+    # Filtros del listado
+    column_filters = [
+        'tags',
+        'created_at',
+        'is_published'
+    ]
+
+    # Editar estado directamente desde el listado
+    column_editable_list = [
+        'is_published'
+    ]
+
+    # Ordenar por fecha descendente (más recientes primero)
+    column_default_sort = ('created_at', True)
+
+    # Nombres visibles en el administrador
+    column_labels = {
+        'title': 'Título',
+        'slug': 'Slug',
+        'tags': 'Etiquetas',
+        'created_at': 'Fecha de creación',
+        'is_published': 'Publicado'
+    }
+
+    # Número de artículos por página
+    page_size = 20
+    can_set_page_size = True
 
     def on_model_change(self, form, model, is_created):
         if is_created or not model.slug:

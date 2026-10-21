@@ -199,13 +199,18 @@
     </figure>
     {% endif %}
 
+
     {% if item.tags is defined and item.tags %}
     <div class="mb-4">
       {% for tag in item.tags %}
-      <a href="{{ url_for('blog.by_tag', name=tag.name) }}" class="badge bg-secondary text-decoration-none me-1">{{ tag.name }}</a>
+      <a href="{{ url_for('blog.index', tag=tag.name) }}"
+         class="badge bg-secondary text-decoration-none me-1">
+        {{ tag.name }}
+      </a>
       {% endfor %}
     </div>
     {% endif %}
+
 
     <div class="post-wrapper">
       <div class="post-content markdown-body">

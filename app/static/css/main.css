@@ -2240,3 +2240,82 @@ proporciones distintas.
   line-clamp: 3;
   overflow: hidden;
 }
+
+/* ==========================================
+   Markdown - Tipografía y jerarquía
+   ========================================== */
+
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6 {
+    font-family: inherit;
+    line-height: 1.35;
+    letter-spacing: -0.02em;
+    color: #30343a;
+}
+
+/* H1 - Título principal */
+.markdown-body h1 {
+    font-size: 2.20rem;
+    font-weight: 500;
+    margin: 2.5rem 0 1.25rem;
+}
+
+/* H2 - Sección principal */
+.markdown-body h2 {
+    font-size: 1.80rem;
+    font-weight: 500;
+    margin: 2.5rem 0 1rem;
+    padding-bottom: 0.55rem;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+/* H3 - Subsección */
+.markdown-body h3 {
+    font-size: 1.40rem;
+    font-weight: 400;
+    margin: 2rem 0 0.85rem;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+/* H4 - Apartado */
+.markdown-body h4 {
+    font-size: 1.20rem;
+    font-weight: 500;
+    margin: 1.75rem 0 0.75rem;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+/* H5 - Subapartado */
+.markdown-body h5 {
+    font-size: 1.05rem;
+    font-weight: 500;
+    margin: 1.5rem 0 0.65rem;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+/* H6 - Encabezado menor */
+.markdown-body h6 {
+    font-size: 0.95rem;
+    font-weight: 400;
+    color: #6b7280;
+    margin: 1.25rem 0 0.5rem;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .markdown-body h1 { font-size: 1.85rem; }
+    .markdown-body h2 { font-size: 1.55rem; }
+    .markdown-body h3 { font-size: 1.30rem; }
+    .markdown-body h4 { font-size: 1.15rem; }
+    .markdown-body h5 { font-size: 1rem; }
+    .markdown-body h6 { font-size: 0.90rem; }
+}
