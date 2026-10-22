@@ -192,8 +192,7 @@
       <img
         src="{{ url_for('blog.uploaded_file', filename='img/' + item.cover_image) }}"
         alt="Imagen de portada de {{ item.title }}"
-        class="img-fluid w-100 rounded-3"
-        style="display: block; max-height: 480px; object-fit: cover;"
+        class="img-fluid w-100 rounded-3 blog-cover-image"
         loading="eager"
         fetchpriority="high">
     </figure>

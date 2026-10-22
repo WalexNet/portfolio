@@ -2319,3 +2319,15 @@ proporciones distintas.
     .markdown-body h5 { font-size: 1rem; }
     .markdown-body h6 { font-size: 0.90rem; }
 }
+
+/* --------------------------------------------------------------
+# Portada completa en el detalle del blog
+# Respeta la proporción original sin recortar la imagen.
+-------------------------------------------------------------- */
+.blog-cover-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: none;
+  object-fit: contain;
+}
