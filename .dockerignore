@@ -8,3 +8,7 @@ __pycache__/
 tree.txt
 notas.txt
 AGENTS.md
+
+# Excluir el contenido de upload/img pero mantener la estructura de directorios
+upload/img/*
+!upload/img/
