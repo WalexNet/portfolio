@@ -41,3 +41,10 @@ portfolio-flask-*.tar.gz
 # Copias de seguridad locales
 *.bak
 
+# Archivos PATCH
+*.patch
+
+# Copias
+*.tar
+*.tar.gz
+

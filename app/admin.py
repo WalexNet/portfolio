@@ -17,6 +17,7 @@ from app.models import (
     Certification,
 )
 from app.extensions import db
+from app.image_admin import MarkdownImageAdminView
 
 import time
 
@@ -280,7 +281,7 @@ def setup_admin(app):
         )
     )
     admin.add_view(
-        ModelView(
+        ProtectedModelView(
             Tag,
             db.session,
             name="Tags",
@@ -288,9 +289,11 @@ def setup_admin(app):
         )
     )
     admin.add_view(
-        ModelView(
+        ProtectedModelView(
             Page,
-            db.session
+            db.session,
+            name="Pages",
+            category="Content"
         )
     )
     admin.add_view(
@@ -308,6 +311,10 @@ def setup_admin(app):
             name="Certifications & Courses",
             category="Content"
         )
+    )
+
+    admin.add_view(
+        MarkdownImageAdminView(name="Imágenes Markdown", category="Content")
     )
 
     # Enlace de regreso a la web pública (mantiene la sesión)

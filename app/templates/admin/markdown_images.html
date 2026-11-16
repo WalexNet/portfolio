@@ -1,0 +1,89 @@
+{% extends 'admin/master.html' %}
+{% block body %}
+  <h2>Imágenes Markdown</h2>
+  <p>Sube una imagen y copia el código Markdown en el contenido de un artículo o proyecto.</p>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% for category, message in messages %}
+      <div class="alert alert-{{ 'danger' if category == 'error' else category }}" role="alert">
+        {{ message }}
+      </div>
+    {% endfor %}
+  {% endwith %}
+
+  <form method="post" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+    <div class="form-group">
+      {{ form.image.label }}
+      {{ form.image(class='form-control-file', accept='.png,.jpg,.jpeg,.webp,image/png,image/jpeg,image/webp') }}
+    </div>
+    {{ form.submit(class='btn btn-primary') }}
+  </form>
+
+  {% if markdown_code %}
+    <hr>
+    <label for="markdown-result">Código Markdown generado</label>
+    <textarea id="markdown-result" class="form-control" rows="3" readonly>{{ markdown_code }}</textarea>
+    <button type="button" class="btn btn-outline-primary btn-sm mt-2 js-copy-markdown"
+            data-copy-target="markdown-result">Copiar Markdown</button>
+    <p class="text-muted">Pega el código donde quieras mostrar la imagen.</p>
+  {% endif %}
+  <hr>
+  <h3>Imágenes subidas</h3>
+  <p class="text-muted">Se muestran las últimas 100 imágenes. Puedes reutilizarlas en diferentes artículos o proyectos.</p>
+  {% if images %}
+    <div class="row">
+      {% for image in images %}
+        <div class="col-md-4 col-lg-3 mb-4">
+          <div class="card h-100">
+            <img src="{{ image.url }}" class="card-img-top" alt="Vista previa de {{ image.filename }}"
+                 loading="lazy" style="height: 160px; object-fit: contain; padding: 8px;">
+            <div class="card-body">
+              <small class="d-block text-muted mb-2" style="overflow-wrap: anywhere;">{{ image.filename }}</small>
+              <textarea id="markdown-image-{{ loop.index }}" class="form-control" rows="3" readonly
+                        aria-label="Markdown para {{ image.filename }}">{{ image.markdown }}</textarea>
+              <button type="button" class="btn btn-outline-primary btn-sm mt-2 js-copy-markdown"
+                      data-copy-target="markdown-image-{{ loop.index }}">Copiar Markdown</button>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p>Todavía no hay imágenes ilustrativas subidas.</p>
+  {% endif %}
+  <script>
+    document.addEventListener('click', async function (event) {
+      const button = event.target.closest('.js-copy-markdown');
+      if (!button) return;
+
+      const field = document.getElementById(button.dataset.copyTarget);
+      if (!field) return;
+
+      const originalLabel = 'Copiar Markdown';
+      try {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(field.value);
+        } else {
+          field.focus();
+          field.select();
+          if (!document.execCommand('copy')) {
+            throw new Error('No se pudo copiar');
+          }
+        }
+        button.textContent = '¡Copiado!';
+        button.classList.remove('btn-outline-primary');
+        button.classList.add('btn-success');
+      } catch (error) {
+        field.focus();
+        field.select();
+        button.textContent = 'Seleccionado: copia con Ctrl+C';
+      }
+      window.setTimeout(function () {
+        button.textContent = originalLabel;
+        button.classList.remove('btn-success');
+        button.classList.add('btn-outline-primary');
+      }, 2500);
+    });
+  </script>
+{% endblock %}

@@ -16,7 +16,7 @@ class Config:
     FLASK_ADMIN_TEMPLATE_MODE = "bootstrap4"
     UPLOAD_FOLDER = os.path.join(os.getcwd(), "upload")
 
-    APP_VERSION = "1.8.2"
+    APP_VERSION = "1.8.4"
 
 class DevelopmentConfig(Config):
     ENVIRONMENT = "development"

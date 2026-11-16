@@ -6,6 +6,29 @@ Todas las modificaciones relevantes de PortfolioWEB se documentarán en este arc
 El proyecto sigue [Versionado Semántico](https://semver.org/lang/es/)
 y utiliza el formato de [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/).
 
+## [1.8.4] - 2026-11-16 (validada en desarrollo; pendiente de despliegue)
+
+### Añadido
+- Vista «Imágenes Markdown» en Flask-Admin para subir ilustraciones PNG, JPG y WebP y generar su código Markdown.
+- Biblioteca visual de hasta 100 imágenes recientes, con miniaturas y enlaces reutilizables.
+- Botones «Copiar Markdown» después de una subida y en cada elemento de la biblioteca, con aviso de copia y alternativa manual.
+
+### Seguridad y almacenamiento
+- Validación de formato real con Pillow, tamaño máximo de 5 MiB, nombres únicos y protección CSRF en el formulario.
+- Archivos ilustrativos almacenados en `upload/img/content/` y accesibles mediante la ruta ya existente `/blog/upload/img/content/...`.
+- Sin modificaciones de esquema ni migraciones; se mantiene el sistema de portadas.
+
+### Corregido
+- Uso de `self.render()` en la vista personalizada de Flask-Admin para disponer del contexto de plantilla (`admin_base_template`).
+
+### Documentación
+- Actualización de `AGENTS.md` para reflejar la arquitectura y las convenciones actuales.
+
+### Pendiente antes de producción
+- Verificar la persistencia de `upload/` en el despliegue y revisar sanitización del HTML Markdown y acceso a vistas administrativas.
+
+---
+
 ## [1.8.0] - 2026-10-16
 
 ### Añadido
