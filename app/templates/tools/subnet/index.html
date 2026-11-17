@@ -68,124 +68,473 @@
 
   <div class="container d-flex flex-column align-items-center text-center">
     <h2 data-aos="fade-up" data-aos-delay="100">
-      CALCULADORA IP / SUBNETTING
+      CALCULADORA IP · IPv4 / IPv6
     </h2>
 
     <p data-aos="fade-up" data-aos-delay="200">
-      Calcula y analiza redes IPv4 de forma rápida
+      Analiza direcciones, prefijos y subredes IPv4 e IPv6
     </p>
   </div>
 </section>
 
+<style>
+/* Calculadora IP: estilos consolidados y limitados a esta página */
+#subnet-calculator {
+    --ip-accent: #ff7043;
+    --ip-blue: #284b63;
+    --ip-border: #dce4e9;
+    --ip-soft: #f5f9fa;
+}
 
-<!-- ======= Subnet Calculator Section ======= -->
+#subnet-calculator .ipcalc-card {
+    box-sizing: border-box;
+    height: auto;
+    padding: 1.25rem 1.4rem;
+    border: 1px solid var(--ip-border);
+    border-radius: 14px;
+    background: #fff;
+    min-width: 0;
+}
+
+#subnet-calculator #ipcalc-copy-source .ipcalc-card {
+    border-left: 3px solid var(--ip-blue);
+    background: linear-gradient(135deg, #fff 55%, var(--ip-soft));
+}
+
+#subnet-calculator .ipcalc-label {
+    display: block;
+    margin-bottom: .4rem;
+    color: #718391;
+    font-size: .86rem;
+}
+
+#subnet-calculator .ipcalc-value {
+    color: var(--ip-blue);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-weight: 600;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+#subnet-calculator h3.h4 {
+    color: var(--ip-blue);
+    font-weight: 600;
+}
+
+#subnet-calculator #ipcalc-form .btn-dark {
+    background: var(--ip-blue);
+    border-color: var(--ip-blue);
+}
+#subnet-calculator #ipcalc-form .btn-dark:hover {
+    background: #1c374a;
+    border-color: #1c374a;
+}
+
+#subnet-calculator #ipcalc-form .form-control,
+#subnet-calculator #ipcalc-form .form-select {
+    border-color: #d5dfe6;
+    padding: .6rem .85rem;
+}
+#subnet-calculator #ipcalc-form .form-control:focus,
+#subnet-calculator #ipcalc-form .form-select:focus {
+    border-color: var(--ip-accent);
+    box-shadow: 0 0 0 .2rem rgb(255 112 67 / 12%);
+}
+#subnet-calculator #ipcalc-form .form-control::placeholder {
+    color: #aeb8c2;
+    opacity: 1;
+}
+
+#subnet-calculator .ipcalc-table {
+    margin-bottom: 0;
+}
+#subnet-calculator .ipcalc-table th,
+#subnet-calculator .ipcalc-table td {
+    padding: .75rem .9rem;
+    vertical-align: middle;
+}
+#subnet-calculator .ipcalc-table thead th {
+    background: var(--ip-blue);
+    color: #fff;
+    border-bottom: 0;
+}
+#subnet-calculator .ipcalc-table tbody tr:hover > * {
+    background-color: #edf5f7;
+}
+#subnet-calculator .ipcalc-table code {
+    color: var(--ip-blue);
+    background: transparent;
+    font-size: .9em;
+    white-space: nowrap;
+}
+
+#subnet-calculator .ipcalc-example {
+    border-color: #cad8df;
+    color: var(--ip-blue);
+}
+#subnet-calculator .ipcalc-example:hover,
+#subnet-calculator .ipcalc-example:focus {
+    background: var(--ip-blue);
+    border-color: var(--ip-blue);
+    color: #fff;
+}
+
+#subnet-calculator details.ipcalc-card > summary {
+    cursor: pointer;
+    color: var(--ip-blue);
+}
+
+@media (max-width: 576px) {
+    #subnet-calculator .ipcalc-card { padding: 1rem; }
+    #subnet-calculator .ipcalc-table th,
+    #subnet-calculator .ipcalc-table td { padding: .6rem; }
+}
+
+/* Visualización binaria de prefijos, con colores de red, subred y host */
+#subnet-calculator .ipcalc-prefix-card {
+    border-left: 3px solid var(--ip-accent);
+}
+#subnet-calculator .ipcalc-prefix-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .65rem 1.2rem;
+    margin-bottom: .9rem;
+    font-size: .87rem;
+}
+#subnet-calculator .ipcalc-prefix-legend span {
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+}
+#subnet-calculator .ipcalc-prefix-swatch {
+    display: inline-block;
+    width: .85rem;
+    height: .85rem;
+    border-radius: 3px;
+}
+#subnet-calculator .ipcalc-prefix-swatch.is-network { background: #284b63; }
+#subnet-calculator .ipcalc-prefix-swatch.is-subnet { background: #ff7043; }
+#subnet-calculator .ipcalc-prefix-swatch.is-host { background: #dbe5ea; border: 1px solid #bccbd3; }
+#subnet-calculator .ipcalc-bit-groups {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: .65rem;
+}
+#subnet-calculator .ipcalc-bit-group {
+    min-width: 0;
+    border: 1px solid #dce4e9;
+    border-radius: 8px;
+    padding: .55rem;
+    background: #f8fafb;
+}
+#subnet-calculator .ipcalc-bit-group-label {
+    font: 600 .75rem ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    color: #637987;
+    margin-bottom: .4rem;
+}
+#subnet-calculator .ipcalc-bit-row {
+    display: grid;
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+    gap: 2px;
+}
+#subnet-calculator .ipcalc-bit-group.is-v6 .ipcalc-bit-row {
+    grid-template-columns: repeat(16, minmax(0, 1fr));
+}
+#subnet-calculator .ipcalc-bit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 0;
+    min-height: 23px;
+    border-radius: 3px;
+    font: 600 .76rem ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+#subnet-calculator .ipcalc-bit.is-network { background: #284b63; color: #fff; }
+#subnet-calculator .ipcalc-bit.is-subnet { background: #ff7043; color: #1b2730; }
+#subnet-calculator .ipcalc-bit.is-host { background: #dbe5ea; color: #344c59; }
+#subnet-calculator .ipcalc-prefix-summary {
+    margin-top: .85rem;
+    font-size: .88rem;
+    color: #586f7d;
+}
+@media (max-width: 991px) {
+    #subnet-calculator .ipcalc-bit-groups { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 575px) {
+    #subnet-calculator .ipcalc-bit-groups { grid-template-columns: 1fr; }
+}
+
+/* Casos prácticos: tarjetas compactas, sin alterar las tarjetas de cálculo */
+#subnet-calculator .ipcalc-case {
+    border: 1px solid var(--ip-border);
+    border-top: 3px solid var(--ip-blue);
+    border-radius: 12px;
+    padding: 1.2rem;
+    background: #fff;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: .55rem;
+}
+#subnet-calculator .ipcalc-case.is-v6 { border-top-color: var(--ip-accent); }
+#subnet-calculator .ipcalc-case h4 { font-size: 1.05rem; color: var(--ip-blue); margin: 0; }
+#subnet-calculator .ipcalc-case p { margin: 0; }
+#subnet-calculator .ipcalc-case small { color: #596d7a; }
+#subnet-calculator .ipcalc-case code {
+    color: var(--ip-blue);
+    background: #f1f6f8;
+    padding: .12rem .34rem;
+    border-radius: 4px;
+    overflow-wrap: anywhere;
+}
+#subnet-calculator .ipcalc-case .ipcalc-case-footer { margin-top: auto; padding-top: .65rem; }
+#subnet-calculator .ipcalc-case .ipcalc-example {
+    background: var(--ip-blue);
+    border-color: var(--ip-blue);
+    color: #fff;
+}
+#subnet-calculator .ipcalc-case .ipcalc-example:hover,
+#subnet-calculator .ipcalc-case .ipcalc-example:focus {
+    background: #1c374a;
+    border-color: #1c374a;
+}
+</style>
 <section id="subnet-calculator" class="section">
-
-  <div class="container section-title" data-aos="fade-up">
-    <h2>Calculadora de subredes</h2>
-    <p>
-      Introduce una dirección IPv4 y una máscara CIDR para analizar la red
-    </p>
-  </div>
-
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-lg-8">
-         <div class="mb-4">
-          <a href="{{ url_for('tools.index') }}" class="text-decoration-none"><i class="bi bi-arrow-left"></i>
-            Volver a Herramientas
-          </a>
-        </div>
-        <form method="post">
-          <div class="mb-3">
-            <label for="ip_cidr" class="form-label">IP / CIDR</label>
-            <input type="text" class="form-control" id="ip_cidr" name="ip_cidr" value="{{ ip_cidr or '' }}" placeholder="Ejemplo: 10.25.14.2/19" required>
-            <div class="form-text">
-              Introduce la dirección IPv4 junto con su prefijo CIDR.
-              Ejemplo: 10.25.14.2/19
-            </div>
-          </div>
-
-          <div class="mb-3">
-            <label for="subnet_prefix" class="form-label">CIDR para subnetting
-                <span class="text-muted">(opcional)</span></label>
-            <input type="text" class="form-control" id="subnet_prefix" name="subnet_prefix" value="{{ subnet_prefix or '' }}" placeholder="Ejemplo: 20 o /20">
-            <div class="form-text">
-              Opcional. Debe ser un prefijo mayor que el de la red original.
-              Ejemplo: /20
-            </div>
-          </div>
-
-          <div class="d-flex gap-2">
-            <button type="submit" class="btn btn-outline-dark">Calcular</button>
-            <a href="{{ url_for('subnet.index') }}" class="btn btn-outline-secondary">Limpiar</a>
-          </div>
-
-        </form>
-
-        {% if error %}
-        <div class="alert alert-danger mt-4">
-          {{ error }}
-        </div>
-        {% endif %}
-
-        {% if result %}
-        <div class="card mt-4">
-          <div class="card-body">
-            <h5 class="card-title mb-3">Resultado</h5>
-            <pre class="mb-0 overflow-auto"><code>
-Address:   {{ "%-23s"|format(result.address) }} {{ result.address_binary }}
-Netmask:   {{ "%-15s"|format(result.netmask)}} = /{{ result.prefix }}   {{ result.netmask_binary }}
-Wildcard:  {{ "%-23s"|format(result.wildcard) }} {{ result.wildcard_binary }}
-=&gt;
-Network:   {{ "%-23s"|format(result.network ~ '/' ~ result.prefix) }} {{ result.network_binary }}
-HostMin:   {{ "%-23s"|format(result.host_min) }} {{ result.host_min_binary }}
-HostMax:   {{ "%-23s"|format(result.host_max) }} {{ result.host_max_binary }}
-Broadcast: {{ "%-23s"|format(result.broadcast) }} {{ result.broadcast_binary }}
-Hosts/Net: {{ "%-23s"|format(result.hosts) }} {{ result.description }}
-            </code></pre>
-          </div>
-        </div>
-
-        {% if subnets %}
-        <div class="card mt-4">
-          <div class="card-body">
-
-            <h5 class="card-title mb-4">
-              Subnets after transition from /{{ result.prefix }} to /{{ subnet_prefix }}
-            </h5>
-            {% if subnet_summary %}
-            <pre class="mt-4 mb-0 overflow-auto"><code>
-Subnets:   {{ subnet_summary.subnets }}
-Hosts:     {{ subnet_summary.hosts }}
-            </code></pre>
-            {% endif %}
-
-            <pre class="mb-4 overflow-auto"><code>
-Netmask:   {{ "%-15s"|format(subnet_info.netmask) }} = /{{ subnet_info.prefix }}   {{ subnet_info.netmask_binary }}
-Wildcard:  {{ "%-23s"|format(subnet_info.wildcard) }} {{ subnet_info.wildcard_binary }}
-            </code></pre>
-
-            {% for subnet in subnets %}
-              <div class="mb-4">
-              <pre class="mb-0 overflow-auto"><code>{{ loop.index }}.
-Network:   {{ "%-21s"|format(subnet.network) }} {{ subnet.network_binary }}
-HostMin:   {{ "%-21s"|format(subnet.host_min) }} {{ subnet.host_min_binary }}
-HostMax:   {{ "%-21s"|format(subnet.host_max) }} {{ subnet.host_max_binary }}
-Broadcast: {{ "%-21s"|format(subnet.broadcast) }} {{ subnet.broadcast_binary }}
-Hosts/Net: {{ "%-21s"|format(subnet.hosts) }} {{ subnet.description }}
-              </code></pre>
-              </div>
-            {% endfor %}
-          </div>
-        </div>
-
-        {% endif %}
-        {% endif %}
-
+ <div class="container">
+  <div class="row justify-content-center"><div class="col-xl-10">
+   <div class="mb-4"><a href="{{ url_for('tools.index') }}" class="text-decoration-none"><i class="bi bi-arrow-left"></i> Volver a Herramientas</a></div>
+   <div class="mb-4"><h2>Calculadora de redes IP</h2><p class="text-muted">Analiza una dirección y su prefijo. Permite analizar y dividir redes IPv4 e IPv6 en subredes.</p></div>
+   <form method="post" id="ipcalc-form" class="ipcalc-card mb-4">
+    <div class="mb-3">
+     <label class="form-label fw-semibold" for="ip_version">Protocolo</label>
+     <select name="ip_version" id="ip_version" class="form-select" style="max-width:220px">
+      <option value="4" {% if ip_version != '6' %}selected{% endif %}>IPv4</option>
+      <option value="6" {% if ip_version == '6' %}selected{% endif %}>IPv6</option>
+     </select>
     </div>
-</div>
+    <div class="row g-3">
+     <div class="col-lg-8">
+      <label class="form-label fw-semibold" for="ip_cidr">Dirección IP / CIDR</label>
+      <input class="form-control" type="text" id="ip_cidr" name="ip_cidr" value="{{ ip_cidr or '' }}" placeholder="{{ '2001:db8:abcd:1234::10/64' if ip_version == '6' else '192.168.10.34/27' }}" required autocomplete="off" spellcheck="false">
+     </div>
+     <div class="col-lg-4" id="ipcalc-subnet-field">
+      <label class="form-label fw-semibold" for="subnet_prefix">Dividir en subredes <span class="text-muted fw-normal">(opcional)</span></label>
+      <input class="form-control" type="text" id="subnet_prefix" name="subnet_prefix" value="{{ subnet_prefix or '' }}" placeholder="{{ 'Ej.: /68' if ip_version == '6' else 'Ej.: /26' }}" autocomplete="off">
+     </div>
+    </div>
+    <div class="form-text mt-2" id="ipcalc-help">El prefijo de subdivisión debe ser mayor que el de la red original (máximo 256 subredes).</div>
+    <div class="d-flex flex-wrap gap-2 mt-3">
+     <button type="submit" class="btn btn-dark"><i class="bi bi-calculator"></i> Calcular</button>
+     <a href="{{ url_for('subnet.index') }}" class="btn btn-outline-secondary">Limpiar</a>
+    </div>
+   </form>
+   {% if error %}<div class="alert alert-danger" role="alert">{{ error }}</div>{% endif %}
+   {% if result %}
+    <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
+     <h3 class="h4 mb-0">Resultados IPv{{ ip_version }}</h3>
+     <button type="button" class="btn btn-outline-secondary btn-sm" id="ipcalc-copy"><i class="bi bi-clipboard"></i> Copiar resultados</button>
+    </div>
 
+    {# La visualización usa los valores calculados por Python; no recalcula el direccionamiento. #}
+    <section class="ipcalc-card ipcalc-prefix-card mb-4" aria-labelledby="ipcalc-prefix-title"
+             id="ipcalc-prefix-visual"
+             data-version="{{ ip_version }}"
+             data-address="{{ result.address_exploded if ip_version == '6' else result.address }}"
+             data-prefix="{{ result.prefix }}"
+             data-subnet-prefix="{{ subnet_info.prefix if subnet_info else '' }}">
+      <h4 class="h5 mb-2" id="ipcalc-prefix-title">Visualización del prefijo</h4>
+      <p class="text-muted small mb-3">Los colores indican qué bits corresponden a la red original, cuáles se utilizan para subdividirla y cuáles quedan para las direcciones dentro de cada subred.</p>
+      <div class="ipcalc-prefix-legend" aria-label="Leyenda de colores">
+        <span><i class="ipcalc-prefix-swatch is-network" aria-hidden="true"></i> Prefijo de red</span>
+        {% if subnet_info %}<span><i class="ipcalc-prefix-swatch is-subnet" aria-hidden="true"></i> Bits de subred</span>{% endif %}
+        <span><i class="ipcalc-prefix-swatch is-host" aria-hidden="true"></i> Bits restantes</span>
+      </div>
+      <div id="ipcalc-bit-groups" class="ipcalc-bit-groups" role="img"
+           aria-label="{{ 'IPv6, 128' if ip_version == '6' else 'IPv4, 32' }} bits; prefijo original /{{ result.prefix }}{% if subnet_info %}; subdivisión /{{ subnet_info.prefix }}{% endif %}"></div>
+      <p class="ipcalc-prefix-summary mb-0" id="ipcalc-prefix-summary"></p>
+      <noscript><p class="text-muted small mt-2">Activa JavaScript para mostrar los bits del prefijo.</p></noscript>
+    </section>
+    <div id="ipcalc-copy-source">
+    {% if ip_version == '4' %}
+     <div class="row g-3 mb-4">
+      {% for title, value in [('Dirección IP', result.address), ('Red', result.network ~ '/' ~ result.prefix), ('Máscara', result.netmask), ('Wildcard', result.wildcard), ('Broadcast', result.broadcast), ('Hosts utilizables', result.hosts), ('Primer host', result.host_min), ('Último host', result.host_max)] %}
+      <div class="col-md-6 col-lg-3"><div class="ipcalc-card"><div class="ipcalc-label">{{ title }}</div><div class="ipcalc-value">{{ value }}</div></div></div>
+      {% endfor %}
+     </div>
+     <div class="ipcalc-card mb-4"><h4 class="h6">Información de la dirección</h4><p class="mb-0">{{ result.description }}</p></div>
+     <details class="ipcalc-card mb-4"><summary class="fw-semibold">Representación binaria</summary>
+      <div class="table-responsive mt-3"><table class="table table-sm ipcalc-table"><tbody>
+       {% for title, value in [('Dirección', result.address_binary), ('Máscara', result.netmask_binary), ('Wildcard', result.wildcard_binary), ('Red', result.network_binary), ('Primer host', result.host_min_binary), ('Último host', result.host_max_binary), ('Broadcast', result.broadcast_binary)] %}
+       <tr><th scope="row">{{ title }}</th><td><code>{{ value }}</code></td></tr>
+       {% endfor %}
+      </tbody></table></div>
+     </details>
+     {% if subnets %}
+      <div class="ipcalc-card mb-4">
+       <h4 class="h5">División en subredes /{{ subnet_info.prefix }}</h4>
+       <p class="text-muted">{{ subnet_summary.subnets }} subredes · {{ subnet_summary.hosts }} hosts utilizables en total · Máscara {{ subnet_info.netmask }} · Wildcard {{ subnet_info.wildcard }}</p>
+       <div class="table-responsive"><table class="table table-striped table-hover ipcalc-table">
+        <thead><tr><th>#</th><th>Subred</th><th>Primer host</th><th>Último host</th><th>Broadcast</th><th>Hosts</th></tr></thead>
+        <tbody>{% for subnet in subnets %}<tr><td>{{ loop.index }}</td><td><code>{{ subnet.network }}</code></td><td><code>{{ subnet.host_min }}</code></td><td><code>{{ subnet.host_max }}</code></td><td><code>{{ subnet.broadcast }}</code></td><td>{{ subnet.hosts }}</td></tr>{% endfor %}</tbody>
+       </table></div>
+      </div>
+     {% endif %}
+    {% else %}
+     <div class="row g-3 mb-4">
+      {% for title, value in [('Dirección comprimida', result.address), ('Red IPv6', result.network), ('Prefijo', '/' ~ result.prefix), ('Tipo', result.address_type)] %}
+      <div class="col-md-6"><div class="ipcalc-card"><div class="ipcalc-label">{{ title }}</div><div class="ipcalc-value">{{ value }}</div></div></div>
+      {% endfor %}
+     </div>
+     <div class="ipcalc-card mb-3"><div class="ipcalc-label">Dirección expandida (128 bits)</div><div class="ipcalc-value">{{ result.address_exploded }}</div></div>
+     <div class="ipcalc-card mb-3"><div class="ipcalc-label">Dirección de red expandida</div><div class="ipcalc-value">{{ result.network_exploded }}</div></div>
+     <div class="ipcalc-card mb-4"><div class="ipcalc-label">Direcciones en el prefijo</div><div class="ipcalc-value">{{ result.total_addresses }}</div><small class="text-muted">IPv6 no utiliza broadcast. Este valor representa el tamaño del bloque, no el número de equipos disponibles.</small></div>
+     {% if subnets %}
+      <div class="ipcalc-card mb-4">
+       <h4 class="h5">División IPv6 en subredes /{{ subnet_info.prefix }}</h4>
+       <p class="text-muted mb-3">{{ subnet_summary.subnets }} subredes · {{ subnet_summary.addresses_per_subnet }} direcciones por subred · {{ subnet_summary.addresses }} direcciones en el bloque original.</p>
+       <div class="table-responsive">
+        <table class="table table-striped table-hover ipcalc-table">
+         <thead><tr><th scope="col">#</th><th scope="col">Prefijo de subred</th><th scope="col">Primera dirección</th><th scope="col">Última dirección</th><th scope="col">Direcciones</th></tr></thead>
+         <tbody>
+          {% for subnet in subnets %}
+          <tr><td>{{ loop.index }}</td><td><code>{{ subnet.network }}</code></td><td><code>{{ subnet.first_address }}</code></td><td><code>{{ subnet.last_address }}</code></td><td>{{ subnet.addresses }}</td></tr>
+          {% endfor %}
+         </tbody>
+        </table>
+       </div>
+       <p class="text-muted small mt-3 mb-0">IPv6 no utiliza broadcast. La última dirección indicada es el extremo superior del bloque, no una dirección de difusión.</p>
+      </div>
+     {% endif %}
+    {% endif %}
+    </div>
+   {% endif %}
+   <section class="mt-4" aria-labelledby="ipcalc-cases-title">
+    <h3 class="h4 mb-2" id="ipcalc-cases-title">Casos prácticos</h3>
+    <p class="text-muted mb-3">Tres situaciones de administración de redes. Abre cualquier caso para calcularlo y examinar los bits del prefijo.</p>
+    <div class="row g-3">
+     <div class="col-lg-4">
+      <article class="ipcalc-case">
+       <h4>Segmentar una LAN con VLAN</h4>
+       <p>Partimos de <code>192.168.10.0/24</code> y necesitamos cuatro VLAN de igual tamaño. Dividir en <code>/26</code> genera cuatro subredes con 62 direcciones de host utilizables cada una.</p>
+       <small>Una opción para separar administración, empleados, invitados y dispositivos. El diseño de las VLAN y sus gateways se configura después en los equipos de red.</small>
+       <div class="ipcalc-case-footer">
+        <button type="button" class="btn btn-sm ipcalc-example" data-version="4" data-ip="192.168.10.0/24" data-subnet="26">Abrir en la calculadora</button>
+       </div>
+      </article>
+     </div>
+     <div class="col-lg-4">
+      <article class="ipcalc-case">
+       <h4>Enlace IPv4 punto a punto</h4>
+       <p>Para un enlace entre dos routers, <code>10.0.0.0/31</code> proporciona dos direcciones utilizables: <code>10.0.0.0</code> y <code>10.0.0.1</code>.</p>
+       <small>El uso de /31 está definido para enlaces punto a punto (RFC 3021); debe ser compatible con los equipos y el tipo de interfaz.</small>
+       <div class="ipcalc-case-footer">
+        <button type="button" class="btn btn-sm ipcalc-example" data-version="4" data-ip="10.0.0.0/31" data-subnet="">Abrir en la calculadora</button>
+       </div>
+      </article>
+     </div>
+     <div class="col-lg-4">
+      <article class="ipcalc-case is-v6">
+       <h4>Planificar prefijos IPv6</h4>
+       <p>Un bloque de ejemplo <code>2001:db8:abcd::/48</code> puede subdividirse en 16 bloques <code>/52</code>, útiles para organizar sedes o áreas.</p>
+       <small>Los prefijos /52 pueden dividirse después en /64 para LAN. El rango 2001:db8::/32 es exclusivamente de documentación.</small>
+       <div class="ipcalc-case-footer">
+        <button type="button" class="btn btn-sm ipcalc-example" data-version="6" data-ip="2001:db8:abcd::1/48" data-subnet="52">Abrir en la calculadora</button>
+       </div>
+      </article>
+     </div>
+    </div>
+    <div class="ipcalc-card mt-3">
+     <h4 class="h6">Más ejemplos rápidos</h4>
+     <div class="d-flex flex-wrap gap-2 mt-3">
+      <button type="button" class="btn btn-outline-secondary btn-sm ipcalc-example" data-version="4" data-ip="192.168.10.34/27" data-subnet="">IPv4: /27</button>
+      <button type="button" class="btn btn-outline-secondary btn-sm ipcalc-example" data-version="6" data-ip="2001:db8:abcd:1234::10/64" data-subnet="">IPv6: /64</button>
+      <button type="button" class="btn btn-outline-secondary btn-sm ipcalc-example" data-version="6" data-ip="fe80::1/64" data-subnet="">IPv6: link-local</button>
+     </div>
+     <p class="text-muted small mt-3 mb-0">Los artículos técnicos del blog se enlazarán aquí cuando estén publicados.</p>
+    </div>
+   </section>
+  </div></div>
+ </div>
 </section>
+<script>
+(function () {
+  const version = document.getElementById('ip_version');
+  const ip = document.getElementById('ip_cidr');
+  const prefix = document.getElementById('subnet_prefix');
+  const subnetField = document.getElementById('ipcalc-subnet-field');
+  const help = document.getElementById('ipcalc-help');
+  function updateVersion() {
+    const v6 = version.value === '6';
+    subnetField.hidden = false;
+    prefix.disabled = false;
+    prefix.placeholder = v6 ? 'Ej.: /68' : 'Ej.: /26';
+    ip.placeholder = v6 ? '2001:db8:abcd:1234::10/64' : '192.168.10.34/27';
+    help.textContent = v6 ? 'IPv6: introduce un prefijo mayor que el de la red original, hasta /128 (máximo 256 subredes).' : 'IPv4: el prefijo de subdivisión debe ser mayor que el de la red original (máximo 256 subredes).';
+  }
+  version.addEventListener('change', function () { ip.value = ''; prefix.value = ''; updateVersion(); });
+  updateVersion();
+  document.querySelectorAll('.ipcalc-example').forEach(function (button) {
+    button.addEventListener('click', function () {
+      version.value = button.dataset.version;
+      updateVersion();
+      ip.value = button.dataset.ip;
+      prefix.value = button.dataset.subnet || '';
+      document.getElementById('ipcalc-form').requestSubmit();
+    });
+  });
 
+  // Representación de bits de la dirección, agrupados por octetos o hextetos.
+  const visual = document.getElementById('ipcalc-prefix-visual');
+  if (visual) {
+    const isV6 = visual.dataset.version === '6';
+    const totalBits = isV6 ? 128 : 32;
+    const originalPrefix = Number(visual.dataset.prefix);
+    const subnetPrefix = visual.dataset.subnetPrefix
+      ? Number(visual.dataset.subnetPrefix) : originalPrefix;
+    const groupSize = isV6 ? 16 : 8;
+    const raw = visual.dataset.address;
+    const chunks = raw.split(isV6 ? ':' : '.');
+    const valid = chunks.length === (isV6 ? 8 : 4) &&
+      chunks.every(c => isV6 ? /^[0-9a-fA-F]{4}$/.test(c) : /^\d{1,3}$/.test(c) && Number(c) <= 255);
+    if (valid) {
+      const bits = chunks.map(c => parseInt(c, isV6 ? 16 : 10)
+        .toString(2).padStart(groupSize, '0')).join('');
+      const container = document.getElementById('ipcalc-bit-groups');
+      chunks.forEach((chunk, groupIndex) => {
+        const box = document.createElement('div');
+        box.className = 'ipcalc-bit-group' + (isV6 ? ' is-v6' : '');
+        const label = document.createElement('div');
+        label.className = 'ipcalc-bit-group-label';
+        label.textContent = (isV6 ? 'Hexteto ' : 'Octeto ') + (groupIndex + 1) + ': ' + chunk;
+        const row = document.createElement('div');
+        row.className = 'ipcalc-bit-row';
+        for (let bit = 0; bit < groupSize; bit++) {
+          const index = groupIndex * groupSize + bit;
+          const cell = document.createElement('span');
+          cell.className = 'ipcalc-bit ' + (index < originalPrefix ? 'is-network'
+            : index < subnetPrefix ? 'is-subnet' : 'is-host');
+          cell.textContent = bits[index];
+          row.appendChild(cell);
+        }
+        box.append(label, row);
+        container.appendChild(box);
+      });
+      const summary = document.getElementById('ipcalc-prefix-summary');
+      const borrowed = subnetPrefix - originalPrefix;
+      const remaining = totalBits - subnetPrefix;
+      summary.textContent = originalPrefix + ' bits de red' +
+        (borrowed ? ' · ' + borrowed + ' bits tomados para subredes' : '') +
+        ' · ' + remaining + ' bits restantes' +
+        (borrowed ? ' · ' + (2 ** borrowed).toLocaleString('es-ES') + ' subredes' : '');
+    }
+  }
+
+  const copy = document.getElementById('ipcalc-copy');
+  if (copy) copy.addEventListener('click', async function () {
+    const text = document.getElementById('ipcalc-copy-source').innerText.trim();
+    try { await navigator.clipboard.writeText(text); copy.textContent = 'Copiado'; }
+    catch (e) { copy.textContent = 'No se pudo copiar'; }
+  });
+})();
+</script>
 {% endblock %}

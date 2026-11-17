@@ -1,77 +1,170 @@
 {% extends "base.html" %}
 {% block content %}
 
-<!-- ======= Tools Hero ======= -->
 <section id="tools-hero" class="hero hero-inner section dark-background">
-
-  <!-- Topología de red decorativa -->
-  <svg class="tools-network" viewBox="0 0 400 220"
-       xmlns="http://www.w3.org/2000/svg"
-       aria-hidden="true">
-
-    <g fill="none" stroke="#ff7043" stroke-width="1.5"
-       stroke-opacity="0.65">
-      <path d="M50 110 L140 55 L240 100 L340 40" />
-      <path d="M140 55 L180 175 L300 180 L240 100" />
-      <path d="M50 110 L100 190 L180 175" />
-      <path d="M240 100 L340 155 L300 180" />
-    </g>
-    <g fill="#ff7043">
-      <circle cx="50" cy="110" r="5" />
-      <circle cx="140" cy="55" r="6" />
-      <circle cx="240" cy="100" r="7" />
-      <circle cx="340" cy="40" r="5" />
-      <circle cx="180" cy="175" r="6" />
-      <circle cx="300" cy="180" r="5" />
-      <circle cx="100" cy="190" r="4" />
-      <circle cx="340" cy="155" r="5" />
-    </g>
-
-  </svg>
-
   <div class="container d-flex flex-column align-items-center text-center">
-    <h2 data-aos="fade-up" data-aos-delay="100">
-      HERRAMIENTAS
-    </h2>
-
-    <p data-aos="fade-up" data-aos-delay="200">
-      Utilidades técnicas interactivas para networking, sistemas y administración
-    </p>
+    <h2 data-aos="fade-up" data-aos-delay="100">HERRAMIENTAS</h2>
+    <p data-aos="fade-up" data-aos-delay="200">Utilidades técnicas interactivas para redes, sistemas y desarrollo</p>
   </div>
 </section>
 
+<style>
+  #tools {
+    --tools-accent: #ff7043;
+    --tools-navy: #284b63;
+    --tools-soft: #f1f6f8;
+    --tools-muted: #aeb8c2;
+  }
 
-<!-- ======= Tools Section ======= -->
+  #tools .tools-intro {
+    max-width: 760px;
+    margin-bottom: 2rem;
+  }
+
+  #tools .tools-intro h2 {
+    color: var(--tools-navy);
+    font-weight: 650;
+    margin-bottom: .6rem;
+  }
+
+  #tools .tools-feature {
+    border: 1px solid #dce5eb;
+    background: #fff;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(40, 75, 99, .055);
+    transition: border-color .2s ease, box-shadow .2s ease;
+  }
+
+  #tools .tools-feature:hover {
+    border-color: #b7cad5;
+    box-shadow: 0 12px 34px rgba(40, 75, 99, .09);
+  }
+
+  #tools .tools-art {
+    background: var(--tools-soft);
+    min-height: 290px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+  }
+
+  #tools .tools-art img {
+    display: block;
+    width: 100%;
+    max-width: 360px;
+    height: auto;
+    aspect-ratio: 3 / 2;
+    object-fit: contain;
+    border-radius: 14px;
+  }
+
+  #tools .tools-content {
+    padding: clamp(1.5rem, 3vw, 2.6rem);
+  }
+
+  #tools .tools-eyebrow {
+    color: var(--tools-accent);
+    font-size: .76rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    margin-bottom: .7rem;
+  }
+
+  #tools .tools-title {
+    font-size: clamp(1.45rem, 2.2vw, 1.9rem);
+    color: var(--tools-navy);
+    font-weight: 650;
+    margin-bottom: .85rem;
+  }
+
+  #tools .tools-description {
+    color: #52616c;
+    line-height: 1.7;
+    margin-bottom: 1.4rem;
+  }
+
+  #tools .tools-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .45rem;
+    margin-bottom: 1.7rem;
+  }
+
+  #tools .tools-tag {
+    background: var(--tools-soft);
+    border: 1px solid #dde7ed;
+    color: var(--tools-navy);
+    border-radius: 6px;
+    padding: .28rem .65rem;
+    font-size: .8rem;
+    font-weight: 550;
+  }
+
+  #tools .tools-open {
+    display: inline-flex;
+    align-items: center;
+    gap: .6rem;
+    border-radius: 8px;
+    background: var(--tools-navy);
+    border: 1px solid var(--tools-navy);
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    padding: .7rem 1.15rem;
+    transition: background .2s ease, border-color .2s ease;
+  }
+
+  #tools .tools-open:hover,
+  #tools .tools-open:focus-visible {
+    color: #fff;
+    background: #1b364a;
+    border-color: var(--tools-accent);
+  }
+
+  @media (max-width: 767.98px) {
+    #tools .tools-art { min-height: 220px; padding: 1.4rem; }
+    #tools .tools-art img { max-width: 280px; }
+  }
+</style>
+
 <section id="tools" class="section">
-
-  <div class="container section-title" data-aos="fade-up">
-    <h2>Herramientas</h2>
-    <p>
-      Aplicaciones y utilidades técnicas disponibles directamente desde el navegador
-    </p>
-  </div>
-
   <div class="container">
-    <div class="row gy-4">
-      <div class="col-lg-4 col-md-6" data-aos="fade-up">
-        <div class="card h-100 shadow-sm border-0">
-          <div class="card-body d-flex flex-column">
-            <div class="mb-3"><i class="bi bi-diagram-3 fs-1"></i></div>
+    <div class="tools-intro">
+      <h2>Herramientas técnicas</h2>
+      <p class="text-muted mb-0">Pequeñas utilidades para resolver tareas habituales de administración de redes y sistemas, directamente desde el navegador.</p>
+    </div>
 
-            <h5 class="card-title">Calculadora IP / Subnetting</h5>
-            <p class="card-text">
-              Analiza redes IPv4, máscaras, rangos de hosts y realiza
-              subnetting con representación binaria al estilo ipcalc.
-            </p>
-            <div class="mt-auto pt-3">
-              <a href="{{ url_for('subnet.index') }}" class="btn btn-outline-dark">Abrir herramienta</a>
+    <article class="tools-feature" data-aos="fade-up">
+      <div class="row g-0 align-items-stretch">
+        <div class="col-md-5">
+          <div class="tools-art">
+            <img src="{{ url_for('static', filename='img/tools/calculadora-ip-icono.webp') }}"
+                 alt="Ilustración minimalista de una red con router, dispositivos y prefijos IPv4 e IPv6"
+                 width="1536" height="1024" loading="lazy">
+          </div>
+        </div>
+        <div class="col-md-7 d-flex align-items-center">
+          <div class="tools-content">
+            <div class="tools-eyebrow">Networking · Direccionamiento IP</div>
+            <h3 class="tools-title">Calculadora IP / Subnetting</h3>
+            <p class="tools-description">Analiza direcciones IPv4 e IPv6, calcula prefijos y rangos, divide redes en subredes y visualiza los bits de red y host. Incluye ejemplos prácticos de planificación de direccionamiento.</p>
+            <div class="tools-tags" aria-label="Funciones disponibles">
+              <span class="tools-tag">IPv4</span>
+              <span class="tools-tag">IPv6</span>
+              <span class="tools-tag">CIDR</span>
+              <span class="tools-tag">Subnetting</span>
             </div>
+            <a class="tools-open" href="{{ url_for('subnet.index') }}">
+              Abrir herramienta <i class="bi bi-arrow-right" aria-hidden="true"></i>
+            </a>
           </div>
         </div>
       </div>
-    </div>
+    </article>
   </div>
-
 </section>
-
 {% endblock %}
