@@ -4,6 +4,47 @@
   {{ item.title }} | WalexNET
 {%- endblock %}
 
+{# Open Graph: identificar las entradas del blog como artículos #}
+{% block seo_og_type -%}
+  {%- if request.blueprint == 'blog' -%}
+    article
+  {%- else -%}
+    website
+  {%- endif -%}
+{%- endblock %}
+
+{# Twitter Card: imagen grande si el artículo tiene portada #}
+{% block seo_twitter_card -%}
+  {%- if request.blueprint == 'blog' and item.cover_image -%}
+    summary_large_image
+  {%- else -%}
+    summary
+  {%- endif -%}
+{%- endblock %}
+
+{# Open Graph y Twitter: imagen de portada #}
+{% block seo_social_image %}
+{% if request.blueprint == 'blog' and item.cover_image %}
+
+  {% set image_url = 'https://walex.net' ~
+      url_for('blog.uploaded_file',
+              filename='img/' ~ item.cover_image) %}
+
+  <meta property="og:image"
+      content="{{ image_url | e }}">
+
+  <meta property="og:image:alt"
+        content="{{ item.title | e }}">
+
+  <meta name="twitter:image"
+        content="{{ image_url | e }}">
+
+  <meta name="twitter:image:alt"
+        content="{{ item.title | e }}">
+
+{% endif %}
+{% endblock %}
+
 {% block seo_description -%}
   {% if request.blueprint == 'career' -%}
     {{ (item.summary or item.content[:160]) | striptags | trim | truncate(160, False, '...') }}

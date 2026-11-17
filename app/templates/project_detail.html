@@ -4,6 +4,41 @@
   {{ project.title }} | WalexNET
 {%- endblock %}
 
+{# Open Graph: tipo de contenido #}
+{% block seo_og_type %}website{% endblock %}
+
+{# Twitter Card: imagen grande cuando existe portada #}
+{% block seo_twitter_card -%}
+  {%- if project.cover_image -%}
+    summary_large_image
+  {%- else -%}
+    summary
+  {%- endif -%}
+{%- endblock %}
+
+{# Open Graph y Twitter: portada del proyecto #}
+{% block seo_social_image %}
+{% if project.cover_image %}
+
+  {% set image_url = 'https://walex.net' ~
+      url_for('projects.uploaded_file',
+              filename='img/' ~ project.cover_image) %}
+
+  <meta property="og:image"
+        content="{{ image_url | e }}">
+
+  <meta property="og:image:alt"
+        content="{{ project.title | e }}">
+
+  <meta name="twitter:image"
+        content="{{ image_url | e }}">
+
+  <meta name="twitter:image:alt"
+        content="{{ project.title | e }}">
+
+{% endif %}
+{% endblock %}
+
 {% block seo_description -%}
   {{ project.description | default('', true) | striptags | trim | truncate(160, False, '...') }}
 {%- endblock %}
