@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, abort, send_from_directory, request
+from flask import Blueprint, render_template, abort, send_from_directory, request, redirect, url_for
 from app.models import Post, Tag, post_tags
 from sqlalchemy import select, desc, or_, extract
 from ..extensions import db
@@ -152,16 +152,13 @@ def detail(slug):
 
 
 @blog_bp.route("/tag/<string:name>")
+@blog_bp.get("/tag/<string:name>")
 def by_tag(name):
-    """Fetches all posts with the given tag."""
-    query = (
-        select(Post)
-        .join(post_tags)
-        .join(Tag)
-        .filter(Tag.name == name, Post.is_published.is_(True))
-        .order_by(Post.created_at.desc())
+    """Redirige las URLs antiguas de etiquetas al listado principal."""
+
+    return redirect(
+        url_for("blog.index", tag=name),
+        code=301
     )
-    posts = db.session.execute(query).scalars().all()
-    return render_template("blog.html", posts=posts, tag=name)
 
 
