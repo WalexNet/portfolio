@@ -1,0 +1,114 @@
+
+/* ===== Crontab Generator ===== */
+
+#cron-tool {
+    --cron-accent: #e76f51;
+    --cron-blue: #24475a;
+}
+
+/* Tarjetas */
+#cron-tool .card {
+    border: 1px solid #e1e6ea;
+    border-radius: 10px;
+    transition: border-color 0.2s ease;
+}
+
+#cron-tool .card:hover {
+    border-color: #b8cbd3;
+}
+
+/* Campos */
+#cron-tool .cron-field:focus,
+#cron-tool #cron-expression:focus {
+    border-color: var(--cron-accent);
+    box-shadow: 0 0 0 0.2rem rgba(231, 111, 81, 0.12);
+}
+
+/* Expresión cron */
+#cron-tool #cron-expression {
+    color: var(--cron-blue);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+/* Interpretación */
+#cron-tool .cron-interpretation {
+    background: #edf4f6;
+    border-left: 3px solid var(--cron-blue);
+    border-radius: 6px;
+    padding: 16px 18px;
+}
+
+#cron-tool .cron-interpretation .cron-label {
+    color: var(--cron-blue);
+    font-weight: 600;
+}
+
+#cron-tool #cron-description {
+    color: #425e6d !important;
+}
+
+/* Botón de validación */
+#cron-tool #cron-validate {
+    background: var(--cron-blue);
+    border-color: var(--cron-blue);
+}
+
+#cron-tool #cron-validate:hover {
+    background: #183746;
+    border-color: #183746;
+}
+
+/* Próximas ejecuciones */
+#cron-tool #cron-result .list-group-item {
+    border-left: 3px solid #d8e6eb;
+}
+
+#cron-tool #cron-result .list-group-item:hover {
+    background: #f2f7f8;
+}
+
+
+/* ===== Biblioteca de ejemplos ===== */
+
+#cron-examples .cron-example-card {
+    border: 1px solid #e1e6ea;
+    border-radius: 10px;
+    transition: border-color 0.2s ease,
+                box-shadow 0.2s ease;
+}
+
+#cron-examples .cron-example-card:hover {
+    border-color: #a8c4ce;
+    box-shadow: 0 5px 16px rgba(36, 71, 90, 0.08);
+}
+
+#cron-examples .cron-example-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 9px;
+    background: #edf4f6;
+    color: #24475a;
+    font-size: 20px;
+}
+
+#cron-examples .cron-example-expression {
+    background: #f3f6f7;
+    border-left: 3px solid #e76f51;
+    border-radius: 4px;
+    padding: 10px 12px;
+}
+
+#cron-examples .cron-example-expression code {
+    color: #24475a;
+    font-size: 0.95rem;
+}
+
+#cron-examples .cron-load-example:hover {
+    background: #24475a;
+    border-color: #24475a;
+    color: #fff;
+}

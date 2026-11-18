@@ -4,7 +4,9 @@
 <section id="tools-hero" class="hero hero-inner section dark-background">
   <div class="container d-flex flex-column align-items-center text-center">
     <h2 data-aos="fade-up" data-aos-delay="100">HERRAMIENTAS</h2>
-    <p data-aos="fade-up" data-aos-delay="200">Utilidades técnicas interactivas para redes, sistemas y desarrollo</p>
+    <p data-aos="fade-up" data-aos-delay="200">
+      Utilidades técnicas interactivas para redes, sistemas y desarrollo
+    </p>
   </div>
 </section>
 
@@ -12,159 +14,602 @@
   #tools {
     --tools-accent: #ff7043;
     --tools-navy: #284b63;
+    --tools-navy-dark: #1b364a;
     --tools-soft: #f1f6f8;
-    --tools-muted: #aeb8c2;
+    --tools-soft-2: #f8fbfc;
+    --tools-border: #dce5eb;
+    --tools-text: #52616c;
+    --tools-muted: #8b98a3;
+  }
+
+  #tools .tools-intro-wrap {
+    margin-bottom: 2.5rem;
   }
 
   #tools .tools-intro {
-    max-width: 760px;
-    margin-bottom: 2rem;
+    max-width: 680px;
+  }
+
+  #tools .tools-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: .75rem;
+    color: var(--tools-muted);
+    font-size: .82rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  #tools .tools-kicker::after {
+    content: "";
+    display: block;
+    width: 84px;
+    height: 2px;
+    border-radius: 999px;
+    background: var(--tools-accent);
   }
 
   #tools .tools-intro h2 {
     color: var(--tools-navy);
-    font-weight: 650;
-    margin-bottom: .6rem;
+    font-size: clamp(2rem, 3vw, 3rem);
+    font-weight: 700;
+    margin-bottom: 1rem;
   }
 
-  #tools .tools-feature {
-    border: 1px solid #dce5eb;
-    background: #fff;
-    border-radius: 18px;
-    overflow: hidden;
-    box-shadow: 0 8px 30px rgba(40, 75, 99, .055);
-    transition: border-color .2s ease, box-shadow .2s ease;
+  #tools .tools-intro p {
+    color: var(--tools-text);
+    font-size: 1.08rem;
+    line-height: 1.8;
+    margin-bottom: 0;
   }
 
-  #tools .tools-feature:hover {
-    border-color: #b7cad5;
-    box-shadow: 0 12px 34px rgba(40, 75, 99, .09);
-  }
-
-  #tools .tools-art {
-    background: var(--tools-soft);
-    min-height: 290px;
-    height: 100%;
+  #tools .tools-hero-art {
+    background: linear-gradient(180deg, #f9fbfc 0%, #f1f6f8 100%);
+    border: 1px solid var(--tools-border);
+    border-radius: 24px;
+    min-height: 280px;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 2rem;
+    box-shadow: 0 8px 30px rgba(40, 75, 99, 0.05);
   }
 
-  #tools .tools-art img {
+  #tools .tools-hero-art-inner {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+  }
+
+  #tools .hero-device {
+    width: 220px;
+    height: 140px;
+    border-radius: 16px;
+    background: linear-gradient(180deg, #284b63 0%, #1f3a4c 100%);
+    position: relative;
+    box-shadow: 0 12px 24px rgba(40, 75, 99, 0.15);
+  }
+
+  #tools .hero-device::before {
+    content: ">_";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 2rem;
+    letter-spacing: .04em;
+  }
+
+  #tools .hero-book-stack {
+    display: flex;
+    flex-direction: column;
+    gap: .6rem;
+  }
+
+  #tools .hero-book {
+    width: 85px;
+    height: 18px;
+    border-radius: 8px;
+    background: #d9e7ee;
+    border: 1px solid #c8d9e3;
+    position: relative;
+  }
+
+  #tools .hero-book:nth-child(2) {
+    background: #eaf1f5;
+  }
+
+  #tools .hero-book.accent {
+    border-color: var(--tools-accent);
+    box-shadow: inset 0 -3px 0 var(--tools-accent);
+  }
+
+  #tools .hero-plant {
+    width: 56px;
+    height: 92px;
+    position: relative;
+  }
+
+  #tools .hero-plant::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 10px;
+    width: 36px;
+    height: 38px;
+    border-radius: 0 0 16px 16px;
+    background: #ffffff;
+    border: 1px solid var(--tools-border);
+  }
+
+  #tools .hero-plant::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 4px;
+    width: 48px;
+    height: 58px;
+    background:
+      radial-gradient(circle at 18px 42px, #7cb083 0 10px, transparent 11px),
+      radial-gradient(circle at 34px 36px, #6fa876 0 10px, transparent 11px),
+      radial-gradient(circle at 14px 20px, #88ba8e 0 10px, transparent 11px),
+      radial-gradient(circle at 36px 16px, #7eb385 0 10px, transparent 11px);
+  }
+
+  #tools .hero-cup {
+    width: 48px;
+    height: 58px;
+    border-radius: 0 0 12px 12px;
+    background: #fff;
+    border: 1px solid var(--tools-border);
+    position: relative;
+  }
+
+  #tools .hero-cup::before {
+    content: "";
+    position: absolute;
+    right: -12px;
+    top: 12px;
+    width: 16px;
+    height: 20px;
+    border: 3px solid var(--tools-navy);
+    border-left: 0;
+    border-radius: 0 10px 10px 0;
+  }
+
+  #tools .hero-cup::after {
+    content: "";
+    position: absolute;
+    top: -3px;
+    left: 8px;
+    width: 32px;
+    height: 4px;
+    border-radius: 999px;
+    background: var(--tools-accent);
+  }
+
+  #tools .tools-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .9rem;
+    margin-bottom: 2rem;
+  }
+
+  #tools .tools-filter {
+    display: inline-flex;
+    align-items: center;
+    gap: .65rem;
+    background: #fff;
+    border: 1px solid var(--tools-border);
+    color: #2d3943;
+    padding: .85rem 1.25rem;
+    border-radius: 14px;
+    font-weight: 600;
+    line-height: 1;
+    text-decoration: none;
+    box-shadow: 0 2px 8px rgba(40, 75, 99, .03);
+  }
+
+  #tools .tools-filter.active {
+    background: linear-gradient(135deg, #29506a 0%, #1f4257 100%);
+    border-color: #1f4257;
+    color: #fff;
+  }
+
+  #tools .tools-grid {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  #tools .tools-card {
+    border: 1px solid var(--tools-border);
+    background: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(40, 75, 99, .055);
+    transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+  }
+
+  #tools .tools-card:hover {
+    border-color: #b7cad5;
+    box-shadow: 0 12px 34px rgba(40, 75, 99, .09);
+    transform: translateY(-2px);
+  }
+
+  #tools .tools-card-body {
+    display: grid;
+    grid-template-columns: 260px minmax(0, 1fr) 220px;
+    align-items: center;
+    gap: 0;
+  }
+
+  #tools .tools-card-art {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    min-height: 200px;
+    background: var(--tools-soft-2);
+  }
+
+  #tools .tools-card-art img {
     display: block;
     width: 100%;
-    max-width: 360px;
+    max-width: 170px;
     height: auto;
-    aspect-ratio: 3 / 2;
     object-fit: contain;
-    border-radius: 14px;
   }
 
-  #tools .tools-content {
-    padding: clamp(1.5rem, 3vw, 2.6rem);
+  #tools .tools-card-content {
+    padding: 2rem 2rem 2rem 0;
+    position: relative;
   }
 
-  #tools .tools-eyebrow {
-    color: var(--tools-accent);
-    font-size: .76rem;
+  #tools .tools-card-content::before {
+    content: "";
+    position: absolute;
+    left: -1rem;
+    top: 2rem;
+    bottom: 2rem;
+    width: 1px;
+    background: var(--tools-border);
+  }
+
+  #tools .tools-card-title {
+    color: #122233;
+    font-size: clamp(1.45rem, 2vw, 1.9rem);
     font-weight: 700;
-    letter-spacing: .08em;
-    text-transform: uppercase;
-    margin-bottom: .7rem;
-  }
-
-  #tools .tools-title {
-    font-size: clamp(1.45rem, 2.2vw, 1.9rem);
-    color: var(--tools-navy);
-    font-weight: 650;
-    margin-bottom: .85rem;
-  }
-
-  #tools .tools-description {
-    color: #52616c;
-    line-height: 1.7;
-    margin-bottom: 1.4rem;
+    margin-bottom: .75rem;
   }
 
   #tools .tools-tags {
     display: flex;
     flex-wrap: wrap;
-    gap: .45rem;
-    margin-bottom: 1.7rem;
+    gap: .55rem;
+    margin-bottom: 1rem;
   }
 
   #tools .tools-tag {
     background: var(--tools-soft);
-    border: 1px solid #dde7ed;
     color: var(--tools-navy);
-    border-radius: 6px;
-    padding: .28rem .65rem;
-    font-size: .8rem;
-    font-weight: 550;
+    border-radius: 8px;
+    padding: .3rem .75rem;
+    font-size: .85rem;
+    font-weight: 600;
+  }
+
+  #tools .tools-description {
+    color: var(--tools-text);
+    line-height: 1.65;
+    margin-bottom: 0;
+    max-width: 720px;
+  }
+
+  #tools .tools-card-action {
+    padding: 2rem;
+    display: flex;
+    justify-content: flex-end;
   }
 
   #tools .tools-open {
     display: inline-flex;
     align-items: center;
-    gap: .6rem;
-    border-radius: 8px;
+    justify-content: center;
+    gap: .7rem;
+    border-radius: 12px;
     background: var(--tools-navy);
     border: 1px solid var(--tools-navy);
     color: #fff;
     text-decoration: none;
     font-weight: 600;
-    padding: .7rem 1.15rem;
-    transition: background .2s ease, border-color .2s ease;
+    padding: .9rem 1.35rem;
+    min-width: 200px;
+    transition: background .2s ease, border-color .2s ease, transform .2s ease;
   }
 
   #tools .tools-open:hover,
   #tools .tools-open:focus-visible {
     color: #fff;
-    background: #1b364a;
+    background: var(--tools-navy-dark);
     border-color: var(--tools-accent);
+    transform: translateY(-1px);
+  }
+
+  @media (max-width: 991.98px) {
+    #tools .tools-card-body {
+      grid-template-columns: 1fr;
+    }
+
+    #tools .tools-card-content {
+      padding: 0 2rem 1.5rem;
+    }
+
+    #tools .tools-card-content::before {
+      display: none;
+    }
+
+    #tools .tools-card-action {
+      padding: 0 2rem 2rem;
+      justify-content: flex-start;
+    }
+
+    #tools .tools-open {
+      min-width: auto;
+      width: 100%;
+    }
+
+    #tools .tools-hero-art {
+      margin-top: 1.5rem;
+    }
   }
 
   @media (max-width: 767.98px) {
-    #tools .tools-art { min-height: 220px; padding: 1.4rem; }
-    #tools .tools-art img { max-width: 280px; }
+    #tools .tools-filters {
+      gap: .7rem;
+    }
+
+    #tools .tools-filter {
+      padding: .8rem 1rem;
+      border-radius: 12px;
+    }
+
+    #tools .tools-card-art {
+      min-height: 170px;
+      padding: 1.5rem;
+    }
+
+    #tools .tools-card-art img {
+      max-width: 140px;
+    }
   }
+
+    @media (max-width: 767.98px) {
+    #tools .tools-filters {
+      gap: .7rem;
+    }
+
+    #tools .tools-filter {
+      padding: .8rem 1rem;
+      border-radius: 12px;
+    }
+
+    #tools .tools-card-art {
+      min-height: 170px;
+      padding: 1.5rem;
+    }
+
+    #tools .tools-card-art img {
+      max-width: 140px;
+    }
+  }
+
+  /* ===== Filtrado de herramientas ===== */
+
+  #tools .tools-filter {
+    cursor: pointer;
+    font-family: inherit;
+    transition: background .2s ease,
+                border-color .2s ease,
+                color .2s ease;
+  }
+
+  #tools .tools-filter:hover:not(.active) {
+    background: #f1f6f8;
+    border-color: #284b63;
+    color: #284b63;
+  }
+
+  #tools .tools-filter:focus-visible {
+    outline: 2px solid #ff7043;
+    outline-offset: 3px;
+  }
+
+  #tools .tools-card[hidden] {
+    display: none !important;
+  }
+
 </style>
 
 <section id="tools" class="section">
   <div class="container">
-    <div class="tools-intro">
-      <h2>Herramientas técnicas</h2>
-      <p class="text-muted mb-0">Pequeñas utilidades para resolver tareas habituales de administración de redes y sistemas, directamente desde el navegador.</p>
-    </div>
 
-    <article class="tools-feature" data-aos="fade-up">
-      <div class="row g-0 align-items-stretch">
-        <div class="col-md-5">
-          <div class="tools-art">
-            <img src="{{ url_for('static', filename='img/tools/calculadora-ip-icono.webp') }}"
-                 alt="Ilustración minimalista de una red con router, dispositivos y prefijos IPv4 e IPv6"
-                 width="1536" height="1024" loading="lazy">
+    <div class="row align-items-center tools-intro-wrap g-4">
+      <div class="col-lg-7">
+        <div class="tools-intro">
+          <div class="tools-kicker">UTILIDADES INTERACTIVAS</div>
+          <h2>Herramientas técnicas</h2>
+          <p>
+            Un conjunto de herramientas online orientadas a redes,
+            administración de sistemas, DevOps y desarrollo, diseñadas para
+            ayudarte en tareas cotidianas de análisis, cálculo y automatización.
+          </p>
+        </div>
+      </div>
+
+      <div class="col-lg-5">
+        <div class="tools-hero-art" aria-hidden="true">
+          <div class="tools-hero-art-inner">
+            <div class="hero-book-stack">
+              <span class="hero-book accent"></span>
+              <span class="hero-book"></span>
+            </div>
+            <div class="hero-device"></div>
+            <div class="hero-plant"></div>
+            <div class="hero-cup"></div>
           </div>
         </div>
-        <div class="col-md-7 d-flex align-items-center">
-          <div class="tools-content">
-            <div class="tools-eyebrow">Networking · Direccionamiento IP</div>
-            <h3 class="tools-title">Calculadora IP / Subnetting</h3>
-            <p class="tools-description">Analiza direcciones IPv4 e IPv6, calcula prefijos y rangos, divide redes en subredes y visualiza los bits de red y host. Incluye ejemplos prácticos de planificación de direccionamiento.</p>
-            <div class="tools-tags" aria-label="Funciones disponibles">
+      </div>
+    </div>
+
+    <div class="tools-filters" aria-label="Categorías de herramientas">
+      <div class="tools-filters" role="group" aria-label="Filtrar herramientas">
+        <button type="button" class="tools-filter active" data-filter="all" aria-pressed="true">
+          <i class="bi bi-grid"></i> Todas
+        </button>
+        <button type="button" class="tools-filter" data-filter="redes" aria-pressed="false">
+          <i class="bi bi-diagram-3"></i> Redes
+        </button>
+        <button type="button" class="tools-filter" data-filter="sistemas" aria-pressed="false">
+          <i class="bi bi-hdd-stack"></i> Sistemas
+        </button>
+        <button type="button" class="tools-filter" data-filter="devops" aria-pressed="false">
+          <i class="bi bi-infinity"></i> DevOps
+        </button>
+      </div>
+    </div>
+
+    <div class="tools-grid">
+      <!-- IpCalc -->
+      <article class="tools-card" data-category="redes" data-aos="fade-up">
+        <div class="tools-card-body">
+          <div class="tools-card-art">
+            <img
+              src="{{ url_for('static', filename='img/tools/calculadora-ip-icono.webp') }}"
+              alt="Ilustración de calculadora de direcciones IP y subnetting"
+              loading="lazy"
+            >
+          </div>
+
+          <div class="tools-card-content">
+            <h3 class="tools-card-title">Calculadora IP / Subnetting</h3>
+
+            <div class="tools-tags" aria-label="Etiquetas de la herramienta">
               <span class="tools-tag">IPv4</span>
               <span class="tools-tag">IPv6</span>
               <span class="tools-tag">CIDR</span>
               <span class="tools-tag">Subnetting</span>
             </div>
+
+            <p class="tools-description">
+              Analiza direcciones IPv4 e IPv6, calcula prefijos y rangos,
+              divide redes en subredes y visualiza los bits de red y host.
+            </p>
+          </div>
+
+          <div class="tools-card-action">
             <a class="tools-open" href="{{ url_for('subnet.index') }}">
-              Abrir herramienta <i class="bi bi-arrow-right" aria-hidden="true"></i>
+              Abrir herramienta
+              <i class="bi bi-arrow-right" aria-hidden="true"></i>
             </a>
           </div>
         </div>
-      </div>
-    </article>
+      </article>
+      <!-- Crontab -->
+      <article class="tools-card" data-category="sistemas devops" data-aos="fade-up">
+        <div class="tools-card-body">
+          <div class="tools-card-art">
+            <img
+              src="{{ url_for('static', filename='img/tools/generador-crontab-icono.webp') }}"
+              alt="Ilustración minimalista para el generador y validador de expresiones Crontab"
+              loading="lazy"
+            >
+          </div>
+
+          <div class="tools-card-content">
+            <h3 class="tools-card-title">Generador y Validador Crontab</h3>
+
+            <div class="tools-tags" aria-label="Etiquetas de la herramienta">
+              <span class="tools-tag">Cron</span>
+              <span class="tools-tag">Linux</span>
+              <span class="tools-tag">DevOps</span>
+              <span class="tools-tag">Automatización</span>
+            </div>
+
+            <p class="tools-description">
+              Genera, valida e interpreta expresiones Crontab. Calcula próximas
+              ejecuciones y trabaja con distintas zonas horarias.
+            </p>
+          </div>
+
+          <div class="tools-card-action">
+            <a class="tools-open" href="{{ url_for('cron.index') }}">
+              Abrir herramienta
+              <i class="bi bi-arrow-right" aria-hidden="true"></i>
+            </a>
+          </div>
+        </div>
+      </article>
+
+    </div>
   </div>
 </section>
+
+
+<!-- ===== Filtrado de herramientas ===== -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  const filters = document.querySelectorAll(
+    ".tools-filter[data-filter]"
+  );
+
+  const cards = document.querySelectorAll(
+    ".tools-card[data-category]"
+  );
+
+  filters.forEach(button => {
+
+    button.addEventListener("click", () => {
+
+      const selected = button.dataset.filter;
+
+      // Actualizar el botón activo
+      filters.forEach(filter => {
+        const active = filter === button;
+
+        filter.classList.toggle("active", active);
+        filter.setAttribute(
+          "aria-pressed",
+          String(active)
+        );
+      });
+
+      // Filtrar las tarjetas
+      cards.forEach(card => {
+
+        const categories = card.dataset.category
+          .split(/\s+/);
+
+        const visible =
+          selected === "all" ||
+          categories.includes(selected);
+
+        card.hidden = !visible;
+
+      });
+
+    });
+
+  });
+
+});
+</script>
+
 {% endblock %}

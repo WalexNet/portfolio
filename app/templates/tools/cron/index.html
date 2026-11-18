@@ -1,0 +1,304 @@
+{% extends "base.html" %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/cron.css') }}">
+<!-- ======= Hero compartido ======= -->
+  {% set tool_title = "Generador y Validador Crontab" %}
+  {% set tool_description = "Crea, interpreta y valida expresiones cron para automatizar tareas en Linux." %}
+  {% set tool_icon = "bi-calendar-week" %}
+
+  {% include "tools/_components/hero.html" %}
+
+<div class="container mt-4">
+  <a href="{{ url_for('tools.index') }}"
+     class="tool-back-link">
+    <i class="bi bi-arrow-left" aria-hidden="true"></i>
+    Volver a Herramientas
+  </a>
+</div>
+
+<!-- ======= Cron Tool ======= -->
+<section id="cron-tool" class="section">
+  <div class="container" data-aos="fade-up">
+
+    <div class="section-title">
+      <h2>Expresiones Cron</h2>
+      <p>Configura los cinco campos de una expresión crontab.</p>
+    </div>
+
+    <div class="row gy-4">
+
+      <div class="col-lg-8">
+
+        <div class="card shadow-sm">
+          <div class="card-body p-4">
+
+            <h3 class="h5 mb-4">Generador visual</h3>
+
+            <div class="mb-4">
+              <label for="cron-preset" class="form-label">
+                Horarios predefinidos
+              </label>
+
+              <select id="cron-preset" class="form-select">
+                <option value="">Personalizado</option>
+                <option value="*/5 * * * *">Cada 5 minutos</option>
+                <option value="*/15 * * * *">Cada 15 minutos</option>
+                <option value="0 * * * *">Cada hora</option>
+                <option value="0 8 * * *">Todos los días a las 08:00</option>
+                <option value="30 8 * * 1-5">
+                  De lunes a viernes a las 08:30
+                </option>
+                <option value="0 2 * * 0">
+                  Todos los domingos a las 02:00
+                </option>
+                <option value="0 0 1 * *">
+                  El primer día de cada mes
+                </option>
+              </select>
+            </div>
+
+            <div class="row g-3">
+
+              {% for label, field, value in [
+                ("Minuto", "minute", "0"),
+                ("Hora", "hour", "8"),
+                ("Día del mes", "day", "*"),
+                ("Mes", "month", "*"),
+                ("Día de semana", "weekday", "*")
+              ] %}
+
+              <div class="col-md">
+                <label for="{{ field }}" class="form-label">
+                  {{ label }}
+                </label>
+                <input
+                  type="text"
+                  class="form-control text-center cron-field"
+                  id="{{ field }}"
+                  value="{{ value }}"
+                  autocomplete="off"
+                >
+              </div>
+
+              {% endfor %}
+
+            </div>
+
+            <div class="mt-4">
+              <label for="cron-expression" class="form-label">
+                Expresión generada
+              </label>
+
+              <div class="input-group">
+                <input
+                  type="text"
+                  id="cron-expression"
+                  class="form-control font-monospace"
+                  value="0 8 * * *"
+                  autocomplete="off"
+                  spellcheck="false"
+                  aria-label="Expresión crontab completa"
+                >
+
+                <button
+                  type="button"
+                  class="btn btn-outline-secondary"
+                  id="cron-copy"
+                >
+                  Copiar
+                </button>
+              </div>
+
+              <div id="cron-input-error"
+                   class="text-danger small mt-2"
+                   role="status"
+                   aria-live="polite"></div>
+
+              <!-- Interpretación debajo de la expresión -->
+              <div class="cron-interpretation mt-3">
+                <span class="cron-label">Interpretación:</span>
+
+                <p id="cron-description" class="text-muted mb-0 mt-1"
+                   aria-live="polite">
+                  Todos los días a las 08:00.
+                </p>
+              </div>
+            </div>
+
+
+            <!-- ===== Zona horaria ===== -->
+            <div class="mt-4">
+              <label for="cron-timezone" class="form-label">
+                <i class="bi bi-globe2 me-1"></i>
+                Zona horaria
+              </label>
+
+              <select id="cron-timezone" class="form-select">
+                {% for timezone, label in timezones.items() %}
+                  <option
+                    value="{{ timezone }}"
+                    {% if timezone == "Europe/Madrid" %}selected{% endif %}
+                  >
+                    {{ label }} — {{ timezone }}
+                  </option>
+                {% endfor %}
+              </select>
+
+              <div class="form-text">
+                Las próximas ejecuciones se calcularán según
+                la zona horaria seleccionada.
+              </div>
+            </div>
+
+
+            <div class="mt-4">
+              <button
+                type="button"
+                class="btn btn-primary"
+                id="cron-validate"
+                data-validate-url="{{ url_for('cron.validate') }}"
+              >
+                Validar expresión
+              </button>
+            </div>
+
+            <div id="cron-result" class="mt-4" aria-live="polite"></div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <div class="col-lg-4">
+
+        <div class="card shadow-sm">
+          <div class="card-body p-4">
+
+            <h3 class="h5 mb-3">Sintaxis Crontab</h3>
+
+            <pre class="small mb-3">* * * * *
+│ │ │ │ │
+│ │ │ │ └─ Día semana
+│ │ │ └─── Mes
+│ │ └───── Día mes
+│ └─────── Hora
+└───────── Minuto</pre>
+
+            <h4 class="h6">Operadores</h4>
+
+            <p class="small mb-2">
+              <code>*</code> Cualquier valor
+            </p>
+            <p class="small mb-2">
+              <code>,</code> Lista de valores
+            </p>
+            <p class="small mb-2">
+              <code>-</code> Rango de valores
+            </p>
+            <p class="small mb-0">
+              <code>/</code> Incrementos
+            </p>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- ===== Ejemplos prácticos Crontab ===== -->
+  <div class="container mt-5" id="cron-examples">
+
+    <div class="section-title">
+      <h2>Ejemplos prácticos</h2>
+      <p>
+        EXPRESIONES CRONTAB PARA ADMINISTRACIÓN LINUX Y DEVOPS
+      </p>
+    </div>
+
+    <div class="row g-4">
+
+      {% set examples = [
+        (
+          "Backup diario",
+          "Ejecutar una copia de seguridad cada día a las 02:30.",
+          "30 2 * * *",
+          "bi bi-database"
+        ),
+        (
+          "Mantenimiento semanal",
+          "Ejecutar tareas de mantenimiento los domingos a las 04:00.",
+          "0 4 * * 0",
+          "bi bi-tools"
+        ),
+        (
+          "Script Python",
+          "Ejecutar un script Python cada 15 minutos.",
+          "*/15 * * * *",
+          "bi bi-code-slash"
+        ),
+        (
+          "Monitorización",
+          "Comprobar un servicio cada 5 minutos.",
+          "*/5 * * * *",
+          "bi bi-activity"
+        ),
+        (
+          "Limpieza de temporales",
+          "Ejecutar una limpieza el primer día de cada mes a las 03:00.",
+          "0 3 1 * *",
+          "bi bi-trash3"
+        ),
+        (
+          "Horario laboral",
+          "Ejecutar una tarea de lunes a viernes a las 08:00.",
+          "0 8 * * 1-5",
+          "bi bi-calendar-week"
+        )
+      ] %}
+
+      {% for title, detail, cron, icon in examples %}
+      <div class="col-md-6 col-lg-4">
+
+        <div class="card cron-example-card h-100">
+          <div class="card-body p-4">
+
+            <div class="cron-example-icon mb-3">
+              <i class="bi {{ icon }}"></i>
+            </div>
+
+            <h3 class="h5">{{ title }}</h3>
+
+            <p class="small text-muted">
+              {{ detail }}
+            </p>
+
+            <div class="cron-example-expression mb-3">
+              <code>{{ cron }}</code>
+            </div>
+
+            <button
+              type="button"
+              class="btn btn-sm btn-outline-secondary cron-load-example"
+              data-expression="{{ cron }}"
+            >
+              <i class="bi bi-arrow-up-circle me-1"></i>
+              Cargar en generador
+            </button>
+
+          </div>
+        </div>
+
+      </div>
+      {% endfor %}
+
+    </div>
+  </div>
+
+</section>
+
+<script src="{{ url_for('static', filename='js/cron.js') }}"></script>
+
+{% endblock %}

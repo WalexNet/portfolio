@@ -19,8 +19,10 @@ from .routes.projects import projects_bp
 from .routes.tools import tools_bp
 from .routes.seo import seo_bp
 from .routes.legacy import legacy_bp
+
 # Tools
 from .tools.subnet.routes import subnet_bp
+from .tools.cron.routes import cron_bp
 
 
 def create_app():
@@ -58,6 +60,7 @@ def create_app():
     app.register_blueprint(subnet_bp)
     app.register_blueprint(seo_bp)
     app.register_blueprint(legacy_bp)
+    app.register_blueprint(cron_bp)
 
     @app.context_processor
     def inject_career_menu():

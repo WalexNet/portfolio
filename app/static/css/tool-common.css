@@ -1,0 +1,198 @@
+/* Portfolio Web · Estilos compartidos de herramientas */
+
+/* Hero compacto: una única definición para todas las herramientas */
+.hero.hero-inner.section.tool-hero {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    min-height: 0;
+    height: auto;
+    padding: 85px 0 25px !important;
+    background-color: #07131e;
+    background-image:
+        radial-gradient(ellipse at 78% 95%, rgba(255, 112, 67, .19), transparent 58%),
+        linear-gradient(115deg, #07131e 0%, #0a1b28 55%, #16232e 100%);
+}/* Hero compacto: una única definición para todas las herramientas */
+.hero.hero-inner.section.tool-hero {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    min-height: 0;
+    height: auto;
+    padding: 22px 0 18px;
+    background-color: #07131e;
+    background-image:
+        radial-gradient(ellipse at 78% 95%, rgba(255, 112, 67, .19), transparent 58%),
+        linear-gradient(115deg, #07131e 0%, #0a1b28 55%, #16232e 100%);
+}
+
+/* Sustituye la capa de oscurecimiento global de .hero::before por la rejilla */
+.hero.hero-inner.tool-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image:
+        linear-gradient(rgba(100, 160, 190, .095) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(100, 160, 190, .095) 1px, transparent 1px);
+    background-size: 40px 40px;
+    opacity: 1;
+}
+
+.hero.hero-inner.tool-hero > .container {
+    position: relative;
+    z-index: 1;
+}
+
+.tool-hero .row { min-height: 120px; }
+
+/* Identificador técnico de cada herramienta */
+.tool-hero-graphic {
+    position: relative;
+    width: 170px;
+    height: 110px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tool-hero-symbol {
+    width: 72px;
+    height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1.5px solid #ff7043;
+    border-radius: 16px;
+    background: rgba(255, 112, 67, .08);
+    color: #ff7043;
+    font-size: 34px;
+}
+
+.tool-hero-symbol i {
+    color: inherit;
+    font-size: inherit;
+    line-height: 1;
+}
+
+.tool-hero-node {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border: 1.5px solid #ff7043;
+    border-radius: 50%;
+    background: #07131e;
+    opacity: .85;
+}
+
+.tool-hero-node.node-one { top: 10px; left: 14px; }
+.tool-hero-node.node-two { top: 10px; right: 14px; }
+.tool-hero-node.node-three { bottom: 10px; left: 14px; }
+.tool-hero-node.node-four { bottom: 10px; right: 14px; }
+
+/* Contraste del texto frente a las reglas globales del tema */
+.tool-hero .tool-hero-content { padding: .2rem 0; }
+
+.hero.tool-hero .tool-hero-content h1 {
+    color: #fff;
+    -webkit-text-fill-color: #fff;
+    opacity: 1;
+    font-size: clamp(1.85rem, 2.8vw, 2.35rem);
+    font-weight: 500;
+    line-height: 1.18;
+    margin-bottom: .45rem;
+}
+
+.hero.tool-hero .tool-hero-content p {
+    color: #dce7ed;
+    -webkit-text-fill-color: #dce7ed;
+    opacity: 1;
+    font-size: 1rem;
+    line-height: 1.55;
+    max-width: 760px;
+    margin: 0 auto;
+}
+
+/* Navegación obligatoria en cada herramienta */
+.tool-back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    margin-bottom: 1.5rem;
+    color: #e76f51;
+    text-decoration: none;
+    font-size: .95rem;
+    font-weight: 500;
+    transition: color .2s ease;
+}
+
+.tool-back-link:hover,
+.tool-back-link:focus-visible {
+    color: #284b63;
+    text-decoration: none;
+}
+
+.tool-back-link i { font-size: 1rem; }
+
+/* Encabezados interiores */
+.tool-section-header { margin-bottom: 3rem; }
+
+.tool-section-header .tool-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    color: #929ba3;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    font-size: .85rem;
+    font-weight: 500;
+    margin-bottom: .45rem;
+}
+
+.tool-section-header .tool-eyebrow::after {
+    content: "";
+    display: block;
+    width: 90px;
+    height: 2px;
+    background: #ff7043;
+}
+
+.tool-section-header h2 {
+    color: #284b63;
+    font-size: clamp(1.7rem, 2.8vw, 2.25rem);
+    font-weight: 750;
+    text-transform: uppercase;
+    line-height: 1.2;
+    margin-bottom: .8rem;
+}
+
+.tool-section-header p {
+    color: #52616c;
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 0;
+}
+
+@media (max-width: 991.98px) {
+    .hero.hero-inner.section.tool-hero { padding: 90px 0 22px !important; }
+    .tool-hero .row { min-height: 0; }
+    .tool-hero .tool-hero-content { padding: .4rem 0; }
+    .hero.tool-hero .tool-hero-content h1 { font-size: clamp(1.7rem, 6vw, 2.15rem); }
+    .hero.tool-hero .tool-hero-content p { font-size: .98rem; }
+    .tool-section-header { margin-bottom: 2rem; }
+    .tool-section-header h2 { font-size: clamp(1.5rem, 5vw, 1.9rem); }
+}
+
+@media (max-width: 575.98px) {
+    .hero.hero-inner.section.tool-hero { padding: 16px 0 12px; }
+    .hero.tool-hero .tool-hero-content h1 { font-size: 1.65rem; }
+    .hero.tool-hero .tool-hero-content p { font-size: .9rem; }
+    .tool-section-header .tool-eyebrow::after { width: 50px; }
+    .tool-back-link { font-size: .9rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .tool-back-link { transition: none; }
+}
