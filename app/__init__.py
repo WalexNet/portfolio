@@ -23,6 +23,9 @@ from .routes.legacy import legacy_bp
 # Tools
 from .tools.subnet.routes import subnet_bp
 from .tools.cron.routes import cron_bp
+from .tools.vlan.routes import vlan_bp
+from .tools.permissions.routes import permissions_bp
+from .tools.bases.routes import bases_bp
 
 
 def create_app():
@@ -61,6 +64,9 @@ def create_app():
     app.register_blueprint(seo_bp)
     app.register_blueprint(legacy_bp)
     app.register_blueprint(cron_bp)
+    app.register_blueprint(vlan_bp)
+    app.register_blueprint(permissions_bp)
+    app.register_blueprint(bases_bp)
 
     @app.context_processor
     def inject_career_menu():

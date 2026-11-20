@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% set tool_title = "CONVERSOR DE BASES" %}
+{% set tool_description = "Convierte números entre binario, octal, decimal y hexadecimal al instante." %}
+{% set tool_icon = "bi-code-slash" %}
+{% include "tools/_components/hero.html" %}
+
+<section class="bases-page section" id="bases-tool">
+  <div class="container" data-bases-app>
+    <a class="bases-back" href="{{ url_for('tools.index') }}">
+      <i class="bi bi-arrow-left"></i>
+      Volver a herramientas
+    </a>
+
+    <div class="bases-topline">
+      <div>
+        <span class="bases-eyebrow">SISTEMAS · PROGRAMACIÓN</span>
+        <h2>Conversión numérica</h2>
+        <p>Introduce un entero en cualquier base. Las otras representaciones se actualizan automáticamente.</p>
+      </div>
+    </div>
+
+    <div class="bases-panel">
+      <div class="bases-panel-header">
+        <div><i class="bi bi-arrow-left-right"></i> CONVERSOR INTERACTIVO</div>
+        <button type="button" class="bases-clear" id="bases-reset"><i class="bi bi-arrow-counterclockwise"></i> Reiniciar</button>
+      </div>
+      <div class="bases-grid">
+        <div class="bases-field" data-base="2">
+          <label for="bases-bin"><span class="bases-pill">BIN</span> Binario <small>Base 2</small></label>
+          <div class="bases-input-wrap"><input type="text" id="bases-bin" spellcheck="false" autocomplete="off" inputmode="text" value="11111111" aria-describedby="bases-error"/><button type="button" data-copy="2" aria-label="Copiar binario" title="Copiar binario"><i class="bi bi-copy"></i></button></div>
+        </div>
+        <div class="bases-field" data-base="8">
+          <label for="bases-oct"><span class="bases-pill">OCT</span> Octal <small>Base 8</small></label>
+          <div class="bases-input-wrap"><input type="text" id="bases-oct" spellcheck="false" autocomplete="off" inputmode="text" value="377" aria-describedby="bases-error"/><button type="button" data-copy="8" aria-label="Copiar octal" title="Copiar octal"><i class="bi bi-copy"></i></button></div>
+        </div>
+        <div class="bases-field" data-base="10">
+          <label for="bases-dec"><span class="bases-pill">DEC</span> Decimal <small>Base 10</small></label>
+          <div class="bases-input-wrap"><input type="text" id="bases-dec" spellcheck="false" autocomplete="off" inputmode="text" value="255" aria-describedby="bases-error"/><button type="button" data-copy="10" aria-label="Copiar decimal" title="Copiar decimal"><i class="bi bi-copy"></i></button></div>
+        </div>
+        <div class="bases-field" data-base="16">
+          <label for="bases-hex"><span class="bases-pill">HEX</span> Hexadecimal <small>Base 16</small></label>
+          <div class="bases-input-wrap"><input type="text" id="bases-hex" spellcheck="false" autocomplete="off" inputmode="text" value="FF" aria-describedby="bases-error"/><button type="button" data-copy="16" aria-label="Copiar hexadecimal" title="Copiar hexadecimal"><i class="bi bi-copy"></i></button></div>
+        </div>
+      </div>
+      <p class="bases-error" id="bases-error" role="status" aria-live="polite"></p>
+      <div class="bases-details">
+        <div>
+          <div class="bases-detail-title">REPRESENTACIÓN BINARIA</div>
+          <div class="bases-group-controls" aria-label="Agrupar bits">
+            <button class="is-active" type="button" data-group="4" aria-pressed="true">4 bits</button>
+            <button type="button" data-group="8" aria-pressed="false">8 bits</button>
+          </div>
+        </div>
+        <div class="bases-binary" id="bases-grouped">1111 1111</div>
+        <p>El agrupamiento es visual: no modifica el número ni el valor copiado.</p>
+      </div>
+    </div>
+
+    <div class="bases-examples">
+      <strong>Prueba con un ejemplo</strong>
+      <div class="bases-example-list">
+        <button type="button" data-example="255">255 <span>· FF</span></button>
+        <button type="button" data-example="1024">1024 <span>· 400</span></button>
+        <button type="button" data-example="65535">65535 <span>· FFFF</span></button>
+        <button type="button" data-example="-42">−42 <span>· −2A</span></button>
+      </div>
+    </div>
+    <p class="bases-note"><i class="bi bi-info-circle"></i> Se admiten enteros de cualquier tamaño mediante BigInt. Los valores negativos se muestran con signo, no en complemento a dos. No se admiten fracciones.</p>
+    <span class="visually-hidden" id="bases-announcement" role="status" aria-live="polite"></span>
+  </div>
+</section>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/bases.css') }}">
+<script defer src="{{ url_for('static', filename='js/bases.js') }}"></script>
+{% endblock %}

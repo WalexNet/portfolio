@@ -1,0 +1,237 @@
+
+/* ==========================================
+   VLAN Designer - Vista visual del switch
+   ========================================== */
+
+.switch-visual {
+    background: #06131e;
+    color: #e5eef4;
+    padding: 1.5rem;
+    border-radius: 12px;
+}
+
+.switch-visual-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+}
+
+.switch-visual-header h3 {
+    color: #fff;
+    margin: 0 0 .25rem;
+    font-size: 1.15rem;
+    font-weight: 600;
+}
+
+.switch-visual-header p {
+    color: #9eb3c1;
+    margin: 0;
+    font-size: .85rem;
+}
+
+.switch-visual-summary {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid #284052;
+    color: #b6cbd7;
+    font-size: .85rem;
+}
+
+.switch-visual-ports {
+    display: grid;
+    grid-template-columns:
+        repeat(auto-fill, minmax(125px, 1fr));
+    gap: .8rem;
+}
+
+.switch-port {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: .4rem;
+
+    background: #142837;
+    border: 1px solid #334b5a;
+    border-top: 3px solid #8495a2;
+    border-radius: 8px;
+
+    padding: 1rem .5rem;
+    min-height: 126px;
+    min-width: 0;
+    color: #fff;
+
+    cursor: pointer;
+    transition: background .15s, border-color .15s;
+}
+
+.switch-port:hover,
+.switch-port:focus-visible {
+    background: #203a4b;
+    outline: 2px solid #9eb3c1;
+    outline-offset: 2px;
+}
+
+.switch-port.access {
+    border-top-color: #32b78c;
+}
+
+.switch-port.trunk {
+    border-top-color: #ff7043;
+}
+
+.switch-port.unmapped {
+    border-style: dashed;
+    border-color: #8495a2;
+}
+
+.switch-port.selected {
+    background: #284b63;
+    outline: 2px solid #f0f5f8;
+    outline-offset: 2px;
+}
+
+.switch-port i {
+    font-size: 1.65rem;
+    line-height: 1;
+    color: #b7cfdb;
+}
+
+.switch-port.access i {
+    color: #32b78c;
+}
+
+.switch-port.trunk i {
+    color: #ff7043;
+}
+
+.switch-port-name {
+    font-family: monospace;
+    font-size: .82rem;
+    font-weight: 600;
+    overflow-wrap: anywhere;
+    text-align: center;
+}
+
+.switch-port-vlan {
+    color: #bdced8;
+    font-size: .75rem;
+    text-align: center;
+    overflow-wrap: anywhere;
+}
+
+.switch-port-logical {
+    color: #91a9b9;
+    font-size: .7rem;
+    text-align: center;
+    overflow-wrap: anywhere;
+}
+
+.switch-visual-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.2rem;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid #284052;
+    font-size: .8rem;
+    color: #bdced8;
+}
+
+.switch-visual-legend span {
+    display: inline-flex;
+    align-items: center;
+    gap: .45rem;
+}
+
+.switch-legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    background: #8495a2;
+}
+
+.switch-legend-dot.access {
+    background: #32b78c;
+}
+
+.switch-legend-dot.trunk {
+    background: #ff7043;
+}
+
+.switch-port-detail {
+    margin-top: 1rem;
+    padding: 1.25rem;
+    border: 1px solid #dce4e9;
+    background: #f3f7f9;
+    border-radius: 10px;
+}
+
+.switch-port-detail h3 {
+    color: #284b63;
+    font-size: 1.05rem;
+    margin-bottom: 1rem;
+}
+
+.switch-detail-grid {
+    display: grid;
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+    gap: .8rem 1.5rem;
+}
+
+.switch-detail-item {
+    min-width: 0;
+}
+
+.switch-detail-item strong {
+    display: block;
+    font-size: .78rem;
+    color: #708391;
+    margin-bottom: .2rem;
+}
+
+.switch-detail-item span {
+    display: block;
+    color: #243746;
+    overflow-wrap: anywhere;
+}
+
+.switch-visual-note {
+    margin: .9rem 0 0;
+    color: #718391;
+    font-size: .82rem;
+}
+
+.switch-visual-empty {
+    grid-column: 1 / -1;
+    padding: 2rem 1rem;
+    text-align: center;
+    color: #a7bac7;
+}
+
+@media (max-width: 600px) {
+    .switch-visual {
+        padding: 1rem;
+    }
+
+    .switch-visual-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .switch-visual-ports {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+    .switch-detail-grid {
+        grid-template-columns: 1fr;
+    }
+}

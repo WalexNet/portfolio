@@ -491,7 +491,7 @@
         <div class="tools-card-body">
           <div class="tools-card-art">
             <img
-              src="{{ url_for('static', filename='img/tools/calculadora-ip-icono.webp') }}"
+              src="{{ url_for('static', filename='img/tools/ipcalc.png') }}"
               alt="Ilustración de calculadora de direcciones IP y subnetting"
               loading="lazy"
             >
@@ -521,12 +521,41 @@
           </div>
         </div>
       </article>
+
+      <!-- Diseñador de VLAN -->
+      <article class="tools-card" data-category="redes" data-aos="fade-up">
+        <div class="tools-card-body">
+          <div class="tools-card-art">
+            <img src="{{ url_for('static', filename='img/tools/logo-vlan.png') }}" alt="Ilustración de un switch con diferentes VLAN" loading="lazy">
+          </div>
+          <div class="tools-card-content">
+            <h3 class="tools-card-title">Diseñador de VLAN</h3>
+            <div class="tools-tags" aria-label="Etiquetas de la herramienta">
+              <span class="tools-tag">VLAN</span>
+              <span class="tools-tag">Switching</span>
+              <span class="tools-tag">Multivendor</span>
+              <span class="tools-tag">Redes</span>
+            </div>
+            <p class="tools-description">
+              Diseña VLAN, configura puertos Access y Trunk, visualiza switches
+              y genera configuraciones Cisco, Huawei, Aruba y FortiSwitch Standalone.
+            </p>
+          </div>
+          <div class="tools-card-action">
+            <a class="tools-open" href="{{ url_for('vlan.index') }}">
+              Abrir herramienta
+              <i class="bi bi-arrow-right" aria-hidden="true"></i>
+            </a>
+          </div>
+        </div>
+      </article>
+
       <!-- Crontab -->
       <article class="tools-card" data-category="sistemas devops" data-aos="fade-up">
         <div class="tools-card-body">
           <div class="tools-card-art">
             <img
-              src="{{ url_for('static', filename='img/tools/generador-crontab-icono.webp') }}"
+              src="{{ url_for('static', filename='img/tools/cron.png') }}"
               alt="Ilustración minimalista para el generador y validador de expresiones Crontab"
               loading="lazy"
             >
@@ -556,6 +585,90 @@
           </div>
         </div>
       </article>
+
+      <!-- Calculadora de permisos Linux -->
+      <article class="tools-card" data-category="sistemas" data-aos="fade-up">
+        <div class="tools-card-body">
+          <div class="tools-card-art">
+            <img
+              src="{{ url_for('static', filename='img/tools/permissions.svg') }}"
+              alt="Ilustración de una terminal Linux mostrando permisos chmod"
+              loading="lazy"
+            >
+          </div>
+
+          <div class="tools-card-content">
+            <h3 class="tools-card-title">Calculadora de permisos Linux</h3>
+            <div class="tools-tags" aria-label="Etiquetas de la herramienta">
+              <span class="tools-tag">Linux</span>
+              <span class="tools-tag">Permisos</span>
+              <span class="tools-tag">chmod</span>
+              <span class="tools-tag">Seguridad</span>
+            </div>
+            <p class="tools-description">
+              Convierte permisos Linux entre notación octal y simbólica,
+              configura SUID, SGID y sticky bit, y genera comandos chmod
+              listos para copiar.
+            </p>
+          </div>
+
+          <div class="tools-card-action">
+            <a class="tools-open" href="{{ url_for('permissions.index') }}">
+              Abrir herramienta
+              <i class="bi bi-arrow-right" aria-hidden="true"></i>
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Conversor de bases numéricas -->
+      <article class="tools-card"
+               data-category="sistemas"
+               data-aos="fade-up">
+
+        <div class="tools-card-body">
+
+          <div class="tools-card-art">
+            <img
+              src="{{ url_for('static', filename='img/tools/conversor-bases.png') }}"
+              alt="Ilustración del conversor de bases numéricas"
+              loading="lazy"
+            >
+          </div>
+
+          <div class="tools-card-content">
+            <h3 class="tools-card-title">
+              Conversor de bases numéricas
+            </h3>
+
+            <div class="tools-tags"
+                 aria-label="Etiquetas de la herramienta">
+              <span class="tools-tag">Binario</span>
+              <span class="tools-tag">Octal</span>
+              <span class="tools-tag">Decimal</span>
+              <span class="tools-tag">Hexadecimal</span>
+            </div>
+
+            <p class="tools-description">
+              Convierte números entre binario, octal, decimal
+              y hexadecimal en tiempo real. Incluye representación
+              agrupada de bits, validación de valores y copia
+              de resultados.
+            </p>
+          </div>
+
+          <div class="tools-card-action">
+            <a class="tools-open"
+               href="{{ url_for('bases.index') }}">
+              Abrir herramienta
+              <i class="bi bi-arrow-right"
+                 aria-hidden="true"></i>
+            </a>
+          </div>
+
+        </div>
+      </article>
+
 
     </div>
   </div>

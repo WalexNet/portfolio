@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block content %}
+{% set tool_title = "Calculadora de permisos Linux" %}
+{% set tool_description = "Convierte permisos Linux entre notación octal y simbólica, incluidos SUID, SGID y sticky bit." %}
+{% set tool_icon = "bi-shield-lock" %}
+{% include "tools/_components/hero.html" %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/permissions.css') }}">
+<section class="section permissions-tool">
+  <div class="container">
+    <a class="tool-back-link" href="{{ url_for('tools.index') }}">
+      <i class="bi bi-arrow-left" aria-hidden="true"></i> Volver a herramientas
+    </a>
+    <div class="tool-section-header">
+      <span class="tool-eyebrow">Administración Linux</span>
+      <h2>Permisos de archivos y directorios</h2>
+      <p>Selecciona los permisos o introduce una representación octal o simbólica. Los resultados se actualizan automáticamente.</p>
+    </div>
+    <div class="permissions-layout">
+      <div class="permissions-panel">
+        <h3>Permisos básicos</h3>
+        <div class="permissions-table-wrap">
+          <table class="permissions-table">
+            <thead><tr><th>Identidad</th><th>Lectura (r)</th><th>Escritura (w)</th><th>Ejecución (x)</th></tr></thead>
+            <tbody>
+              {% for key, title in [('u', 'Propietario'), ('g', 'Grupo'), ('o', 'Otros')] %}
+              <tr><th scope="row">{{ title }}</th>
+                {% for flag in ['r', 'w', 'x'] %}
+                <td><label class="permissions-check">
+                  <input type="checkbox" data-owner="{{ key }}" data-flag="{{ flag }}"
+                    {% if (key == 'u') or (key == 'g' and flag != 'w') or (key == 'o' and flag == 'r') %}checked{% endif %}>
+                  <span class="visually-hidden">{{ title }}: {{ flag }}</span>
+                </label></td>
+                {% endfor %}
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        <div class="permissions-special">
+          <h4>Permisos especiales</h4>
+          <div class="permissions-special-options">
+            <label><input type="checkbox" data-special="4"> SUID <span>(4000)</span></label>
+            <label><input type="checkbox" data-special="2"> SGID <span>(2000)</span></label>
+            <label><input type="checkbox" data-special="1"> Sticky bit <span>(1000)</span></label>
+          </div>
+          <p>Las letras <code>s</code> y <code>t</code> indican permiso especial con ejecución; <code>S</code> y <code>T</code>, sin ejecución.</p>
+        </div>
+        <div class="permissions-fields">
+          <label>Octal <input id="permissions-octal" type="text" maxlength="4" value="754" inputmode="numeric" spellcheck="false" aria-describedby="permissions-error"></label>
+          <label>Simbólico <input id="permissions-symbolic" type="text" maxlength="9" value="rwxr-xr--" spellcheck="false" aria-describedby="permissions-error"></label>
+        </div>
+        <p id="permissions-error" role="alert" class="permissions-error" hidden></p>
+        <div class="permissions-presets" aria-label="Ejemplos habituales">
+          <button type="button" data-mode="644">644 · Archivo</button>
+          <button type="button" data-mode="755">755 · Ejecutable</button>
+          <button type="button" data-mode="700">700 · Privado</button>
+          <button type="button" data-mode="600">600 · Clave privada</button>
+          <button type="button" data-mode="4755">4755 · SUID</button>
+          <button type="button" data-mode="2755">2755 · SGID</button>
+          <button type="button" data-mode="1777">1777 · Sticky</button>
+        </div>
+      </div>
+      <div class="permissions-panel permissions-output">
+        <h3>Resultado</h3>
+        <div class="permissions-numbers">
+          <div><span>Octal</span><strong id="permissions-octal-output">754</strong></div>
+          <div><span>Simbólico</span><strong id="permissions-symbolic-output">rwxr-xr--</strong></div>
+        </div>
+        <label for="permissions-target">Nombre del archivo o directorio</label>
+        <input id="permissions-target" type="text" value="archivo.txt" placeholder="archivo.txt" spellcheck="false">
+        <p class="permissions-help">Revisa el destino y los permisos especiales antes de ejecutar el comando.</p>
+        <div class="permissions-command">
+          <code id="permissions-command-output">chmod 754 -- 'archivo.txt'</code>
+          <button id="permissions-copy" type="button"><i class="bi bi-clipboard"></i> Copiar</button>
+        </div>
+        <p id="permissions-copy-status" role="status" aria-live="polite"></p>
+        <p class="permissions-note">Los bits especiales pueden afectar a la seguridad del sistema. SUID y SGID tienen un comportamiento dependiente del tipo de archivo y del sistema de archivos; el sticky bit se utiliza principalmente en directorios compartidos como <code>/tmp</code>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<script defer src="{{ url_for('static', filename='js/permissions.js') }}"></script>
+{% endblock %}

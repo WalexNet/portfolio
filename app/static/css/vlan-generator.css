@@ -1,0 +1,136 @@
+
+.vlan-generator-controls {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.vlan-config-terminal {
+    margin-top: 1.5rem;
+    padding: 1.5rem;
+    min-height: 220px;
+    max-height: 600px;
+    overflow: auto;
+    background: #06131e;
+    color: #d6e5ed;
+    border: 1px solid #284b63;
+    border-radius: 10px;
+    font-family: "JetBrains Mono", "Fira Code", monospace;
+    font-size: .9rem;
+    line-height: 1.7;
+    tab-size: 4;
+    white-space: pre;
+}
+
+.vlan-config-terminal code {
+    color: inherit;
+    background: transparent;
+    padding: 0;
+    font-size: inherit;
+}
+
+.vlan-config-note {
+    margin-top: .9rem;
+    color: #718391;
+    font-size: .85rem;
+}
+
+#config-message:empty {
+    display: none;
+}
+
+#config-copy:disabled,
+#config-download:disabled {
+    opacity: .5;
+    cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+    .vlan-generator-controls {
+        grid-template-columns: 1fr;
+    }
+
+    .vlan-config-terminal {
+        font-size: .8rem;
+        padding: 1rem;
+    }
+}
+
+.vlan-message.warning {
+    background: #fff3df;
+    color: #805300;
+    border: 1px solid #f0d39a;
+}
+
+
+.vlan-port-mapping {
+    margin-top: 1.5rem;
+    padding: 1.25rem;
+    background: #f3f7f9;
+    border: 1px solid #dce4e9;
+    border-radius: 10px;
+}
+
+.vlan-port-mapping h3 {
+    color: #284b63;
+    font-size: 1.05rem;
+    margin-bottom: .5rem;
+}
+
+.vlan-port-mapping h3 i {
+    color: #ff7043;
+    margin-right: .4rem;
+}
+
+.vlan-port-mapping p {
+    color: #607582;
+    font-size: .85rem;
+    margin-bottom: 1rem;
+}
+
+.vlan-mapping-row {
+    display: grid;
+    grid-template-columns: minmax(120px, 1fr) minmax(180px, 2fr);
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: .75rem;
+}
+
+.vlan-mapping-row label {
+    color: #284b63;
+    font-weight: 600;
+    overflow-wrap: anywhere;
+}
+
+.vlan-mapping-row input {
+    width: 100%;
+    min-width: 0;
+    padding: .6rem .75rem;
+    border: 1px solid #cbd5dc;
+    border-radius: 6px;
+    background: white;
+    color: #06131e;
+}
+
+@media (max-width: 600px) {
+    .vlan-mapping-row {
+        grid-template-columns: 1fr;
+        gap: .3rem;
+    }
+}
+
+/* Gestión de proyectos JSON */
+.vlan-project-description {
+    color: #607582;
+    font-size: .92rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+#project-message:empty {
+    display: none;
+}
+
+#project-message:not(:empty) {
+    margin-top: 1rem;
+}
