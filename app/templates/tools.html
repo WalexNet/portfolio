@@ -669,6 +669,97 @@
         </div>
       </article>
 
+      <!-- Conversor JSON / YAML / TOML -->
+      <article class="tools-card"
+               data-category="sistemas devops"
+               data-aos="fade-up">
+
+        <div class="tools-card-body">
+
+          <div class="tools-card-art">
+            <img
+              src="{{ url_for('static', filename='img/tools/config-converter.png') }}"
+              alt="Ilustración del conversor de archivos JSON, YAML y TOML"
+              loading="lazy"
+            >
+          </div>
+
+          <div class="tools-card-content">
+
+            <h3 class="tools-card-title">
+              Conversor JSON / YAML / TOML
+            </h3>
+
+            <div class="tools-tags"
+                 aria-label="Etiquetas de la herramienta">
+
+              <span class="tools-tag">JSON</span>
+              <span class="tools-tag">YAML</span>
+              <span class="tools-tag">TOML</span>
+              <span class="tools-tag">DevOps</span>
+
+            </div>
+
+            <p class="tools-description">
+              Convierte, valida y da formato a archivos JSON,
+              YAML y TOML. Importa configuraciones, detecta
+              errores de sintaxis y descarga los resultados
+              directamente desde el navegador.
+            </p>
+
+          </div>
+
+          <div class="tools-card-action">
+
+            <a class="tools-open"
+               href="{{ url_for('config_converter.index') }}">
+
+              Abrir herramienta
+              <i class="bi bi-arrow-right"
+                 aria-hidden="true"></i>
+
+            </a>
+
+          </div>
+
+        </div>
+
+      </article>
+
+      <!-- Laboratorio Regex -->
+      <article class="tools-card" data-category="sistemas devops" data-aos="fade-up">
+        <div class="tools-card-body">
+          <div class="tools-card-art">
+            <img
+              src="{{ url_for('static', filename='img/tools/regex.png') }}"
+              alt="Ilustración del laboratorio de expresiones regulares"
+              loading="lazy"
+            >
+          </div>
+
+          <div class="tools-card-content">
+            <h3 class="tools-card-title">Laboratorio Regex</h3>
+            <div class="tools-tags" aria-label="Etiquetas de la herramienta">
+              <span class="tools-tag">Regex</span>
+              <span class="tools-tag">Logs</span>
+              <span class="tools-tag">JavaScript</span>
+              <span class="tools-tag">DevOps</span>
+            </div>
+            <p class="tools-description">
+              Prueba expresiones regulares sobre textos y logs, resalta
+              coincidencias, inspecciona grupos de captura y utiliza
+              ejemplos prácticos directamente en el navegador.
+            </p>
+          </div>
+
+          <div class="tools-card-action">
+            <a class="tools-open" href="{{ url_for('regex.index') }}">
+              Abrir herramienta
+              <i class="bi bi-arrow-right" aria-hidden="true"></i>
+            </a>
+          </div>
+        </div>
+      </article>
 
     </div>
   </div>

@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% set tool_title = "LABORATORIO REGEX" %}
+{% set tool_description = "Prueba expresiones regulares, resalta coincidencias y explora grupos de captura sin salir del navegador." %}
+{% set tool_icon = "bi-regex" %}
+{% include "tools/_components/hero.html" %}
+
+<section class="rx-page section" id="regex-tool">
+  <div class="container" data-regex-lab>
+    <a class="tool-back-link" href="{{ url_for('tools.index') }}"><i class="bi bi-arrow-left"></i> Volver a herramientas</a>
+
+    <div class="tool-section-header">
+      <span class="tool-eyebrow">SISTEMAS · DEVOPS</span>
+      <h2>Laboratorio de expresiones regulares</h2>
+      <p>Escribe un patrón, pruébalo sobre logs o configuraciones y analiza sus coincidencias al instante.</p>
+    </div>
+
+    <div class="rx-panel">
+      <div class="rx-panel-header">
+        <span><i class="bi bi-braces-asterisk"></i> EDITOR INTERACTIVO</span>
+        <button id="rx-reset" type="button" class="rx-reset"><i class="bi bi-arrow-counterclockwise"></i> Reiniciar</button>
+      </div>
+
+      <div class="rx-field">
+        <label for="rx-pattern">EXPRESIÓN REGULAR <span class="rx-inline-help">Motor JavaScript</span></label>
+        <div class="rx-pattern-row"><span class="rx-slash" aria-hidden="true">/</span><input id="rx-pattern" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" value="(?&lt;ip&gt;\b(?:\d{1,3}\.){3}\d{1,3}\b)" aria-describedby="rx-status"><span class="rx-slash" aria-hidden="true">/</span><button id="rx-copy-pattern" type="button" title="Copiar expresión" aria-label="Copiar expresión"><i class="bi bi-copy"></i></button></div>
+      </div>
+
+      <fieldset class="rx-flags"><legend>MODIFICADORES</legend>
+        <label><input id="rx-flag-i" type="checkbox"> <code>i</code> Ignorar mayúsculas</label>
+        <label><input id="rx-flag-m" type="checkbox"> <code>m</code> Multilínea</label>
+        <label><input id="rx-flag-s" type="checkbox"> <code>s</code> Dotall</label>
+      </fieldset>
+
+      <div class="rx-columns">
+        <div class="rx-column">
+          <div class="rx-column-heading"><label for="rx-source">TEXTO DE PRUEBA</label><span id="rx-chars">0 caracteres</span></div>
+          <textarea id="rx-source" spellcheck="false" autocapitalize="off" autocomplete="off" aria-describedby="rx-status">Nov 20 12:40:05 router sshd: conexión desde 192.168.1.10
+Nov 20 12:41:16 firewall: DROP src=10.0.0.25 dst=172.20.0.10
+Nov 20 12:42:03 nginx: cliente 203.0.113.7</textarea>
+        </div>
+        <div class="rx-column">
+          <div class="rx-column-heading"><span>COINCIDENCIAS RESALTADAS</span><span id="rx-counter">0 coincidencias</span></div>
+          <pre id="rx-highlight" class="rx-highlight" tabindex="0" aria-label="Texto con coincidencias resaltadas"></pre>
+        </div>
+      </div>
+
+      <div class="rx-panel-footer">
+        <p id="rx-status" class="rx-status" role="status" aria-live="polite"></p>
+        <button id="rx-copy-matches" type="button" class="rx-primary"><i class="bi bi-copy"></i> Copiar coincidencias</button>
+      </div>
+    </div>
+
+    <div class="rx-results">
+      <div class="rx-results-heading"><h3>Detalle de coincidencias</h3><span id="rx-results-summary">Sin resultados</span></div>
+      <div id="rx-match-list" class="rx-match-list" aria-live="polite"></div>
+    </div>
+
+    <div class="rx-examples">
+      <strong>Ejemplos rápidos</strong>
+      <div class="rx-example-buttons">
+        <button type="button" data-rx-example="ipv4">Direcciones IPv4</button>
+        <button type="button" data-rx-example="email">Correos electrónicos</button>
+        <button type="button" data-rx-example="date">Fechas ISO</button>
+        <button type="button" data-rx-example="log">Logs SSH</button>
+        <button type="button" data-rx-example="ports">Puertos de red</button>
+      </div>
+    </div>
+    <p class="rx-note"><i class="bi bi-info-circle"></i> Todo se evalúa localmente en el navegador; el texto no se envía a Flask. Se utiliza la sintaxis de expresiones regulares de JavaScript, que difiere en algunos detalles de Python, PCRE y herramientas como grep. El ejemplo IPv4 identifica candidatos, pero no valida el rango 0–255 de cada octeto.</p>
+  </div>
+</section>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/regex.css') }}">
+<script defer src="{{ url_for('static', filename='js/regex.js') }}"></script>
+{% endblock %}

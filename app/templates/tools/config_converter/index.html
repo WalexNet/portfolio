@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% set tool_title = "CONVERSOR JSON / YAML / TOML" %}
+{% set tool_description = "Convierte, valida y formatea archivos de configuración directamente en el navegador." %}
+{% set tool_icon = "bi-braces-asterisk" %}
+{% include "tools/_components/hero.html" %}
+
+<section class="cfg-page section" id="config-converter-tool">
+  <div class="container" data-config-converter>
+    <a class="tool-back-link" href="{{ url_for('tools.index') }}"><i class="bi bi-arrow-left"></i> Volver a herramientas</a>
+
+    <div class="tool-section-header">
+      <span class="tool-eyebrow">SISTEMAS · DEVOPS</span>
+      <h2>Conversor de configuraciones</h2>
+      <p>Transforma JSON, YAML y TOML, comprueba errores de sintaxis y descarga el resultado.</p>
+    </div>
+
+    <div class="cfg-panel">
+      <div class="cfg-panel-header">
+        <span><i class="bi bi-arrow-left-right"></i> CONVERSOR INTERACTIVO</span>
+        <button id="cfg-reset" type="button" class="cfg-reset"><i class="bi bi-arrow-counterclockwise"></i> Reiniciar</button>
+      </div>
+
+      <div class="cfg-grid">
+        <div class="cfg-editor">
+          <div class="cfg-editor-head">
+            <label for="cfg-source">ORIGEN</label>
+            <select id="cfg-source-format" aria-label="Formato de origen">
+              <option value="yaml">YAML</option><option value="json">JSON</option><option value="toml">TOML</option>
+            </select>
+          </div>
+          <textarea id="cfg-source" spellcheck="false" autocapitalize="off" autocomplete="off" aria-describedby="cfg-status">servidor:
+  nombre: debian
+  puerto: 443
+  activo: true
+  servicios:
+    - nginx
+    - docker</textarea>
+          <div class="cfg-editor-footer">
+            <button type="button" id="cfg-open"><i class="bi bi-folder2-open"></i> Abrir archivo</button>
+            <button type="button" id="cfg-format"><i class="bi bi-text-indent-left"></i> Formatear</button>
+            <button type="button" id="cfg-validate"><i class="bi bi-check2-circle"></i> Validar</button>
+          </div>
+          <input id="cfg-file" class="visually-hidden" type="file" accept=".json,.yaml,.yml,.toml,text/plain,application/json">
+        </div>
+
+        <div class="cfg-editor">
+          <div class="cfg-editor-head">
+            <label for="cfg-output">RESULTADO</label>
+            <select id="cfg-target-format" aria-label="Formato de destino">
+              <option value="json">JSON</option><option value="yaml">YAML</option><option value="toml">TOML</option>
+            </select>
+          </div>
+          <textarea id="cfg-output" spellcheck="false" readonly aria-label="Resultado de la conversión"></textarea>
+          <div class="cfg-editor-footer">
+            <button type="button" id="cfg-copy"><i class="bi bi-copy"></i> Copiar</button>
+            <button type="button" id="cfg-download"><i class="bi bi-download"></i> Descargar</button>
+            <label class="cfg-compact-label"><input type="checkbox" id="cfg-compact"> Compactar JSON</label>
+          </div>
+        </div>
+      </div>
+      <div class="cfg-actions">
+        <button id="cfg-convert" type="button" class="cfg-primary"><i class="bi bi-arrow-repeat"></i> Convertir</button>
+        <button id="cfg-swap" type="button" class="cfg-secondary"><i class="bi bi-arrow-left-right"></i> Intercambiar formatos</button>
+      </div>
+      <p id="cfg-status" class="cfg-status" role="status" aria-live="polite"></p>
+    </div>
+
+    <div class="cfg-examples">
+      <strong>Ejemplos rápidos</strong>
+      <div class="cfg-example-buttons">
+        <button type="button" data-cfg-example="docker">Servicios Docker</button>
+        <button type="button" data-cfg-example="network">Configuración de red</button>
+        <button type="button" data-cfg-example="app">Aplicación TOML</button>
+      </div>
+    </div>
+    <p class="cfg-note"><i class="bi bi-info-circle"></i> Conversión local en el navegador. No se envían datos a Flask. Los comentarios y algunas representaciones particulares pueden perderse al convertir. Se admite un solo documento YAML por operación.</p>
+  </div>
+</section>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/config-converter.css') }}">
+<script type="module" src="{{ url_for('static', filename='js/config-converter.js') }}"></script>
+{% endblock %}

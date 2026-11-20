@@ -1,5 +1,6 @@
 venv/
 __pycache__/
+*.zip
 *.pyc
 .git
 .idea
