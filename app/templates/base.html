@@ -94,7 +94,11 @@
   <header id="header" class="header d-flex align-items-center fixed-top">
     <div class="container-fluid container-xl position-relative d-flex align-items-center">
       <a href="{{ url_for('main.index') }}" class="logo d-flex align-items-center me-auto">
-        <span class="sitename">WalexNET</span>
+        <img
+          src="{{ url_for('static', filename='img/walexnet-logo-02.svg') }}"
+          alt="WalexNET"
+          class="walexnet-logo"
+        >
       </a>
       <nav id="navmenu" class="navmenu">
         <ul>

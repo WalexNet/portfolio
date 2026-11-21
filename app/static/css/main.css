@@ -236,9 +236,19 @@ h6 {
   line-height: 1;
 }
 
+/* Logotipo SVG WalexNET */
 .header .logo img {
-  max-height: 36px;
-  margin-right: 8px;
+  height: 52px;
+  width: auto;
+  max-height: none;
+  margin-right: 0;
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .header .logo img {
+    height: 42px;
+  }
 }
 
 .header .logo .sitename {
