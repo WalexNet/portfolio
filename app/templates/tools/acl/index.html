@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block seo_title %}Diseñador de ACL IPv4 Cisco | Herramientas{% endblock %}
+{% block seo_description %}Diseña, valida y exporta listas de control de acceso IPv4 para Cisco IOS e IOS XE.{% endblock %}
+
+{% block content %}
+{% set tool_title = "DISEÑADOR DE ACL" %}
+{% set tool_description = "Crea reglas IPv4, analiza su orden y genera una configuración Cisco IOS/IOS XE." %}
+{% set tool_icon = "bi-shield-lock" %}
+{% include "tools/_components/hero.html" %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/acl-designer.css') }}">
+
+<section class="acl-page section" id="acl-tool">
+  <div class="container" data-acl-app>
+    <a class="acl-back" href="{{ url_for('tools.index') }}"><i class="bi bi-arrow-left"></i> Volver a herramientas</a>
+    <div class="acl-heading">
+      <span class="acl-eyebrow">REDES · SEGURIDAD</span>
+      <h2>Diseñador de listas de acceso</h2>
+      <p>ACL extendidas IPv4 con evaluación secuencial. La primera regla que coincide decide la acción.</p>
+    </div>
+
+    <div class="acl-panel">
+      <div class="acl-panel-head"><span><i class="bi bi-sliders"></i> CONFIGURACIÓN DE LA ACL</span><span class="acl-chip">Cisco IOS / IOS XE</span></div>
+      <div class="acl-settings">
+        <label>Nombre de ACL<input id="acl-name" maxlength="64" value="ACL-LAN-WAN" placeholder="ACL-LAN-WAN" spellcheck="false"></label>
+        <label>Interfaz (opcional)<input id="acl-interface" maxlength="64" placeholder="GigabitEthernet0/1" spellcheck="false"></label>
+        <label>Dirección<select id="acl-direction"><option value="in">Entrada (in)</option><option value="out">Salida (out)</option></select></label>
+      </div>
+      <p class="acl-note">La aplicación genera la declaración de la ACL. La asociación a una interfaz solo se incluye si se especifica una interfaz.</p>
+    </div>
+
+    <div class="acl-panel">
+      <div class="acl-panel-head"><span><i class="bi bi-plus-circle"></i> AÑADIR REGLA</span></div>
+      <form id="acl-rule-form" class="acl-form" novalidate>
+        <label>Acción<select id="acl-action"><option value="permit">Permitir</option><option value="deny">Denegar</option></select></label>
+        <label>Protocolo<select id="acl-protocol"><option value="ip">IP (cualquiera)</option><option value="tcp" selected>TCP</option><option value="udp">UDP</option><option value="icmp">ICMP</option></select></label>
+        <label>Origen IPv4/CIDR<input id="acl-source" value="192.168.10.0/24" placeholder="192.168.1.0/24 o any" spellcheck="false"></label>
+        <label>Destino IPv4/CIDR<input id="acl-destination" value="any" placeholder="10.0.0.10 o any" spellcheck="false"></label>
+        <label>Puerto origen (opcional)<input id="acl-sport" placeholder="any, 1024 o 1000-2000" spellcheck="false"></label>
+        <label>Puerto destino (opcional)<input id="acl-dport" placeholder="443, 53 o 8000-8080" spellcheck="false"></label>
+        <label class="acl-check"><input id="acl-log" type="checkbox"> Registrar coincidencias (log)</label>
+        <button type="submit" class="acl-primary"><i class="bi bi-plus-lg"></i> Añadir regla</button>
+      </form>
+      <p id="acl-error" class="acl-error" role="alert" aria-live="polite" hidden></p>
+      <p class="acl-note">Usa <code>any</code>, una dirección IPv4 o una subred CIDR. Puertos: <code>any</code>, número individual o intervalo numérico.</p>
+    </div>
+
+    <div class="acl-panel">
+      <div class="acl-panel-head"><span><i class="bi bi-list-ol"></i> REGLAS EN ORDEN</span><button id="acl-clear" class="acl-quiet" type="button">Vaciar reglas</button></div>
+      <div class="acl-rule-list" id="acl-rules" aria-live="polite"></div>
+      <div class="acl-implicit"><i class="bi bi-info-circle"></i> Al final de cada ACL IPv4 existe un <strong>deny ip any any</strong> implícito, aunque no aparezca en la configuración.</div>
+    </div>
+
+    <div class="acl-panel">
+      <div class="acl-panel-head"><span><i class="bi bi-terminal"></i> CONFIGURACIÓN GENERADA</span><span id="acl-count" class="acl-chip">0 reglas</span></div>
+      <p id="acl-warnings" class="acl-warnings" aria-live="polite"></p>
+      <pre class="acl-output"><code id="acl-config"></code></pre>
+      <div class="acl-actions">
+        <button id="acl-copy" type="button" class="acl-primary"><i class="bi bi-copy"></i> Copiar Cisco</button>
+        <button id="acl-export" type="button" class="acl-secondary"><i class="bi bi-download"></i> Exportar .txt</button>
+        <button id="acl-json" type="button" class="acl-secondary"><i class="bi bi-braces"></i> Exportar JSON</button>
+      </div>
+    </div>
+  </div>
+</section>
+<script defer src="{{ url_for('static', filename='js/acl-designer.js') }}"></script>
+{% endblock %}

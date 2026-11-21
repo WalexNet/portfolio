@@ -28,6 +28,7 @@ from .tools.permissions.routes import permissions_bp
 from .tools.bases.routes import bases_bp
 from .tools.config_converter.routes import config_converter_bp
 from .tools.regex.routes import regex_bp
+from .tools.acl.routes import acl_bp
 
 
 def create_app():
@@ -71,6 +72,7 @@ def create_app():
     app.register_blueprint(bases_bp)
     app.register_blueprint(config_converter_bp)
     app.register_blueprint(regex_bp)
+    app.register_blueprint(acl_bp)
 
     @app.context_processor
     def inject_career_menu():

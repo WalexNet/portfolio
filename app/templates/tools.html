@@ -761,6 +761,30 @@
         </div>
       </article>
 
+      <!-- Diseñador ACL -->
+      <article class="tools-card" data-category="redes" data-aos="fade-up">
+        <div class="tools-card-body">
+          <div class="tools-card-art">
+            <img src="{{ url_for('static', filename='img/tools/acl01.png') }}"
+                 alt="Ilustración del diseñador de ACL" loading="lazy">
+          </div>
+          <div class="tools-card-content">
+            <h3 class="tools-card-title">Diseñador de ACL</h3>
+            <div class="tools-tags" aria-label="Etiquetas de la herramienta">
+              <span class="tools-tag">ACL</span><span class="tools-tag">Cisco</span>
+              <span class="tools-tag">IPv4</span><span class="tools-tag">Seguridad</span>
+            </div>
+            <p class="tools-description">Diseña reglas permit/deny, comprueba duplicados,
+            cambia su orden y exporta ACL extendidas IPv4 para Cisco IOS e IOS XE.</p>
+          </div>
+          <div class="tools-card-action">
+            <a class="tools-open" href="{{ url_for('acl.index') }}">
+              Abrir herramienta <i class="bi bi-arrow-right" aria-hidden="true"></i>
+            </a>
+          </div>
+        </div>
+      </article>
+
     </div>
   </div>
 </section>
