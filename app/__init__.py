@@ -29,6 +29,7 @@ from .tools.bases.routes import bases_bp
 from .tools.config_converter.routes import config_converter_bp
 from .tools.regex.routes import regex_bp
 from .tools.acl.routes import acl_bp
+from .tools.cidr.routes import cidr_bp
 
 
 def create_app():
@@ -73,6 +74,7 @@ def create_app():
     app.register_blueprint(config_converter_bp)
     app.register_blueprint(regex_bp)
     app.register_blueprint(acl_bp)
+    app.register_blueprint(cidr_bp)
 
     @app.context_processor
     def inject_career_menu():

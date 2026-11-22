@@ -785,6 +785,47 @@
         </div>
       </article>
 
+
+      <!-- Calculadora de rutas y sumarización CIDR -->
+      <article class="tools-card" data-category="redes" data-aos="fade-up">
+        <div class="tools-card-body">
+          <div class="tools-card-art">
+            <img
+              src="{{ url_for('static', filename='img/tools/sumarizacion_ipv4-6.png') }}"
+              alt="Ilustración de la calculadora de rutas y sumarización CIDR"
+              loading="lazy"
+            >
+          </div>
+
+          <div class="tools-card-content">
+            <h3 class="tools-card-title">
+              Calculadora de rutas y sumarización CIDR
+            </h3>
+
+            <div class="tools-tags" aria-label="Etiquetas de la herramienta">
+              <span class="tools-tag">CIDR</span>
+              <span class="tools-tag">IPv4 / IPv6</span>
+              <span class="tools-tag">Routing</span>
+              <span class="tools-tag">Sumarización</span>
+            </div>
+
+            <p class="tools-description">
+              Optimiza tablas de enrutamiento mediante sumarización CIDR,
+              detecta redes redundantes y solapamientos, calcula superredes
+              y genera rutas estáticas para Cisco, Huawei, Aruba y Fortinet.
+            </p>
+          </div>
+
+          <div class="tools-card-action">
+            <a class="tools-open" href="{{ url_for('cidr.index') }}">
+              Abrir herramienta
+              <i class="bi bi-arrow-right" aria-hidden="true"></i>
+            </a>
+          </div>
+        </div>
+      </article>
+
+
     </div>
   </div>
 </section>

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block seo_title %}Calculadora de rutas y sumarización CIDR | WalexNET{% endblock %}
+{% block seo_description %}Agrupa y optimiza redes IPv4 e IPv6, detecta redundancias y genera rutas estáticas para equipos de red.{% endblock %}
+{% block content %}
+{% set tool_title = 'Calculadora de rutas y sumarización CIDR' %}
+{% set tool_description = 'Agrupa prefijos, detecta redundancias y genera rutas estáticas para distintos fabricantes.' %}
+{% set tool_icon = 'bi-diagram-3' %}
+{% include 'tools/_components/hero.html' %}
+<section id="cidr-tool" class="cidr-section section" data-analyze-url="{{ url_for('cidr.analyze_api') }}" data-routes-url="{{ url_for('cidr.routes_api') }}">
+  <div class="container">
+    <a class="cidr-back" href="{{ url_for('tools.index') }}"><i class="bi bi-arrow-left" aria-hidden="true"></i> Volver a Herramientas</a>
+    <div class="cidr-heading"><span class="cidr-kicker">REDES · ROUTING</span><h2>Sumarización y optimización de rutas</h2><p>Introduce redes en formato CIDR, una por línea. El cálculo exacto nunca añade direcciones que no formen parte de las redes originales.</p></div>
+    <div class="cidr-layout">
+      <div class="cidr-panel"><h3>Redes de entrada</h3><label for="cidr-input">Prefijos IPv4 o IPv6</label><textarea id="cidr-input" spellcheck="false" rows="9">192.168.0.0/24
+192.168.1.0/24
+192.168.2.0/24
+192.168.3.0/24</textarea><p class="cidr-hint">Una familia IP por análisis. Se admiten hasta 256 redes; puedes separar por espacios, comas o líneas.</p><div class="cidr-actions"><button type="button" class="cidr-button" id="cidr-analyze">Analizar redes</button><button type="button" class="cidr-secondary" id="cidr-example-v6">Ejemplo IPv6</button><button type="button" class="cidr-secondary" id="cidr-clear">Limpiar</button></div><p id="cidr-error" class="cidr-error" role="alert" hidden></p></div>
+      <div class="cidr-panel"><h3>Resultado exacto</h3><div id="cidr-placeholder" class="cidr-placeholder">Pulsa «Analizar redes» para calcular la sumarización.</div><div id="cidr-results" hidden><div class="cidr-stats"><div><strong id="cidr-before">—</strong><span>Entradas originales</span></div><div><strong id="cidr-after">—</strong><span>Rutas optimizadas</span></div><div><strong id="cidr-saving">—</strong><span>Reducción</span></div></div><label for="cidr-exact">Prefijos mínimos exactos</label><textarea readonly id="cidr-exact" rows="5" spellcheck="false"></textarea><div class="cidr-actions"><button type="button" class="cidr-secondary" id="cidr-copy">Copiar rutas</button><button type="button" class="cidr-secondary" id="cidr-download">Exportar TXT</button></div><div class="cidr-note"><strong>Superred común:</strong> <code id="cidr-supernet"></code><p id="cidr-warning"></p></div><div id="cidr-redundancy"></div></div></div>
+    </div>
+    <div class="cidr-panel cidr-generator"><h3>Generador de rutas estáticas</h3><p>Genera comandos a partir de la sumarización exacta. Revisa la configuración en un laboratorio antes de aplicarla.</p><div class="cidr-fields"><div><label for="cidr-vendor">Plataforma</label><select id="cidr-vendor"><option value="cisco">Cisco IOS / IOS XE</option><option value="huawei">Huawei VRP (IPv4)</option><option value="aruba">Aruba AOS-CX</option><option value="fortinet">Fortinet FortiOS (IPv4)</option></select></div><div><label for="cidr-gateway">Siguiente salto</label><input id="cidr-gateway" type="text" value="10.0.0.1" autocomplete="off" placeholder="10.0.0.1"></div><div><label for="cidr-interface">Interfaz FortiOS (opcional)</label><input id="cidr-interface" type="text" placeholder="port1" autocomplete="off" disabled></div></div><div class="cidr-actions"><button type="button" class="cidr-button" id="cidr-generate" disabled>Generar configuración</button><button type="button" class="cidr-secondary" id="cidr-copy-config" disabled>Copiar configuración</button></div><p id="cidr-route-error" class="cidr-error" role="alert" hidden></p><pre id="cidr-config" class="cidr-code" hidden></pre></div>
+  </div>
+</section>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/tool-common.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/cidr-tool.css') }}">
+<script defer src="{{ url_for('static', filename='js/cidr-tool.js') }}"></script>
+{% endblock %}

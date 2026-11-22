@@ -1,0 +1,28 @@
+#cidr-tool {background:#f8fbfc;color:#284b63;padding-top:30px;padding-bottom:65px}
+#cidr-tool .cidr-back{display:inline-flex;align-items:center;gap:8px;color:#ff7043;font-weight:700;text-decoration:none;margin:0 0 28px}
+#cidr-tool .cidr-back:hover{text-decoration:underline}
+#cidr-tool .cidr-kicker{font-size:.78rem;color:#ff7043;font-weight:800;letter-spacing:.13em}
+#cidr-tool .cidr-heading{margin-bottom:24px}#cidr-tool .cidr-heading h2{margin:7px 0 9px;font-size:clamp(1.55rem,2.6vw,2.2rem);color:#284b63}#cidr-tool .cidr-heading p{color:#52616c;max-width:850px}
+#cidr-tool .cidr-layout{display:grid;grid-template-columns:1fr 1fr;gap:22px;align-items:start}
+#cidr-tool .cidr-panel{background:#fff;border:1px solid #dce5eb;border-radius:15px;padding:24px;box-shadow:0 7px 24px rgba(6,19,30,.055);min-width:0}
+#cidr-tool h3{font-size:1.23rem;color:#284b63;margin:0 0 18px}#cidr-tool label{display:block;font-weight:700;font-size:.9rem;margin:0 0 8px}
+#cidr-tool textarea,#cidr-tool input,#cidr-tool select{width:100%;background:#f8fbfc;border:1px solid #cbd7de;border-radius:8px;padding:11px 12px;color:#1b364a;font:inherit}
+#cidr-tool textarea{font:14px/1.65 ui-monospace,SFMono-Regular,Consolas,monospace;resize:vertical}#cidr-tool textarea:focus,#cidr-tool input:focus,#cidr-tool select:focus{outline:2px solid #ff7043;outline-offset:1px}
+#cidr-tool .cidr-hint,#cidr-tool .cidr-generator p{font-size:.88rem;color:#52616c;margin:10px 0 18px}
+#cidr-tool .cidr-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+#cidr-tool button{border-radius:8px;padding:10px 15px;font-weight:700;cursor:pointer;border:1px solid #dce5eb;transition:background .15s ease}
+#cidr-tool button:disabled{opacity:.5;cursor:not-allowed}
+#cidr-tool .cidr-button{color:white;background:#284b63;border-color:#284b63}#cidr-tool .cidr-button:hover:not(:disabled){background:#1b364a}
+#cidr-tool .cidr-secondary{color:#284b63;background:#f1f6f8}#cidr-tool .cidr-secondary:hover:not(:disabled){background:#e4edf2}
+#cidr-tool .cidr-error{color:#a83232;background:#fff0ef;padding:12px;border-radius:8px;margin-top:15px}
+#cidr-tool .cidr-placeholder{color:#8b98a3;padding:48px 8px;text-align:center}
+#cidr-tool .cidr-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:21px}
+#cidr-tool .cidr-stats>div{background:#f1f6f8;border-radius:9px;padding:13px 6px;text-align:center}
+#cidr-tool .cidr-stats strong{display:block;font-size:1.4rem;color:#284b63}#cidr-tool .cidr-stats span{display:block;font-size:.74rem;color:#52616c}
+#cidr-tool .cidr-note{background:#f1f6f8;border-left:3px solid #ff7043;padding:12px 14px;border-radius:5px;margin-top:18px;overflow-wrap:anywhere}
+#cidr-tool .cidr-note p{color:#52616c;margin:5px 0 0;font-size:.88rem}
+#cidr-tool #cidr-redundancy{font-size:.88rem;color:#52616c;margin-top:16px}
+#cidr-tool .cidr-generator{margin-top:22px}#cidr-tool .cidr-fields{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+#cidr-tool .cidr-code{background:#06131e;color:#e5edf2;padding:19px;white-space:pre-wrap;overflow-wrap:anywhere;border-radius:9px;margin-top:17px;font-size:.9rem}
+@media(max-width:900px){#cidr-tool .cidr-layout{grid-template-columns:1fr}#cidr-tool .cidr-fields{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){#cidr-tool .cidr-fields{grid-template-columns:1fr}#cidr-tool .cidr-panel{padding:17px}#cidr-tool .cidr-stats strong{font-size:1.1rem}}
