@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block content %}
+{% set tool_title = 'Comparador de configuraciones' %}
+{% set tool_description = 'Detecta líneas añadidas, eliminadas y modificadas entre dos configuraciones de red o sistemas.' %}
+{% set tool_icon = 'bi-files' %}
+{% include 'tools/_components/hero.html' %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/config-diff.css') }}">
+<section class="section" id="config-diff-tool">
+  <div class="container">
+    <a class="config-diff-back" href="{{ url_for('tools.index') }}"><i class="bi bi-arrow-left" aria-hidden="true"></i> Volver a Herramientas</a>
+    <div class="config-diff-heading">
+      <p class="config-diff-kicker">REDES · SISTEMAS · DEVOPS</p>
+      <h2>Comparador de configuraciones</h2>
+      <p>Compara configuraciones Cisco, Huawei, Fortinet, Linux o cualquier archivo de texto. El análisis se realiza localmente en el navegador.</p>
+    </div>
+    <div class="config-diff-panel">
+      <div class="config-diff-toolbar">
+        <label><input type="checkbox" id="cd-ignore-space"> Ignorar espacios y tabulaciones</label>
+        <label><input type="checkbox" id="cd-ignore-case"> Ignorar mayúsculas/minúsculas</label>
+        <label><input type="checkbox" id="cd-ignore-empty"> Ignorar líneas vacías</label>
+      </div>
+      <div class="config-diff-inputs">
+        <div class="config-diff-editor"><div class="config-diff-editor-head"><label for="cd-left">Configuración original</label><label class="config-diff-file">Cargar archivo <input type="file" id="cd-file-left" accept=".txt,.conf,.cfg,.ini,.log,.yaml,.yml,.json,.xml,.sh,.py,.sql,.toml,text/plain"></label></div><textarea id="cd-left" spellcheck="false" placeholder="Pega aquí la configuración original..."></textarea></div>
+        <div class="config-diff-editor"><div class="config-diff-editor-head"><label for="cd-right">Configuración nueva</label><label class="config-diff-file">Cargar archivo <input type="file" id="cd-file-right" accept=".txt,.conf,.cfg,.ini,.log,.yaml,.yml,.json,.xml,.sh,.py,.sql,.toml,text/plain"></label></div><textarea id="cd-right" spellcheck="false" placeholder="Pega aquí la nueva configuración..."></textarea></div>
+      </div>
+      <div class="config-diff-actions">
+        <button class="cd-primary" id="cd-compare" type="button"><i class="bi bi-files"></i> Comparar</button>
+        <button class="cd-secondary" id="cd-example" type="button">Cargar ejemplo</button>
+        <button class="cd-secondary" id="cd-swap" type="button">Intercambiar</button>
+        <button class="cd-secondary" id="cd-clear" type="button">Limpiar</button>
+      </div>
+      <p class="config-diff-status" id="cd-status" role="status" aria-live="polite"></p>
+    </div>
+    <div class="config-diff-result" id="cd-result" hidden>
+      <div class="config-diff-result-head"><div><h3>Resultado de la comparación</h3><p id="cd-summary"></p></div><div class="config-diff-actions"><label class="cd-view-label" for="cd-view">Vista</label><select id="cd-view"><option value="unified">Unificada</option><option value="side">En paralelo</option></select><button type="button" class="cd-secondary" id="cd-download">Descargar diff</button></div></div>
+      <div id="cd-output" class="config-diff-output" aria-label="Diferencias entre configuraciones"></div>
+      <p class="config-diff-help">Verde: añadido · Rojo: eliminado · Gris: sin cambios. Esta herramienta compara texto; no valida la sintaxis ni genera comandos de despliegue.</p>
+    </div>
+  </div>
+</section>
+<script src="{{ url_for('static', filename='js/config-diff.js') }}" defer></script>
+{% endblock %}

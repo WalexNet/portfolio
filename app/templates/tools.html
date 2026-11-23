@@ -1,6 +1,28 @@
 {% extends "base.html" %}
 {% block content %}
 
+{#
+  Slugs reales de los artículos publicados vinculados a cada herramienta.
+  Ejemplo: 'vlan.index': 'disenador-de-vlan-planificar-switches-y-generar-configuraciones-multivendor'
+  Cada enlace solo se muestra si el artículo está publicado en el entorno actual.
+#}
+{% set tutorial_slugs = {
+  'subnet.index': 'subnetting-ipv4-e-ipv6-guia-practica-para-disenar-y-dividir-redes',
+  'vlan.index': '',
+  'cron.index': 'crontab-en-linux-guia-practica-ejemplos-y-generador-online',
+  'permissions.index': 'permisos-linux-guia-practica-de-chmod-suid-sgid-y-sticky-bit',
+  'bases.index': 'conversion-entre-binario-octal-decimal-y-hexadecimal-guia-practica',
+  'config_converter.index': 'json-yaml-y-toml-diferencias-ejemplos-practicos-y-conversion-entre-formatos',
+  'regex.index': 'expresiones-regulares-regex-guia-practica-para-linux-python-y-administracion-de-sistemas',
+  'acl.index': 'acl-en-cisco-ios-ios-xe-guia-practica-de-configuracion-y-seguridad',
+  'cidr.index': 'sumarizacion-de-rutas-y-cidr-guia-practica-para-optimizar-tablas-de-enrutamiento',
+  'sql.index': 'formateador-sql-organizar-validar-y-compactar-consultas-postgresql-mysql-y-sqlite',
+  'config_diff.index': 'comparador-de-configuraciones-detectar-cambios-en-redes-y-sistemas'
+
+} %}
+
+{% set published_tutorials = published_blog_slugs(tutorial_slugs.values() | list) %}
+
 <section id="tools-hero" class="hero hero-inner section dark-background">
   <div class="container d-flex flex-column align-items-center text-center">
     <h2 data-aos="fade-up" data-aos-delay="100">HERRAMIENTAS</h2>
@@ -342,6 +364,40 @@
     transform: translateY(-1px);
   }
 
+
+  /* Acción secundaria: tutorial de la herramienta */
+  #tools .tools-card-action {
+    flex-direction: column;
+    align-items: flex-end;
+    gap: .65rem;
+  }
+
+  #tools .tools-tutorial {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: .5rem;
+    color: var(--tools-navy);
+    font-size: .85rem;
+    font-weight: 600;
+    line-height: 1.4;
+    text-decoration: none;
+    transition: color .2s ease;
+  }
+
+  #tools .tools-tutorial:hover,
+  #tools .tools-tutorial:focus-visible {
+    color: var(--tools-accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  #tools .tools-tutorial:focus-visible {
+    outline: 2px solid var(--tools-accent);
+    outline-offset: 4px;
+    border-radius: 2px;
+  }
+
   @media (max-width: 991.98px) {
     #tools .tools-card-body {
       grid-template-columns: 1fr;
@@ -358,6 +414,11 @@
     #tools .tools-card-action {
       padding: 0 2rem 2rem;
       justify-content: flex-start;
+      align-items: stretch;
+    }
+
+    #tools .tools-tutorial {
+      align-self: center;
     }
 
     #tools .tools-open {
@@ -468,6 +529,7 @@
       </div>
     </div>
 
+    <!-- Filtrado por Categoria Todas, Redes, Sistemas, DevOps -->
     <div class="tools-filters" aria-label="Categorías de herramientas">
       <div class="tools-filters" role="group" aria-label="Filtrar herramientas">
         <button type="button" class="tools-filter active" data-filter="all" aria-pressed="true">
@@ -518,6 +580,15 @@
               Abrir herramienta
               <i class="bi bi-arrow-right" aria-hidden="true"></i>
             </a>
+            {% if tutorial_slugs.get('subnet.index') in published_tutorials %}
+            <a class="tools-tutorial"
+               href="{{ url_for('blog.detail', slug=tutorial_slugs['subnet.index']) }}"
+               aria-label="Ver tutorial de esta herramienta">
+              <i class="bi bi-book" aria-hidden="true"></i>
+              Ver tutorial
+              <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
+            </a>
+            {% endif %}
           </div>
         </div>
       </article>
@@ -546,6 +617,15 @@
               Abrir herramienta
               <i class="bi bi-arrow-right" aria-hidden="true"></i>
             </a>
+            {% if tutorial_slugs.get('vlan.index') in published_tutorials %}
+            <a class="tools-tutorial"
+               href="{{ url_for('blog.detail', slug=tutorial_slugs['vlan.index']) }}"
+               aria-label="Ver tutorial de esta herramienta">
+              <i class="bi bi-book" aria-hidden="true"></i>
+              Ver tutorial
+              <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
+            </a>
+            {% endif %}
           </div>
         </div>
       </article>
@@ -582,6 +662,15 @@
               Abrir herramienta
               <i class="bi bi-arrow-right" aria-hidden="true"></i>
             </a>
+            {% if tutorial_slugs.get('cron.index') in published_tutorials %}
+            <a class="tools-tutorial"
+               href="{{ url_for('blog.detail', slug=tutorial_slugs['cron.index']) }}"
+               aria-label="Ver tutorial de esta herramienta">
+              <i class="bi bi-book" aria-hidden="true"></i>
+              Ver tutorial
+              <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
+            </a>
+            {% endif %}
           </div>
         </div>
       </article>
@@ -617,6 +706,15 @@
               Abrir herramienta
               <i class="bi bi-arrow-right" aria-hidden="true"></i>
             </a>
+            {% if tutorial_slugs.get('permissions.index') in published_tutorials %}
+            <a class="tools-tutorial"
+               href="{{ url_for('blog.detail', slug=tutorial_slugs['permissions.index']) }}"
+               aria-label="Ver tutorial de esta herramienta">
+              <i class="bi bi-book" aria-hidden="true"></i>
+              Ver tutorial
+              <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
+            </a>
+            {% endif %}
           </div>
         </div>
       </article>
@@ -664,6 +762,15 @@
               <i class="bi bi-arrow-right"
                  aria-hidden="true"></i>
             </a>
+            {% if tutorial_slugs.get('bases.index') in published_tutorials %}
+            <a class="tools-tutorial"
+               href="{{ url_for('blog.detail', slug=tutorial_slugs['bases.index']) }}"
+               aria-label="Ver tutorial de esta herramienta">
+              <i class="bi bi-book" aria-hidden="true"></i>
+              Ver tutorial
+              <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
+            </a>
+            {% endif %}
           </div>
 
         </div>
@@ -719,6 +826,15 @@
                  aria-hidden="true"></i>
 
             </a>
+            {% if tutorial_slugs.get('config_converter.index') in published_tutorials %}
+            <a class="tools-tutorial"
+               href="{{ url_for('blog.detail', slug=tutorial_slugs['config_converter.index']) }}"
+               aria-label="Ver tutorial de esta herramienta">
+              <i class="bi bi-book" aria-hidden="true"></i>
+              Ver tutorial
+              <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
+            </a>
+            {% endif %}
 
           </div>
 
@@ -757,6 +873,15 @@
               Abrir herramienta
               <i class="bi bi-arrow-right" aria-hidden="true"></i>
             </a>
+            {% if tutorial_slugs.get('regex.index') in published_tutorials %}
+            <a class="tools-tutorial"
+               href="{{ url_for('blog.detail', slug=tutorial_slugs['regex.index']) }}"
+               aria-label="Ver tutorial de esta herramienta">
+              <i class="bi bi-book" aria-hidden="true"></i>
+              Ver tutorial
+              <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
+            </a>
+            {% endif %}
           </div>
         </div>
       </article>
@@ -781,10 +906,18 @@
             <a class="tools-open" href="{{ url_for('acl.index') }}">
               Abrir herramienta <i class="bi bi-arrow-right" aria-hidden="true"></i>
             </a>
+            {% if tutorial_slugs.get('acl.index') in published_tutorials %}
+            <a class="tools-tutorial"
+               href="{{ url_for('blog.detail', slug=tutorial_slugs['acl.index']) }}"
+               aria-label="Ver tutorial de esta herramienta">
+              <i class="bi bi-book" aria-hidden="true"></i>
+              Ver tutorial
+              <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
+            </a>
+            {% endif %}
           </div>
         </div>
       </article>
-
 
       <!-- Calculadora de rutas y sumarización CIDR -->
       <article class="tools-card" data-category="redes" data-aos="fade-up">
@@ -821,7 +954,139 @@
               Abrir herramienta
               <i class="bi bi-arrow-right" aria-hidden="true"></i>
             </a>
+            {% if tutorial_slugs.get('cidr.index') in published_tutorials %}
+            <a class="tools-tutorial"
+               href="{{ url_for('blog.detail', slug=tutorial_slugs['cidr.index']) }}"
+               aria-label="Ver tutorial de esta herramienta">
+              <i class="bi bi-book" aria-hidden="true"></i>
+              Ver tutorial
+              <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
+            </a>
+            {% endif %}
           </div>
+        </div>
+      </article>
+
+      <!-- Formateador y validador SQL -->
+      <article class="tools-card"
+               data-category="devops"
+               data-aos="fade-up">
+
+        <div class="tools-card-body">
+
+          <div class="tools-card-art">
+            <img
+              src="{{ url_for('static', filename='img/tools/tools_formateador_sql02.png') }}"
+              alt="Ilustración del formateador y validador SQL"
+              loading="lazy"
+            >
+          </div>
+
+          <div class="tools-card-content">
+            <h3 class="tools-card-title">
+              Formateador y validador SQL
+            </h3>
+
+            <div class="tools-tags"
+                 aria-label="Etiquetas de la herramienta">
+              <span class="tools-tag">PostgreSQL</span>
+              <span class="tools-tag">MySQL</span>
+              <span class="tools-tag">SQLite</span>
+              <span class="tools-tag">SQL</span>
+            </div>
+
+            <p class="tools-description">
+              Organiza y formatea consultas SQL, comprueba su sintaxis
+              y compacta instrucciones. Compatible con PostgreSQL,
+              MySQL y SQLite, sin conectarse a ninguna base de datos.
+            </p>
+          </div>
+
+          <div class="tools-card-action">
+            <div class="d-flex flex-column align-items-center gap-2">
+
+              <a class="tools-open"
+                 href="{{ url_for('sql.index') }}">
+                Abrir herramienta
+                <i class="bi bi-arrow-right"
+                   aria-hidden="true"></i>
+              </a>
+
+              {% if tutorial_slugs.get('sql.index') in published_tutorials %}
+              <a class="tools-tutorial"
+                 href="{{ url_for('blog.detail', slug=tutorial_slugs['sql.index']) }}"
+                 aria-label="Ver tutorial de esta herramienta">
+                <i class="bi bi-book" aria-hidden="true"></i>
+                Ver tutorial
+                <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
+              </a>
+              {% endif %}
+
+            </div>
+          </div>
+
+        </div>
+      </article>
+
+      <!-- Comparador de configuraciones -->
+      <article class="tools-card"
+               data-category="redes sistemas devops"
+               data-aos="fade-up">
+
+        <div class="tools-card-body">
+
+          <div class="tools-card-art">
+            <img
+              src="{{ url_for('static', filename='img/tools/diff.png') }}"
+              alt="Ilustración del comparador de configuraciones"
+              loading="lazy"
+            >
+          </div>
+
+          <div class="tools-card-content">
+            <h3 class="tools-card-title">
+              Comparador de configuraciones
+            </h3>
+
+            <div class="tools-tags"
+                 aria-label="Etiquetas de la herramienta">
+              <span class="tools-tag">Diff</span>
+              <span class="tools-tag">Networking</span>
+              <span class="tools-tag">Linux</span>
+              <span class="tools-tag">DevOps</span>
+            </div>
+
+            <p class="tools-description">
+              Compara configuraciones de red y sistemas,
+              identifica líneas añadidas, eliminadas y
+              modificadas, visualiza las diferencias en
+              paralelo o en formato unificado y exporta
+              los resultados.
+            </p>
+          </div>
+
+          <div class="tools-card-action">
+            <div class="d-flex flex-column align-items-center gap-3">
+
+              <a class="tools-open"
+                 href="{{ url_for('config_diff.index') }}">
+                Abrir herramienta
+                <i class="bi bi-arrow-right"
+                   aria-hidden="true"></i>
+              </a>
+
+              {% if tutorial_slugs.get('config_diff.index') in published_tutorials %}
+              <a class="tools-tutorial"
+                 href="{{ url_for('blog.detail', slug=tutorial_slugs['config_diff.index']) }}">
+                <i class="bi bi-book"
+                   aria-hidden="true"></i>
+                Ver tutorial
+              </a>
+              {% endif %}
+
+            </div>
+          </div>
+
         </div>
       </article>
 

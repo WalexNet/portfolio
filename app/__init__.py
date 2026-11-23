@@ -9,7 +9,7 @@ from config import config_by_name
 from app.models import User
 from .middleware.access_logger import start_timer, log_request
 from sqlalchemy import select
-from app.models import Page
+from app.models import Page, Post
 # Rutas
 from .routes.main import main
 from .routes.blog import blog_bp
@@ -30,6 +30,8 @@ from .tools.config_converter.routes import config_converter_bp
 from .tools.regex.routes import regex_bp
 from .tools.acl.routes import acl_bp
 from .tools.cidr.routes import cidr_bp
+from .tools.sql.routes import sql_bp
+from .tools.config_diff.routes import config_diff_bp
 
 
 def create_app():
@@ -75,6 +77,8 @@ def create_app():
     app.register_blueprint(regex_bp)
     app.register_blueprint(acl_bp)
     app.register_blueprint(cidr_bp)
+    app.register_blueprint(sql_bp)
+    app.register_blueprint(config_diff_bp)
 
     @app.context_processor
     def inject_career_menu():
@@ -92,6 +96,22 @@ def create_app():
         return {
             "career_menu": career_menu
         }
+
+    @app.context_processor
+    def inject_published_blog_slugs():
+        # La consulta se ejecuta únicamente si la plantilla solicita los slugs.
+        def published_blog_slugs(slugs):
+            slugs = [slug for slug in slugs if slug]
+            if not slugs:
+                return set()
+
+            stmt = select(Post.slug).where(
+                Post.slug.in_(slugs),
+                Post.is_published.is_(True)
+            )
+            return set(db.session.scalars(stmt).all())
+
+        return {"published_blog_slugs": published_blog_slugs}
 
     return app
 

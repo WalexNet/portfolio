@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block seo_title %}Formateador y validador SQL | WalexNET{% endblock %}
+{% block seo_description %}Formatea, minifica y analiza la sintaxis de consultas SQL para PostgreSQL, MySQL/MariaDB y SQLite sin ejecutarlas.{% endblock %}
+
+{% block content %}
+{% set tool_title = 'Formateador SQL' %}
+{% set tool_description = 'Organiza consultas, comprueba su sintaxis y genera SQL más legible para PostgreSQL, MySQL y SQLite.' %}
+{% set tool_icon = 'bi-database-gear' %}
+{% include 'tools/_components/hero.html' %}
+
+{# Recursos dentro de content: no dependen de bloques CSS/JS opcionales de base.html #}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/sql-formatter.css') }}">
+
+<section class="sql-tool-section section" id="sql-tool">
+  <div class="container">
+    <a class="sql-back" href="{{ url_for('tools.index') }}"><i class="bi bi-arrow-left" aria-hidden="true"></i> Volver a Herramientas</a>
+    <div class="sql-intro">
+      <span class="sql-eyebrow">BASES DE DATOS · DEVOPS</span>
+      <h2>Formateador y validador SQL</h2>
+      <p>Trabaja con consultas SQL sin conexión a ninguna base de datos. El análisis es estático y no ejecuta instrucciones.</p>
+    </div>
+
+    <div class="sql-panel" data-api-url="{{ url_for('sql.process_api') }}">
+      <div class="sql-settings" aria-label="Opciones de formato">
+        <label>Motor SQL
+          <select id="sql-dialect">
+            <option value="postgres">PostgreSQL</option>
+            <option value="mysql">MySQL / MariaDB</option>
+            <option value="sqlite">SQLite</option>
+          </select>
+        </label>
+        <label>Palabras clave
+          <select id="sql-keyword-case">
+            <option value="upper">MAYÚSCULAS</option>
+            <option value="lower">minúsculas</option>
+            <option value="capitalize">Capitalizadas</option>
+          </select>
+        </label>
+        <label>Ejemplo
+          <select id="sql-example">
+            <option value="">Seleccionar consulta…</option>
+            <option value="select">SELECT + JOIN</option>
+            <option value="cte">CTE y agregaciones</option>
+            <option value="insert">INSERT</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="sql-editors">
+        <div class="sql-editor">
+          <div class="sql-editor-head"><label for="sql-input">Consulta original</label><span id="sql-input-count">0 caracteres</span></div>
+          <textarea id="sql-input" spellcheck="false" placeholder="Pega aquí tu consulta SQL…" maxlength="100000" aria-describedby="sql-note"></textarea>
+        </div>
+        <div class="sql-editor">
+          <div class="sql-editor-head"><label for="sql-output">Resultado</label><button type="button" class="sql-text-btn" id="sql-copy">Copiar resultado</button></div>
+          <textarea id="sql-output" spellcheck="false" readonly placeholder="El resultado aparecerá aquí…"></textarea>
+        </div>
+      </div>
+      <div class="sql-actions">
+        <button class="sql-btn sql-primary" type="button" data-sql-action="format"><i class="bi bi-code-slash" aria-hidden="true"></i> Formatear SQL</button>
+        <button class="sql-btn sql-outline" type="button" data-sql-action="validate">Validar sintaxis</button>
+        <button class="sql-btn sql-outline" type="button" data-sql-action="minify">Compactar SQL</button>
+        <button class="sql-btn sql-muted" type="button" id="sql-clear">Limpiar</button>
+      </div>
+      <div id="sql-status" role="status" aria-live="polite" class="sql-status" hidden></div>
+      <p class="sql-note" id="sql-note">El validador comprueba sintaxis de forma aproximada; no verifica tablas, columnas, permisos ni compatibilidad completa con el servidor. Límite: 100.000 caracteres.</p>
+    </div>
+  </div>
+</section>
+
+<script defer src="{{ url_for('static', filename='js/sql-formatter.js') }}"></script>
+{% endblock %}
