@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block content %}
+{% set tool_title = 'Auditor FortiGate' %}
+{% set tool_description = 'Analiza configuraciones FortiOS, conserva versiones y compara los cambios de seguridad.' %}
+{% set tool_icon = 'bi-shield-check' %}
+{% include 'tools/_components/hero.html' %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/fortigate-audit.css') }}">
+<section class="section" id="fortigate-audit-tool">
+  <div class="container">
+    <a class="fga-back" href="{{ url_for('tools.index') }}"><i class="bi bi-arrow-left"></i> Volver a Herramientas</a>
+    <div class="fga-heading"><p class="fga-kicker">REDES · SEGURIDAD</p><h2>Auditor de configuraciones FortiGate</h2>
+      <p>Sube un backup de FortiOS para revisar las 14 reglas del perfil histórico. Las configuraciones se conservan en un historial privado para compararlas posteriormente.</p></div>
+    {% with messages = get_flashed_messages(with_categories=true) %}{% for category,message in messages %}<div class="fga-alert" role="alert">{{ message }}</div>{% endfor %}{% endwith %}
+    <div class="fga-panel">
+      <h3>Nueva auditoría</h3>
+      <form action="{{ url_for('fortigate_audit.upload') }}" method="post" enctype="multipart/form-data" class="fga-upload">
+        <input type="hidden" name="csrf_token" value="{{ token }}"><label for="fga-file">Configuración (.conf, .txt o .cfg; máximo 4 MiB)</label>
+        <input type="file" id="fga-file" name="configuration" accept=".conf,.txt,.cfg" required>
+        <button type="submit" class="fga-primary"><i class="bi bi-shield-check"></i> Auditar y guardar</button>
+      </form>
+      <p class="fga-muted">No conecta con el firewall ni aplica cambios. Los archivos pueden contener datos sensibles: acceso restringido a usuarios autenticados.</p>
+    </div>
+    {% if report %}
+    <div class="fga-panel">
+      <div class="fga-score"><div><p class="fga-kicker">RESULTADO DE AUDITORÍA</p><h3>{{ report.report.hostname }} · {{ report.report.version }}</h3><p>{{ report.filename }} · {{ report.created }}</p></div><strong>{{ report.report.score }} <small>/ {{ report.report.assessed_points }} evaluables</small></strong></div>
+      <p class="fga-muted">Puntuación histórica sobre un máximo de 100 puntos. Los criterios no evaluables quedan fuera del denominador indicado.</p>
+      <div class="fga-rules">{% for rule in report.report.rules %}
+        <details class="fga-rule"><summary><span class="fga-state fga-{{ rule.status }}">{{ {'pass':'Cumple','fail':'Incumple','unknown':'Sin evaluar'}[rule.status] }}</span><span>{{ rule.name }}</span><b>{{ rule.points }} pts</b></summary>
+          {% if rule.note %}<p>{{ rule.note }}</p>{% endif %}
+          {% for item in rule.details %}<p class="fga-evidence">{{ item }}</p>{% endfor %}
+          {% if rule.total_details > rule.details|length %}<p>Otras {{ rule.total_details - rule.details|length }} evidencias omitidas de esta vista.</p>{% endif %}
+        </details>{% endfor %}</div>
+    </div>
+    {% endif %}
+    <div class="fga-panel"><h3>Historial y comparación</h3>
+      {% if records %}
+      <div class="fga-history">{% for rec in records %}<div class="fga-entry"><a href="{{ url_for('fortigate_audit.detail',rec_id=rec.id) }}">{{ rec.report.hostname or rec.filename }} · {{ rec.created }}</a><span>{{ rec.report.score }}/100 · {{ rec.report.version }}</span></div>{% endfor %}</div>
+      {% else %}<p>Aún no hay configuraciones cargadas para tu usuario.</p>{% endif %}
+      {% if records|length >= 2 %}<form action="{{ url_for('fortigate_audit.compare') }}" method="post" class="fga-compare"><input type="hidden" name="csrf_token" value="{{ token }}">
+        <label for="fga-before">Versión anterior</label><select id="fga-before" name="before" required>{% for rec in records %}<option value="{{ rec.id }}">{{ rec.report.hostname }} · {{ rec.created }}</option>{% endfor %}</select>
+        <label for="fga-after">Versión nueva</label><select id="fga-after" name="after" required>{% for rec in records %}<option value="{{ rec.id }}" {% if loop.index == 2 %}selected{% endif %}>{{ rec.report.hostname }} · {{ rec.created }}</option>{% endfor %}</select>
+        <button class="fga-primary" type="submit">Comparar versiones</button></form>{% endif %}
+    </div>
+    {% if comparison %}<div class="fga-panel"><h3>Comparación: {{ comparison.before.report.hostname }}</h3>
+      <p>Anterior: {{ comparison.before.created }} ({{ comparison.before.report.score }}/100) · Nueva: {{ comparison.after.created }} ({{ comparison.after.report.score }}/100)</p>
+      <h4>Cambios en el cumplimiento</h4>{% if comparison.changes %}<div class="fga-history">{% for item in comparison.changes %}<p>{{ item.name }}: {{ item.before }} → {{ item.after }}</p>{% endfor %}</div>{% else %}<p>Sin cambios en los estados de las 14 reglas.</p>{% endif %}
+      <h4>Diferencias de texto</h4><p class="fga-muted">Vista limitada a 350 líneas de diff. Los parámetros secretos habituales se ocultan. No utilizar como parche de despliegue.</p>
+      <pre class="fga-diff">{% for line in comparison.lines %}{{ line }}
+{% endfor %}</pre>{% if comparison.truncated %}<p>Resultado truncado ({{ comparison.total }} líneas de diferencias).</p>{% endif %}
+    </div>{% endif %}
+  </div>
+</section>
+{% endblock %}

@@ -17,7 +17,8 @@
   'acl.index': 'acl-en-cisco-ios-ios-xe-guia-practica-de-configuracion-y-seguridad',
   'cidr.index': 'sumarizacion-de-rutas-y-cidr-guia-practica-para-optimizar-tablas-de-enrutamiento',
   'sql.index': 'formateador-sql-organizar-validar-y-compactar-consultas-postgresql-mysql-y-sqlite',
-  'config_diff.index': 'comparador-de-configuraciones-detectar-cambios-en-redes-y-sistemas'
+  'config_diff.index': 'comparador-de-configuraciones-detectar-cambios-en-redes-y-sistemas',
+  'fortigate_audit.index': 'auditor-fortigate-analizar-configuraciones-detectar-riesgos-y-comparar-cambios'
 
 } %}
 
@@ -1090,6 +1091,47 @@
         </div>
       </article>
 
+      <!-- Auditor FortiGate -->
+      <article class="tools-card" data-category="redes sistemas" data-aos="fade-up">
+        <div class="tools-card-body">
+          <div class="tools-card-art">
+            <img
+              src="{{ url_for('static', filename='img/tools/auditoria_fortigate.png') }}"
+              alt="Ilustración Auditorias FortiGate"
+              loading="lazy"
+            >
+          </div>
+          <div class="tools-card-content">
+            <h3 class="tools-card-title">Auditor FortiGate</h3>
+            <div class="tools-tags" aria-label="Etiquetas de la herramienta">
+              <span class="tools-tag">Fortinet</span>
+              <span class="tools-tag">Seguridad</span>
+              <span class="tools-tag">Auditoría</span>
+              <span class="tools-tag">Configuraciones</span>
+            </div>
+            <p class="tools-description">
+              Analiza copias de configuración de FortiGate, comprueba políticas
+              y parámetros de seguridad, calcula una puntuación y conserva
+              versiones para comparar cambios posteriores.
+            </p>
+          </div>
+          <div class="tools-card-action">
+            <a class="tools-open" href="{{ url_for('fortigate_audit.index') }}">
+              Abrir herramienta
+              <i class="bi bi-arrow-right" aria-hidden="true"></i>
+            </a>
+            {% if tutorial_slugs.get('fortigate_audit.index') in published_tutorials %}
+            <a class="tools-tutorial"
+               href="{{ url_for('blog.detail', slug=tutorial_slugs['fortigate_audit.index']) }}"
+               aria-label="Ver tutorial del Auditor FortiGate">
+              <i class="bi bi-book" aria-hidden="true"></i>
+              Ver tutorial
+              <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
+            </a>
+            {% endif %}
+          </div>
+        </div>
+      </article>
 
     </div>
   </div>
