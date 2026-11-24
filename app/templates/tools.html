@@ -8,7 +8,7 @@
 #}
 {% set tutorial_slugs = {
   'subnet.index': 'subnetting-ipv4-e-ipv6-guia-practica-para-disenar-y-dividir-redes',
-  'vlan.index': '',
+  'vlan.index': 'disenador-de-vlan-planificar-switches-y-generar-configuraciones-multivendor',
   'cron.index': 'crontab-en-linux-guia-practica-ejemplos-y-generador-online',
   'permissions.index': 'permisos-linux-guia-practica-de-chmod-suid-sgid-y-sticky-bit',
   'bases.index': 'conversion-entre-binario-octal-decimal-y-hexadecimal-guia-practica',
@@ -18,12 +18,13 @@
   'cidr.index': 'sumarizacion-de-rutas-y-cidr-guia-practica-para-optimizar-tablas-de-enrutamiento',
   'sql.index': 'formateador-sql-organizar-validar-y-compactar-consultas-postgresql-mysql-y-sqlite',
   'config_diff.index': 'comparador-de-configuraciones-detectar-cambios-en-redes-y-sistemas',
-  'fortigate_audit.index': 'auditor-fortigate-analizar-configuraciones-detectar-riesgos-y-comparar-cambios'
-
+  'fortigate_audit.index': 'auditor-fortigate-analizar-configuraciones-detectar-riesgos-y-comparar-cambios',
+  'ssh_analyzer.index': 'analizador-ssh-auditoria-de-configuracion-openssh'
 } %}
 
 {% set published_tutorials = published_blog_slugs(tutorial_slugs.values() | list) %}
 
+<!-- HERO -->
 <section id="tools-hero" class="hero hero-inner section dark-background">
   <div class="container d-flex flex-column align-items-center text-center">
     <h2 data-aos="fade-up" data-aos-delay="100">HERRAMIENTAS</h2>
@@ -88,134 +89,21 @@
     margin-bottom: 0;
   }
 
+  /* ===== Ilustración editorial del catálogo ===== */
   #tools .tools-hero-art {
-    background: linear-gradient(180deg, #f9fbfc 0%, #f1f6f8 100%);
-    border: 1px solid var(--tools-border);
-    border-radius: 24px;
-    min-height: 280px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem;
-    box-shadow: 0 8px 30px rgba(40, 75, 99, 0.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
   }
 
-  #tools .tools-hero-art-inner {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1.25rem;
-    flex-wrap: wrap;
-  }
-
-  #tools .hero-device {
-    width: 220px;
-    height: 140px;
-    border-radius: 16px;
-    background: linear-gradient(180deg, #284b63 0%, #1f3a4c 100%);
-    position: relative;
-    box-shadow: 0 12px 24px rgba(40, 75, 99, 0.15);
-  }
-
-  #tools .hero-device::before {
-    content: ">_";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: #ffffff;
-    font-weight: 700;
-    font-size: 2rem;
-    letter-spacing: .04em;
-  }
-
-  #tools .hero-book-stack {
-    display: flex;
-    flex-direction: column;
-    gap: .6rem;
-  }
-
-  #tools .hero-book {
-    width: 85px;
-    height: 18px;
-    border-radius: 8px;
-    background: #d9e7ee;
-    border: 1px solid #c8d9e3;
-    position: relative;
-  }
-
-  #tools .hero-book:nth-child(2) {
-    background: #eaf1f5;
-  }
-
-  #tools .hero-book.accent {
-    border-color: var(--tools-accent);
-    box-shadow: inset 0 -3px 0 var(--tools-accent);
-  }
-
-  #tools .hero-plant {
-    width: 56px;
-    height: 92px;
-    position: relative;
-  }
-
-  #tools .hero-plant::before {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 10px;
-    width: 36px;
-    height: 38px;
-    border-radius: 0 0 16px 16px;
-    background: #ffffff;
-    border: 1px solid var(--tools-border);
-  }
-
-  #tools .hero-plant::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 4px;
-    width: 48px;
-    height: 58px;
-    background:
-      radial-gradient(circle at 18px 42px, #7cb083 0 10px, transparent 11px),
-      radial-gradient(circle at 34px 36px, #6fa876 0 10px, transparent 11px),
-      radial-gradient(circle at 14px 20px, #88ba8e 0 10px, transparent 11px),
-      radial-gradient(circle at 36px 16px, #7eb385 0 10px, transparent 11px);
-  }
-
-  #tools .hero-cup {
-    width: 48px;
-    height: 58px;
-    border-radius: 0 0 12px 12px;
-    background: #fff;
-    border: 1px solid var(--tools-border);
-    position: relative;
-  }
-
-  #tools .hero-cup::before {
-    content: "";
-    position: absolute;
-    right: -12px;
-    top: 12px;
-    width: 16px;
-    height: 20px;
-    border: 3px solid var(--tools-navy);
-    border-left: 0;
-    border-radius: 0 10px 10px 0;
-  }
-
-  #tools .hero-cup::after {
-    content: "";
-    position: absolute;
-    top: -3px;
-    left: 8px;
-    width: 32px;
-    height: 4px;
-    border-radius: 999px;
-    background: var(--tools-accent);
+  #tools .tools-hero-image {
+      display: block;
+      width: 100%;
+      max-width: 520px;
+      height: auto;
+      object-fit: contain;
+      border-radius: 24px;
   }
 
   #tools .tools-filters {
@@ -291,7 +179,7 @@
   }
 
   #tools .tools-card-content {
-    padding: 2rem 2rem 2rem 0;
+    padding: 2rem 2rem 2rem 1rem;
     position: relative;
   }
 
@@ -428,7 +316,12 @@
     }
 
     #tools .tools-hero-art {
-      margin-top: 1.5rem;
+    margin-top: .5rem;
+    }
+
+    #tools .tools-hero-image {
+        max-width: 480px;
+        margin: 0 auto;
     }
   }
 
@@ -501,7 +394,7 @@
 
 <section id="tools" class="section">
   <div class="container">
-
+    <!-- Encabezado Herramientas -->
     <div class="row align-items-center tools-intro-wrap g-4">
       <div class="col-lg-7">
         <div class="tools-intro">
@@ -516,16 +409,16 @@
       </div>
 
       <div class="col-lg-5">
-        <div class="tools-hero-art" aria-hidden="true">
-          <div class="tools-hero-art-inner">
-            <div class="hero-book-stack">
-              <span class="hero-book accent"></span>
-              <span class="hero-book"></span>
-            </div>
-            <div class="hero-device"></div>
-            <div class="hero-plant"></div>
-            <div class="hero-cup"></div>
-          </div>
+        <div class="tools-hero-art">
+          <img
+            src="{{ url_for('static', filename='img/tools/ilustracion_toolsPage.png') }}"
+            alt="Ilustración de herramientas técnicas para redes, sistemas, DevOps y desarrollo"
+            class="tools-hero-image"
+            width="1408"
+            height="1056"
+            loading="eager"
+            decoding="async"
+          >
         </div>
       </div>
     </div>
@@ -577,19 +470,21 @@
           </div>
 
           <div class="tools-card-action">
-            <a class="tools-open" href="{{ url_for('subnet.index') }}">
-              Abrir herramienta
-              <i class="bi bi-arrow-right" aria-hidden="true"></i>
-            </a>
-            {% if tutorial_slugs.get('subnet.index') in published_tutorials %}
-            <a class="tools-tutorial"
-               href="{{ url_for('blog.detail', slug=tutorial_slugs['subnet.index']) }}"
-               aria-label="Ver tutorial de esta herramienta">
-              <i class="bi bi-book" aria-hidden="true"></i>
-              Ver tutorial
-              <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
-            </a>
-            {% endif %}
+            <div class="d-flex flex-column align-items-center gap-3">
+              <a class="tools-open" href="{{ url_for('subnet.index') }}">
+                Abrir herramienta
+                <i class="bi bi-arrow-right" aria-hidden="true"></i>
+              </a>
+              {% if tutorial_slugs.get('subnet.index') in published_tutorials %}
+              <a class="tools-tutorial"
+                 href="{{ url_for('blog.detail', slug=tutorial_slugs['subnet.index']) }}"
+                 aria-label="Ver tutorial de esta herramienta">
+                <i class="bi bi-book" aria-hidden="true"></i>
+                Ver tutorial
+                <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
+              </a>
+              {% endif %}
+            </div>
           </div>
         </div>
       </article>
@@ -614,19 +509,21 @@
             </p>
           </div>
           <div class="tools-card-action">
-            <a class="tools-open" href="{{ url_for('vlan.index') }}">
-              Abrir herramienta
-              <i class="bi bi-arrow-right" aria-hidden="true"></i>
-            </a>
-            {% if tutorial_slugs.get('vlan.index') in published_tutorials %}
-            <a class="tools-tutorial"
-               href="{{ url_for('blog.detail', slug=tutorial_slugs['vlan.index']) }}"
-               aria-label="Ver tutorial de esta herramienta">
-              <i class="bi bi-book" aria-hidden="true"></i>
-              Ver tutorial
-              <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
-            </a>
-            {% endif %}
+            <div class="d-flex flex-column align-items-center gap-3">
+              <a class="tools-open" href="{{ url_for('vlan.index') }}">
+                Abrir herramienta
+                <i class="bi bi-arrow-right" aria-hidden="true"></i>
+              </a>
+              {% if tutorial_slugs.get('vlan.index') in published_tutorials %}
+              <a class="tools-tutorial"
+                 href="{{ url_for('blog.detail', slug=tutorial_slugs['vlan.index']) }}"
+                 aria-label="Ver tutorial de esta herramienta">
+                <i class="bi bi-book" aria-hidden="true"></i>
+                Ver tutorial
+                <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
+              </a>
+              {% endif %}
+            </div>
           </div>
         </div>
       </article>
@@ -659,19 +556,21 @@
           </div>
 
           <div class="tools-card-action">
-            <a class="tools-open" href="{{ url_for('cron.index') }}">
-              Abrir herramienta
-              <i class="bi bi-arrow-right" aria-hidden="true"></i>
-            </a>
-            {% if tutorial_slugs.get('cron.index') in published_tutorials %}
-            <a class="tools-tutorial"
-               href="{{ url_for('blog.detail', slug=tutorial_slugs['cron.index']) }}"
-               aria-label="Ver tutorial de esta herramienta">
-              <i class="bi bi-book" aria-hidden="true"></i>
-              Ver tutorial
-              <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
-            </a>
-            {% endif %}
+            <div class="d-flex flex-column align-items-center gap-3">
+              <a class="tools-open" href="{{ url_for('cron.index') }}">
+                Abrir herramienta
+                <i class="bi bi-arrow-right" aria-hidden="true"></i>
+              </a>
+              {% if tutorial_slugs.get('cron.index') in published_tutorials %}
+              <a class="tools-tutorial"
+                 href="{{ url_for('blog.detail', slug=tutorial_slugs['cron.index']) }}"
+                 aria-label="Ver tutorial de esta herramienta">
+                <i class="bi bi-book" aria-hidden="true"></i>
+                Ver tutorial
+                <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
+              </a>
+              {% endif %}
+            </div>
           </div>
         </div>
       </article>
@@ -703,19 +602,21 @@
           </div>
 
           <div class="tools-card-action">
-            <a class="tools-open" href="{{ url_for('permissions.index') }}">
-              Abrir herramienta
-              <i class="bi bi-arrow-right" aria-hidden="true"></i>
-            </a>
-            {% if tutorial_slugs.get('permissions.index') in published_tutorials %}
-            <a class="tools-tutorial"
-               href="{{ url_for('blog.detail', slug=tutorial_slugs['permissions.index']) }}"
-               aria-label="Ver tutorial de esta herramienta">
-              <i class="bi bi-book" aria-hidden="true"></i>
-              Ver tutorial
-              <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
-            </a>
-            {% endif %}
+            <div class="d-flex flex-column align-items-center gap-3">
+              <a class="tools-open" href="{{ url_for('permissions.index') }}">
+                Abrir herramienta
+                <i class="bi bi-arrow-right" aria-hidden="true"></i>
+              </a>
+              {% if tutorial_slugs.get('permissions.index') in published_tutorials %}
+              <a class="tools-tutorial"
+                 href="{{ url_for('blog.detail', slug=tutorial_slugs['permissions.index']) }}"
+                 aria-label="Ver tutorial de esta herramienta">
+                <i class="bi bi-book" aria-hidden="true"></i>
+                Ver tutorial
+                <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
+              </a>
+              {% endif %}
+            </div>
           </div>
         </div>
       </article>
@@ -757,23 +658,24 @@
           </div>
 
           <div class="tools-card-action">
-            <a class="tools-open"
-               href="{{ url_for('bases.index') }}">
-              Abrir herramienta
-              <i class="bi bi-arrow-right"
-                 aria-hidden="true"></i>
-            </a>
-            {% if tutorial_slugs.get('bases.index') in published_tutorials %}
-            <a class="tools-tutorial"
-               href="{{ url_for('blog.detail', slug=tutorial_slugs['bases.index']) }}"
-               aria-label="Ver tutorial de esta herramienta">
-              <i class="bi bi-book" aria-hidden="true"></i>
-              Ver tutorial
-              <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
-            </a>
-            {% endif %}
+            <div class="d-flex flex-column align-items-center gap-3">
+              <a class="tools-open"
+                 href="{{ url_for('bases.index') }}">
+                Abrir herramienta
+                <i class="bi bi-arrow-right"
+                   aria-hidden="true"></i>
+              </a>
+              {% if tutorial_slugs.get('bases.index') in published_tutorials %}
+              <a class="tools-tutorial"
+                 href="{{ url_for('blog.detail', slug=tutorial_slugs['bases.index']) }}"
+                 aria-label="Ver tutorial de esta herramienta">
+                <i class="bi bi-book" aria-hidden="true"></i>
+                Ver tutorial
+                <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
+              </a>
+              {% endif %}
+            </div>
           </div>
-
         </div>
       </article>
 
@@ -781,9 +683,7 @@
       <article class="tools-card"
                data-category="sistemas devops"
                data-aos="fade-up">
-
         <div class="tools-card-body">
-
           <div class="tools-card-art">
             <img
               src="{{ url_for('static', filename='img/tools/config-converter.png') }}"
@@ -791,56 +691,43 @@
               loading="lazy"
             >
           </div>
-
           <div class="tools-card-content">
-
             <h3 class="tools-card-title">
               Conversor JSON / YAML / TOML
             </h3>
-
-            <div class="tools-tags"
-                 aria-label="Etiquetas de la herramienta">
-
+            <div class="tools-tags" aria-label="Etiquetas de la herramienta">
               <span class="tools-tag">JSON</span>
               <span class="tools-tag">YAML</span>
               <span class="tools-tag">TOML</span>
               <span class="tools-tag">DevOps</span>
-
             </div>
-
             <p class="tools-description">
               Convierte, valida y da formato a archivos JSON,
               YAML y TOML. Importa configuraciones, detecta
               errores de sintaxis y descarga los resultados
               directamente desde el navegador.
             </p>
-
           </div>
-
           <div class="tools-card-action">
-
-            <a class="tools-open"
-               href="{{ url_for('config_converter.index') }}">
-
-              Abrir herramienta
-              <i class="bi bi-arrow-right"
-                 aria-hidden="true"></i>
-
-            </a>
-            {% if tutorial_slugs.get('config_converter.index') in published_tutorials %}
-            <a class="tools-tutorial"
-               href="{{ url_for('blog.detail', slug=tutorial_slugs['config_converter.index']) }}"
-               aria-label="Ver tutorial de esta herramienta">
-              <i class="bi bi-book" aria-hidden="true"></i>
-              Ver tutorial
-              <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
-            </a>
-            {% endif %}
-
-          </div>
-
+            <div class="d-flex flex-column align-items-center gap-3">
+              <a class="tools-open"
+                 href="{{ url_for('config_converter.index') }}">
+                Abrir herramienta
+                <i class="bi bi-arrow-right"
+                   aria-hidden="true"></i>
+              </a>
+              {% if tutorial_slugs.get('config_converter.index') in published_tutorials %}
+              <a class="tools-tutorial"
+                 href="{{ url_for('blog.detail', slug=tutorial_slugs['config_converter.index']) }}"
+                 aria-label="Ver tutorial de esta herramienta">
+                <i class="bi bi-book" aria-hidden="true"></i>
+                Ver tutorial
+                <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
+              </a>
+              {% endif %}
+            </div>
         </div>
-
+        </div>
       </article>
 
       <!-- Laboratorio Regex -->
@@ -870,20 +757,22 @@
           </div>
 
           <div class="tools-card-action">
-            <a class="tools-open" href="{{ url_for('regex.index') }}">
-              Abrir herramienta
-              <i class="bi bi-arrow-right" aria-hidden="true"></i>
-            </a>
-            {% if tutorial_slugs.get('regex.index') in published_tutorials %}
-            <a class="tools-tutorial"
-               href="{{ url_for('blog.detail', slug=tutorial_slugs['regex.index']) }}"
-               aria-label="Ver tutorial de esta herramienta">
-              <i class="bi bi-book" aria-hidden="true"></i>
-              Ver tutorial
-              <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
-            </a>
-            {% endif %}
+            <div class="d-flex flex-column align-items-center gap-3">
+              <a class="tools-open" href="{{ url_for('regex.index') }}">
+                Abrir herramienta
+                <i class="bi bi-arrow-right" aria-hidden="true"></i>
+              </a>
+              {% if tutorial_slugs.get('regex.index') in published_tutorials %}
+              <a class="tools-tutorial"
+                 href="{{ url_for('blog.detail', slug=tutorial_slugs['regex.index']) }}"
+                 aria-label="Ver tutorial de esta herramienta">
+                <i class="bi bi-book" aria-hidden="true"></i>
+                Ver tutorial
+                <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
+              </a>
+              {% endif %}
           </div>
+        </div>
         </div>
       </article>
 
@@ -904,19 +793,21 @@
             cambia su orden y exporta ACL extendidas IPv4 para Cisco IOS e IOS XE.</p>
           </div>
           <div class="tools-card-action">
-            <a class="tools-open" href="{{ url_for('acl.index') }}">
-              Abrir herramienta <i class="bi bi-arrow-right" aria-hidden="true"></i>
-            </a>
-            {% if tutorial_slugs.get('acl.index') in published_tutorials %}
-            <a class="tools-tutorial"
-               href="{{ url_for('blog.detail', slug=tutorial_slugs['acl.index']) }}"
-               aria-label="Ver tutorial de esta herramienta">
-              <i class="bi bi-book" aria-hidden="true"></i>
-              Ver tutorial
-              <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
-            </a>
-            {% endif %}
+            <div class="d-flex flex-column align-items-center gap-3">
+              <a class="tools-open" href="{{ url_for('acl.index') }}">
+                Abrir herramienta <i class="bi bi-arrow-right" aria-hidden="true"></i>
+              </a>
+              {% if tutorial_slugs.get('acl.index') in published_tutorials %}
+              <a class="tools-tutorial"
+                 href="{{ url_for('blog.detail', slug=tutorial_slugs['acl.index']) }}"
+                 aria-label="Ver tutorial de esta herramienta">
+                <i class="bi bi-book" aria-hidden="true"></i>
+                Ver tutorial
+                <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
+              </a>
+              {% endif %}
           </div>
+        </div>
         </div>
       </article>
 
@@ -951,20 +842,22 @@
           </div>
 
           <div class="tools-card-action">
-            <a class="tools-open" href="{{ url_for('cidr.index') }}">
-              Abrir herramienta
-              <i class="bi bi-arrow-right" aria-hidden="true"></i>
-            </a>
-            {% if tutorial_slugs.get('cidr.index') in published_tutorials %}
-            <a class="tools-tutorial"
-               href="{{ url_for('blog.detail', slug=tutorial_slugs['cidr.index']) }}"
-               aria-label="Ver tutorial de esta herramienta">
-              <i class="bi bi-book" aria-hidden="true"></i>
-              Ver tutorial
-              <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
-            </a>
-            {% endif %}
+            <div class="d-flex flex-column align-items-center gap-3">
+              <a class="tools-open" href="{{ url_for('cidr.index') }}">
+                Abrir herramienta
+                <i class="bi bi-arrow-right" aria-hidden="true"></i>
+              </a>
+              {% if tutorial_slugs.get('cidr.index') in published_tutorials %}
+              <a class="tools-tutorial"
+                 href="{{ url_for('blog.detail', slug=tutorial_slugs['cidr.index']) }}"
+                 aria-label="Ver tutorial de esta herramienta">
+                <i class="bi bi-book" aria-hidden="true"></i>
+                Ver tutorial
+                <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
+              </a>
+              {% endif %}
           </div>
+        </div>
         </div>
       </article>
 
@@ -974,7 +867,6 @@
                data-aos="fade-up">
 
         <div class="tools-card-body">
-
           <div class="tools-card-art">
             <img
               src="{{ url_for('static', filename='img/tools/tools_formateador_sql02.png') }}"
@@ -1025,7 +917,6 @@
 
             </div>
           </div>
-
         </div>
       </article>
 
@@ -1068,20 +959,19 @@
 
           <div class="tools-card-action">
             <div class="d-flex flex-column align-items-center gap-3">
-
               <a class="tools-open"
                  href="{{ url_for('config_diff.index') }}">
                 Abrir herramienta
                 <i class="bi bi-arrow-right"
                    aria-hidden="true"></i>
               </a>
-
               {% if tutorial_slugs.get('config_diff.index') in published_tutorials %}
               <a class="tools-tutorial"
                  href="{{ url_for('blog.detail', slug=tutorial_slugs['config_diff.index']) }}">
                 <i class="bi bi-book"
                    aria-hidden="true"></i>
                 Ver tutorial
+                <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
               </a>
               {% endif %}
 
@@ -1116,19 +1006,73 @@
             </p>
           </div>
           <div class="tools-card-action">
-            <a class="tools-open" href="{{ url_for('fortigate_audit.index') }}">
-              Abrir herramienta
-              <i class="bi bi-arrow-right" aria-hidden="true"></i>
-            </a>
-            {% if tutorial_slugs.get('fortigate_audit.index') in published_tutorials %}
-            <a class="tools-tutorial"
-               href="{{ url_for('blog.detail', slug=tutorial_slugs['fortigate_audit.index']) }}"
-               aria-label="Ver tutorial del Auditor FortiGate">
-              <i class="bi bi-book" aria-hidden="true"></i>
-              Ver tutorial
-              <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
-            </a>
-            {% endif %}
+            <div class="d-flex flex-column align-items-center gap-3">
+              <a class="tools-open" href="{{ url_for('fortigate_audit.index') }}">
+                Abrir herramienta
+                <i class="bi bi-arrow-right" aria-hidden="true"></i>
+              </a>
+              {% if tutorial_slugs.get('fortigate_audit.index') in published_tutorials %}
+              <a class="tools-tutorial"
+                 href="{{ url_for('blog.detail', slug=tutorial_slugs['fortigate_audit.index']) }}"
+                 aria-label="Ver tutorial del Auditor FortiGate">
+                <i class="bi bi-book" aria-hidden="true"></i>
+                Ver tutorial
+                <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
+              </a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Analizador SSH -->
+      <article class="tools-card" data-category="redes sistemas" data-aos="fade-up">
+        <div class="tools-card-body">
+
+          <div class="tools-card-art">
+            <img
+              src="{{ url_for('static', filename='img/tools/audit_ssh.png') }}"
+              alt="Ilustración técnica de auditoría y seguridad de servidores SSH"
+              loading="lazy"
+            >
+          </div>
+
+          <div class="tools-card-content">
+            <h3 class="tools-card-title">Analizador SSH</h3>
+
+            <div class="tools-tags" aria-label="Etiquetas de la herramienta">
+              <span class="tools-tag">SSH</span>
+              <span class="tools-tag">OpenSSH</span>
+              <span class="tools-tag">Linux</span>
+              <span class="tools-tag">Seguridad</span>
+            </div>
+
+            <p class="tools-description">
+              Analiza archivos de configuración sshd_config, identifica
+              directivas potencialmente inseguras y detecta errores de
+              configuración. Obtén recomendaciones de hardening e informes
+              clasificados por nivel de gravedad.
+            </p>
+          </div>
+
+          <div class="tools-card-action">
+            <div class="d-flex flex-column align-items-center gap-3">
+              <a class="tools-open"
+                 href="{{ url_for('ssh_analyzer.index') }}">
+                Abrir herramienta
+                <i class="bi bi-arrow-right" aria-hidden="true"></i>
+              </a>
+
+              {% if tutorial_slugs.get('ssh_analyzer.index') in published_tutorials %}
+              <a class="tools-tutorial"
+                 href="{{ url_for('blog.detail', slug=tutorial_slugs['ssh_analyzer.index']) }}"
+                 aria-label="Ver tutorial de esta herramienta">
+                <i class="bi bi-book" aria-hidden="true"></i>
+                Ver tutorial
+                <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
+              </a>
+              {% endif %}
+            </div>
           </div>
         </div>
       </article>

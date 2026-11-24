@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}Analizador SSH · WalexNET{% endblock %}
+{% block seo_title %}Analizador de seguridad SSH (sshd_config) | WalexNET{% endblock %}
+{% block seo_description %}Analiza sshd_config y detecta configuraciones SSH de riesgo, duplicados, directivas Include y bloques Match.{% endblock %}
+{% block content %}
+{% set tool_title = 'ANALIZADOR SSH' %}
+{% set tool_description = 'Auditoría estática de sshd_config y recomendaciones de endurecimiento.' %}
+{% set tool_icon = 'bi-shield-lock' %}
+{% include 'tools/_components/hero.html' %}
+<div class="container ssh-tool-container py-4">
+  <a class="ssh-back" href="{{ url_for('tools.index') }}"><i class="bi bi-arrow-left"></i> Volver a Herramientas</a>
+  <section class="ssh-panel mt-4" aria-labelledby="ssh-heading">
+    <div class="ssh-panel-header"><div><div class="ssh-kicker">SEGURIDAD · OPENSSH</div><h2 id="ssh-heading">Revisión de sshd_config</h2>
+      <p>Sube un archivo o pega su contenido. El análisis no establece conexiones SSH ni ejecuta comandos.</p></div><i class="bi bi-terminal ssh-main-icon" aria-hidden="true"></i></div>
+    <div class="ssh-panel-body"><label for="ssh-upload" class="form-label fw-semibold">Cargar archivo de configuración</label>
+      <input id="ssh-upload" class="form-control" type="file" accept=".conf,.txt,text/plain" />
+      <label for="ssh-input" class="form-label fw-semibold mt-3">Contenido de sshd_config</label>
+      <textarea id="ssh-input" class="form-control ssh-editor" spellcheck="false" placeholder="# Ejemplo de configuración&#10;PermitRootLogin no&#10;PasswordAuthentication no&#10;PubkeyAuthentication yes"></textarea>
+      <div class="ssh-actions"><span id="ssh-count" class="ssh-muted">0 caracteres</span><div class="d-flex gap-2"><button id="ssh-clear" class="btn btn-outline-secondary" type="button">Limpiar</button><button id="ssh-analyze" class="btn ssh-primary" type="button"><i class="bi bi-search"></i> Analizar configuración</button></div></div>
+      <div class="ssh-note"><i class="bi bi-info-circle"></i> Máximo 256 KiB y 5000 líneas. Evita incluir secretos o datos sensibles. Los archivos se procesan en el servidor web, pero no se almacenan por esta herramienta.</div>
+      <div id="ssh-error" class="alert alert-danger mt-3 d-none" role="alert"></div>
+    </div>
+  </section>
+  <section id="ssh-results" class="mt-4 d-none" aria-live="polite">
+    <div class="ssh-panel"><div class="ssh-panel-body"><div class="d-flex justify-content-between flex-wrap gap-2 align-items-center"><h2 class="mb-0">Resultados de la auditoría</h2><button type="button" id="ssh-export" class="btn btn-outline-secondary btn-sm"><i class="bi bi-download"></i> Exportar JSON</button></div><div id="ssh-stats" class="ssh-stats mt-3"></div><p id="ssh-limitations" class="ssh-muted mt-3"></p></div></div>
+    <div class="ssh-panel mt-3"><div class="ssh-panel-body"><div class="d-flex justify-content-between align-items-center flex-wrap gap-2"><h3 class="h5 mb-0">Hallazgos</h3><select id="ssh-filter" class="form-select ssh-filter" aria-label="Filtrar hallazgos"><option value="all">Todas las severidades</option><option value="high">Alta</option><option value="medium">Media</option><option value="low">Baja</option><option value="info">Información</option></select></div><div id="ssh-findings" class="mt-3"></div></div></div>
+  </section>
+</div>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/ssh-analyzer.css') }}">
+<script src="{{ url_for('static', filename='js/ssh-analyzer.js') }}" defer></script>
+{% endblock %}
