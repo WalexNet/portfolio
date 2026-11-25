@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block title %}Validador Docker Compose | WalexNET{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/compose-validator.css') }}">
+{% set tool_title = "VALIDADOR DOCKER COMPOSE" %}
+{% set tool_description = "Analiza un archivo Compose, detecta errores de configuración y revisa riesgos habituales antes del despliegue." %}
+{% set tool_icon = "bi-boxes" %}
+{% include "tools/_components/hero.html" %}
+
+<section class="compose-page section" id="compose-validator-tool">
+  <div class="container">
+    <a class="tool-back-link" href="{{ url_for('tools.index') }}"><i class="bi bi-arrow-left"></i> Volver a herramientas</a>
+    <div class="tool-section-header">
+      <span class="tool-eyebrow">SISTEMAS · DEVOPS</span>
+      <h2>Validación de Docker Compose</h2>
+      <p>Comprueba la estructura YAML, las dependencias y los riesgos de configuración antes de desplegar.</p>
+    </div>
+  <div class="compose-grid">
+    <section class="compose-panel">
+      <div class="compose-panel-header"><div><span class="compose-label">ANÁLISIS ESTÁTICO</span><h2>Configuración YAML</h2></div><span class="compose-file">compose.yaml / docker-compose.yml</span></div>
+      <p>Pega tu archivo y pulsa «Analizar configuración». El contenido se procesa durante esta solicitud, sin ejecutar Docker.</p>
+      <form method="post" action="{{ url_for('compose_validator.index') }}">
+        <label class="visually-hidden" for="compose-input">Contenido del archivo Docker Compose</label>
+        <textarea id="compose-input" name="compose" spellcheck="false" maxlength="200000" required>{{ source }}</textarea>
+        <div class="compose-actions"><button type="submit" class="compose-btn"><i class="bi bi-search" aria-hidden="true"></i> Analizar configuración</button><button type="button" id="compose-clear" class="compose-secondary">Limpiar</button></div>
+      </form>
+    </section>
+    <aside class="compose-panel compose-guide"><span class="compose-label">COMPROBACIONES</span><h2>Qué revisamos</h2>
+      <ul><li>Sintaxis YAML y claves repetidas</li><li>Servicios y dependencias, incluidos ciclos</li><li>Colisiones en puertos publicados</li><li>Redes, volúmenes y secretos declarados</li><li>Imágenes sin versión y permisos elevados</li><li>Exposición de puertos y secretos literales</li></ul>
+      <p class="compose-note"><i class="bi bi-info-circle" aria-hidden="true"></i> Esta revisión complementa, pero no sustituye, <code>docker compose config -q</code>. No comprueba archivos, imágenes ni variables externas.</p>
+    </aside>
+  </div>
+  {% if report %}
+  <section class="compose-panel compose-results" aria-live="polite" id="compose-results">
+    <div class="compose-panel-header"><div><span class="compose-label">RESULTADO</span><h2>Informe de validación</h2></div></div>
+    <div class="compose-stats"><span><strong>{{ report.services }}</strong> servicios</span><span class="compose-error"><strong>{{ report.errors }}</strong> errores</span><span class="compose-warning"><strong>{{ report.warnings }}</strong> advertencias</span><span><strong>{{ report.infos }}</strong> recomendaciones</span></div>
+    {% if report.errors == 0 %}<p class="compose-ok"><i class="bi bi-check-circle" aria-hidden="true"></i> No se detectaron errores en las comprobaciones implementadas. Esto no certifica la validez completa del archivo.</p>{% endif %}
+    {% for finding in report.findings %}
+      <article class="compose-finding compose-{{ finding.level }}"><span class="compose-severity">{{ 'ERROR' if finding.level == 'error' else ('AVISO' if finding.level == 'warning' else 'INFO') }}</span><div><code>{{ finding.path }}</code><p>{{ finding.message }}</p></div></article>
+    {% endfor %}
+  </section>
+  {% endif %}
+  </div>
+</section>
+<script>document.getElementById('compose-clear').addEventListener('click',()=>{document.getElementById('compose-input').value='';document.getElementById('compose-input').focus();});</script>
+{% endblock %}

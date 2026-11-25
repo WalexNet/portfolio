@@ -34,6 +34,7 @@ from .tools.sql.routes import sql_bp
 from .tools.config_diff.routes import config_diff_bp
 from .tools.fortigate_audit.routes import fortigate_audit_bp
 from .tools.ssh_analyzer.routes import ssh_analyzer_bp
+from .tools.compose_validator import compose_validator_bp
 
 
 def create_app():
@@ -83,6 +84,7 @@ def create_app():
     app.register_blueprint(config_diff_bp)
     app.register_blueprint(fortigate_audit_bp)
     app.register_blueprint(ssh_analyzer_bp)
+    app.register_blueprint(compose_validator_bp)
 
 
     @app.context_processor

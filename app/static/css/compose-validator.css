@@ -1,0 +1,212 @@
+.compose-page {
+    background: #f8fbfc;
+}
+
+.compose-page .tool-section-header {
+    margin-bottom: 2rem;
+}
+
+.compose-grid {
+    display: grid;
+    grid-template-columns: minmax(0,1.8fr) minmax(290px,1fr);
+    gap: 24px;
+}
+
+.compose-panel {
+    padding: 27px;
+    background: #fff;
+    border: 1px solid #dce5eb;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px #172f4010;
+    min-width: 0;
+}
+
+.compose-panel-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 18px;
+    align-items: center;
+}
+
+.compose-label {
+    color: #ff7043;
+    font-size: .7rem;
+    font-weight: 800;
+    letter-spacing: .13em;
+}
+
+.compose-panel h2 {
+    font-size: 1.36rem;
+    color: #284b63;
+    margin: 7px 0 12px;
+}
+
+.compose-panel p,.compose-guide li {
+    color: #52616c;
+    line-height: 1.65;
+}
+
+.compose-file {
+    font-size: .74rem;
+    color: #657887;
+    background: #f1f6f8;
+    border-radius: 7px;
+    padding: 7px;
+}
+
+.compose-panel textarea {
+    display: block;
+    width: 100%;
+    min-height: 385px;
+    padding: 17px;
+    background: #0c1a27;
+    color: #e3eff2;
+    border-radius: 10px;
+    border: 1px solid #284b63;
+    font: 13px/1.65 ui-monospace,SFMono-Regular,Consolas,monospace;
+    resize: vertical;
+    tab-size: 2;
+}
+
+.compose-panel textarea:focus {
+    outline: 2px solid #ff7043;
+}
+
+.compose-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 16px;
+}
+
+.compose-btn,.compose-secondary {
+    border-radius: 8px;
+    padding: 11px 18px;
+    font-weight: 650;
+    cursor: pointer;
+}
+
+.compose-btn {
+    background: #ff7043;
+    color: #fff;
+    border: 1px solid #ff7043;
+}
+
+.compose-btn:hover {
+    background: #e85e34;
+}
+
+.compose-secondary {
+    background: #f1f6f8;
+    border: 1px solid #dce5eb;
+    color: #284b63;
+}
+
+.compose-guide ul {
+    padding-left: 20px;
+}
+
+.compose-guide li {
+    margin-bottom: 12px;
+}
+
+.compose-note {
+    border-top: 1px solid #dce5eb;
+    padding-top: 20px;
+    font-size: .88rem;
+}
+
+.compose-note code {
+    overflow-wrap: anywhere;
+}
+
+.compose-results {
+    margin-top: 25px;
+}
+
+.compose-stats {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin: 14px 0 20px;
+}
+
+.compose-stats span {
+    background: #f1f6f8;
+    padding: 10px 15px;
+    border-radius: 8px;
+    color: #284b63;
+}
+
+.compose-stats strong {
+    font-size: 1.15rem;
+}
+
+.compose-error {
+    color: #aa2735 !important;
+}
+
+.compose-warning {
+    color: #945900 !important;
+}
+
+.compose-ok {
+    background: #eff8f3;
+    padding: 12px;
+    border-radius: 8px;
+    color: #206444 !important;
+}
+
+.compose-finding {
+    display: flex;
+    gap: 16px;
+    padding: 15px 0;
+    border-top: 1px solid #e3ebef;
+}
+
+.compose-severity {
+    font-size: .69rem;
+    font-weight: 800;
+    padding: 6px 9px;
+    border-radius: 5px;
+    align-self: flex-start;
+    background: #eaf0f3;
+    color: #284b63;
+}
+
+.compose-error .compose-severity {
+    background: #ffeaec;
+    color: #a51e31;
+}
+
+.compose-warning .compose-severity {
+    background: #fff0d5;
+    color: #885600;
+}
+
+.compose-finding code {
+    color: #284b63;
+    overflow-wrap: anywhere;
+}
+
+.compose-finding p {
+    margin: 5px 0 0;
+}
+
+.compose-results .compose-finding {
+    color: #284b63;
+}
+
+@media (max-width: 850px) {
+    .compose-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .compose-panel {
+        padding: 20px;
+    }
+
+    .compose-file {
+        display: none;
+    }
+}

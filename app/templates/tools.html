@@ -19,6 +19,7 @@
   'sql.index': 'formateador-sql-organizar-validar-y-compactar-consultas-postgresql-mysql-y-sqlite',
   'config_diff.index': 'comparador-de-configuraciones-detectar-cambios-en-redes-y-sistemas',
   'fortigate_audit.index': 'auditor-fortigate-analizar-configuraciones-detectar-riesgos-y-comparar-cambios',
+  'compose_validator.index': 'docker-compose-guia-practica-de-validacion-y-seguridad',
   'ssh_analyzer.index': 'analizador-ssh-auditoria-de-configuracion-openssh'
 } %}
 
@@ -1075,6 +1076,68 @@
             </div>
           </div>
         </div>
+      </article>
+
+      <!-- Validador Docker Compose -->
+      <article class="tools-card"
+               data-category="sistemas devops"
+               data-aos="fade-up">
+
+        <div class="tools-card-body">
+
+          <div class="tools-card-art">
+            <img
+              src="{{ url_for('static', filename='img/tools/validacion_dockercompose.png') }}"
+              alt="Ilustración de contenedores Docker y validación de archivos YAML"
+              loading="lazy">
+          </div>
+
+          <div class="tools-card-content">
+
+            <h3 class="tools-card-title">
+              Validador Docker Compose
+            </h3>
+
+            <p>
+              Analiza archivos Docker Compose, detecta errores de
+              configuración, dependencias incorrectas, conflictos de
+              puertos y posibles riesgos de seguridad antes del despliegue.
+            </p>
+
+            <div class="tools-tags">
+              <span class="tools-tag">Docker</span>
+              <span class="tools-tag">YAML</span>
+              <span class="tools-tag">DevOps</span>
+              <span class="tools-tag">Validación</span>
+              <span class="tools-tag">Seguridad</span>
+            </div>
+
+          </div>
+
+          <div class="tools-card-action">
+            <div class="d-flex flex-column align-items-center gap-3">
+
+              <a class="tools-open"
+                 href="{{ url_for('compose_validator.index') }}">
+                Abrir herramienta
+                <i class="bi bi-arrow-right"
+                   aria-hidden="true"></i>
+              </a>
+
+              {% if tutorial_slugs.get('compose_validator.index') in published_tutorials %}
+              <a class="tools-tutorial"
+                 href="{{ url_for('blog.detail', slug=tutorial_slugs['compose_validator.index']) }}"
+                 aria-label="Ver tutorial de esta herramienta">
+                <i class="bi bi-book" aria-hidden="true"></i>
+                Ver tutorial
+                <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
+              </a>
+              {% endif %}
+            </div>
+          </div>
+
+        </div>
+
       </article>
 
     </div>
